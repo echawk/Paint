@@ -1,0 +1,55 @@
+Paint 0.0.2 - When the Pizza Roll is too Hot - 9/4/20
+
+New Features:
+	* New "Edit" menu (With a Draw & Erase option)
+	* Now using a Canvas instead of an ImageView for presenting images.
+	* The Canvas is also wrapped in a ScrollPane, to allow a complete view via scrolling.
+	* The Canvas' dimensions are now updated on the fly to fit the opened image.
+	* Added the ability to remove pixels with an "Erase" CheckMenuItem (under the Edit menu).
+	* Added the ability to draw a line with an "Line" CheckMenuItem (under Edit/Draw menu).
+	* Added a "New" option under the File menu, bringing up a dialog box to create a new image
+
+
+Known Issues:
+	* Need to find an elegant way of drawing lines and other shapes on the canvas (maybe through a popup window?) (9/1)
+	* Find a good way to implement the color picker into the program
+	* Currently Save and Save As can only save an image as a PNG, not as any other format (The program can still open files of any format, it just can't save as them)
+
+
+Expected Features:
+	* Autosave functionality
+	* Drawing Geometric shapes (squares, circles, n-sided polygon)?
+	* Blur tool?
+	* Eraser tool?
+
+
+Links:
+
+
+
+Paint 0.0.1 - Calm before the Storm - 8/28/20
+
+New Features:
+	* Can open/save/saveas/view images
+	* "Save" overwrites the original image with the correct image format
+	* "Save As" can save a specified output image in the correct format^1
+	* Can clear out the currently selected image
+	* Can exit via the file menu
+	* Has a menubar (with a "File" and "Help" menu)
+	* Has a primitive "About" window
+	* Extened the MenuBar class (Now CustomMenuBar), to handle all of the MenuBar code.
+	* Basic filetype detection (through getting the file's extension)
+
+Known Issues:
+	* To make sure that the menubar visible, I have reduced the image size to be a max of 500 x 500 (via ImageView.setFitHeight & setFitWidth), the ratio is still preserved though.
+
+Expected Features:
+	* Expand the help menu. Add in a license window
+	* A filetype detection system on opened images.
+	* A file handler?
+
+Links:
+	* None yet... (but there will be soon)
+
+Footnotes:
+	1 - let's say that you open a png image, and in the "Save As" window you want to save the image as a jpeg, instead of defaulting to png
