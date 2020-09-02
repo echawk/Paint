@@ -97,9 +97,6 @@ public class Popup {
 		aboutStage.show();
 	}
 	
-	
-
-	
 	// work on this part
 	public static void launchEditOptionsWindow(){
 		
@@ -156,10 +153,5 @@ public class Popup {
 		drawStage.setScene(lineScene);
 		drawStage.setTitle("Edit Options");
 		drawStage.show();
-		
-		
 	}
-	
-	
-	
 }

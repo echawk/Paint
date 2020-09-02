@@ -19,49 +19,57 @@ public class ModeMenu extends Menu {
 	
 	private CheckMenuItem editm;
 	private CheckMenuItem defaultm;
+	private int mode;
 	
 	public ModeMenu() {
 		
 		super();
 		
-		CheckMenuItem editm = new CheckMenuItem("Edit");
+		this.editm = new CheckMenuItem("Edit");
 		
-			editm.setOnAction((ActionEvent event) -> {
+			this.editm.setOnAction((ActionEvent event) -> {
+				System.out.println("Clicked Edit");
+				System.out.println("Status: " + editm.isSelected());
 				this.setMode(1);
 			});
 			
-		CheckMenuItem defaultm = new CheckMenuItem("Default");
+		this.defaultm = new CheckMenuItem("Default");
 			
-			defaultm.setOnAction((ActionEvent event) -> {
+			this.defaultm.setOnAction((ActionEvent event) -> {
+				System.out.println("Clicked Default");
+				System.out.println("Status: " + defaultm.isSelected());
 				this.setMode(0);
 			});
 			
 		this.getItems().addAll(defaultm, editm);
-		this.setMode(0);
+		//this.setText("Mode");
+		//this.setMode(0);
 	
+	}
+	
+	
+	private void update() {
+		if (this.mode == 1) {
+			//The other modes
+			this.defaultm.setSelected(false);
+			//The mode
+			this.editm.setSelected(true);
+		} else {
+			//The other modes
+			this.editm.setSelected(false);
+			//the mode
+			this.defaultm.setSelected(true);
+		}
 	}
 	
 	
 	public void setMode(int i) {
-		switch (i){
-			case 1:
-				this.editm.setSelected(true);
-				this.defaultm.setSelected(false);
-			default:
-				this.editm.setSelected(false);
-				this.defaultm.setSelected(true);
-				break;
-		}
+		this.mode = i;
+		this.update();
 	}
 	
 	public int getMode(){ 
-		if (defaultm.isSelected()) {
-			return 0;
-		} else if (editm.isSelected()) {
-			return 1;
-		} else {
-			return 0; //assume 0
-		}
+		return this.mode;
 	}
 	
 }

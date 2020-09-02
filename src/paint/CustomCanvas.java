@@ -41,7 +41,7 @@ public class CustomCanvas extends Canvas{
 			if (Paint.menub.eraserSelected()) {
 				this.gc.clearRect(x, y, bsize, bsize);
 			} else if (Paint.menub.drawLineSelected()) {
-				gc.setFill(this.colorpick.getValue());
+				this.gc.setFill(this.colorpick.getValue());
 				this.gc.fillRect(x, y, bsize, bsize);
 				
 			}

@@ -74,25 +74,10 @@ public class CustomMenuBar extends MenuBar {
 		
 		
 	//mode menu (move to separate file (needs more complicated logic))
-		Menu modemenu = new Menu("Mode");
-		
-		CheckMenuItem edittoggle = new CheckMenuItem("Edit");
-		
-			edittoggle.setOnAction((ActionEvent event) -> {
-				if (Paint.mode == 0) {
-					Paint.setMode(1);
-				}
-			});
-			
-		MenuItem resetmode = new MenuItem("Default");
-			
-			resetmode.setOnAction((ActionEvent event) -> {
-				Paint.setMode(0);
-			});
-			
-		modemenu.getItems().addAll(edittoggle, resetmode);
-			
-		
+		ModeMenu modemenu = new ModeMenu();
+		modemenu.setText("Mode");
+		modemenu.setMode(0);
+				
 	//Edit menu code
 		Menu editmenu = new Menu("Edit");
 		
