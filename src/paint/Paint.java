@@ -64,7 +64,10 @@ public class Paint extends Application {
 	
 	//scene setup
 		Scene scene = new Scene(root, 800, 600); //create the scene
-		
+		//themeing code down here??
+		//scene.getRoot().setStyle("-fx-base:black");
+		//scene.getStylesheets().add("dark-theme.css");
+		//scene.getStylesheets().add(getClass().getResource("dark-theme-2.css").toString());
 	//setup the main window
 		primaryStage.setTitle(PROGRAM_NAME + " - " + PROGRAM_VER);
 		primaryStage.setScene(scene);
