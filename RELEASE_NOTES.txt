@@ -8,23 +8,25 @@ New Features:
 	* Added the ability to remove pixels with an "Erase" CheckMenuItem (under the Edit menu).
 	* Added the ability to draw a line with an "Line" CheckMenuItem (under Edit/Draw menu).
 	* Added a "New" option under the File menu, bringing up a dialog box to create a new image
-
+	* Added a "Edit Options" window, that allows you to select the brush size, as well as the color for drawing
+	* Work is being done to have Paint be a modal image editor.
+	* Keyboard Shortcuts are now a thing!!
+	* Switched to using a VBox for the root pane.
 
 Known Issues:
-	* Need to find an elegant way of drawing lines and other shapes on the canvas (maybe through a popup window?) (9/1)
-	* Find a good way to implement the color picker into the program
+	* Need to find an elegant way of drawing lines and other shapes on the canvas (maybe through a popup window?)
 	* Currently Save and Save As can only save an image as a PNG, not as any other format (The program can still open files of any format, it just can't save as them)
-
+	* Java Doc!!! This needs to be done
 
 Expected Features:
 	* Autosave functionality
 	* Drawing Geometric shapes (squares, circles, n-sided polygon)?
 	* Blur tool?
-	* Eraser tool?
+	* Tutorial? (new editing style, that being a modal editor)
 
 
 Links:
-
+	GitHub: https://github.com/ehawkvu/Paint
 
 
 Paint 0.0.1 - Calm before the Storm - 8/28/20
