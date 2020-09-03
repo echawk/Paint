@@ -13,6 +13,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 /**
  *
@@ -33,11 +36,13 @@ public class CustomMenuBar extends MenuBar {
 			saveas.setOnAction((ActionEvent event) -> {
 				CustomFileHandler.saveAsFile(Paint.window);
 			});
+			saveas.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
 		
 		MenuItem save = new MenuItem("Save");
 			save.setOnAction((ActionEvent event) -> {
 				CustomFileHandler.saveFile();
 			});
+			save.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 		
 		
 		MenuItem open = new MenuItem("Open");
@@ -51,6 +56,7 @@ public class CustomMenuBar extends MenuBar {
 					System.out.println("File was not found");
 				}
 			});
+			open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
 
 		MenuItem exit = new MenuItem("Exit");
 			exit.setOnAction((ActionEvent event) -> {
@@ -67,6 +73,7 @@ public class CustomMenuBar extends MenuBar {
 				//Show the create new Image dialog
 				Popup.launchCreateNewImage();
 			});
+			newimage.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
 		
 		
 		//add all of the menu items to the file menu
