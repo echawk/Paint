@@ -23,6 +23,7 @@ Expected Features:
 	* Drawing Geometric shapes (squares, circles, n-sided polygon)?
 	* Blur tool?
 	* Tutorial? (new editing style, that being a modal editor)
+	* Dark Mode (theming)
 
 Links:
 	GitHub: https://github.com/ehawkvu/Paint
