@@ -105,7 +105,7 @@ public class Popup {
 		GridPane gp = new GridPane();
 		
 		Text brushlbl = new Text("Brush Size (px): ");
-		TextField brushsize = new TextField("5");
+		TextField brushsize = new TextField(Double.toString(Paint.imgcanvas.brushSize)); 
 		//set the action for brushsize
 			brushsize.setOnAction((ActionEvent event) ->{ 
 				Paint.imgcanvas.brushSize = Double.parseDouble(brushsize.getText());

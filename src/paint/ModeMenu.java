@@ -19,7 +19,7 @@ public class ModeMenu extends Menu {
 	
 	private CheckMenuItem editm;
 	private CheckMenuItem defaultm;
-	private int mode;
+	private int mode; //might be wotth looking to see if it can be in the main file
 	
 	public ModeMenu() {
 		
@@ -31,6 +31,7 @@ public class ModeMenu extends Menu {
 				System.out.println("Clicked Edit");
 				System.out.println("Status: " + editm.isSelected());
 				this.setMode(1);
+				Popup.launchEditOptionsWindow();
 			});
 			
 		this.defaultm = new CheckMenuItem("Default");
@@ -66,6 +67,7 @@ public class ModeMenu extends Menu {
 	public void setMode(int i) {
 		this.mode = i;
 		this.update();
+		Paint.setMode(i);
 	}
 	
 	public int getMode(){ 

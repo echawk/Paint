@@ -21,7 +21,7 @@ public class CustomCanvas extends Canvas{
 	
 	public GraphicsContext gc; //pointer to the graphics context of the canvas
 	
-	public static double brushSize = 5; //set a default size of 5
+	public double brushSize = 5; //set a default size of 5
 	public static ColorPicker colorpick = new ColorPicker();
 
 
@@ -38,14 +38,14 @@ public class CustomCanvas extends Canvas{
 			double y = e.getY() - bsize / 2;
 			
 			//if in edit mode
-			if (Paint.menub.eraserSelected()) {
-				this.gc.clearRect(x, y, bsize, bsize);
-			} else if (Paint.menub.drawLineSelected()) {
-				this.gc.setFill(this.colorpick.getValue());
-				this.gc.fillRect(x, y, bsize, bsize);
-				
+			if (Paint.getMode() == Paint.EDIT_MODE) {
+				if (Paint.menub.eraserSelected()) {
+					this.gc.clearRect(x, y, bsize, bsize);
+				} else if (Paint.menub.drawLineSelected()) {
+					this.gc.setFill(this.colorpick.getValue());
+					this.gc.fillRect(x, y, bsize, bsize);
+				}
 			}
-			
 		});
 		
 		

@@ -24,6 +24,8 @@ public class Paint extends Application {
 	final static String PROGRAM_NAME = "Pain(t)";
 	final static String PROGRAM_VER = "0.0.2";
 	final static String RELEASE_STR = "When the Pizza Roll is too Hot";
+	final static int DEFAULT_MODE = 0;
+	final static int EDIT_MODE = 1;
 	
 	//Some global variables that control some vital parts of the program
 	public static CustomCanvas imgcanvas = new CustomCanvas();
@@ -97,12 +99,17 @@ public class Paint extends Application {
 		Paint.window.close(); //close the main window/stage
 		System.exit(0); //Have a successful exit code.
 	}
-		
+	
+	public static int getMode(){
+		return Paint.mode;
+	}
+	
+	
 	public static void setMode(int i) {
-		if (i >= 0 && i < 2) { //bad if statement check
+		if (i == 1) {
 			Paint.mode = i;
-		} else {
-			System.out.println("INVALID INT");
+		} else { //if 0, or something else, return to default.
+			Paint.mode = 0;
 		}
 	}
 	
