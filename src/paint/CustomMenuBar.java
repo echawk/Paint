@@ -22,8 +22,8 @@ import javafx.scene.input.KeyCombination;
  * @author ethan
  */
 public class CustomMenuBar extends MenuBar {
-		
-	private CheckMenuItem EraserBox;
+	//see if I can avoid these 
+	private CheckMenuItem EraserBox; 
 	private CheckMenuItem DrawLineBox;
 	
 	public CustomMenuBar() {
@@ -57,11 +57,11 @@ public class CustomMenuBar extends MenuBar {
 			});
 			open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
 
-		MenuItem exit = new MenuItem("Exit");
-			exit.setOnAction((ActionEvent event) -> {
+		MenuItem quit = new MenuItem("Quit");
+			quit.setOnAction((ActionEvent event) -> {
 				Paint.close();
 			});
-			exit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
+			quit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
 
 		MenuItem clear = new MenuItem("Clear");
 			clear.setOnAction((ActionEvent event) -> {
@@ -77,7 +77,7 @@ public class CustomMenuBar extends MenuBar {
 		
 		
 		//add all of the menu items to the file menu
-		filemenu.getItems().addAll(newimage, open, save, saveas, clear, exit);
+		filemenu.getItems().addAll(newimage, open, save, saveas, clear, quit);
 		
 		
 	//mode menu (move to separate file (needs more complicated logic))
@@ -87,7 +87,7 @@ public class CustomMenuBar extends MenuBar {
 				
 	//Edit menu code
 		Menu editmenu = new Menu("Edit");
-		
+		//maybe make this menu only show up when in the 'edit' mode?
 		
 		//nested Draw menu code
 			Menu editdraw = new Menu("Draw");

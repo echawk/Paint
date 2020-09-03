@@ -108,7 +108,7 @@ public class Paint extends Application {
 		if (i == 1) {
 			Paint.mode = i;
 		} else { //if 0, or something else, return to default.
-			Paint.mode = 0;
+			Paint.mode = Paint.DEFAULT_MODE;
 		}
 	}
 	

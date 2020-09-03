@@ -103,7 +103,7 @@ public class Popup {
 		Stage drawStage = new Stage();
 		drawStage.initOwner(Paint.window);
 		GridPane gp = new GridPane();
-		
+		//add more options!!!!
 		Text brushlbl = new Text("Brush Size (px): ");
 		TextField brushsize = new TextField(Double.toString(Paint.imgcanvas.brushSize)); 
 		//set the action for brushsize
@@ -153,5 +153,7 @@ public class Popup {
 		drawStage.setScene(lineScene);
 		drawStage.setTitle("Edit Options");
 		drawStage.show();
+		//drawStage.onShowingProperty(); //implement this too
+		//drawStage.onCloseRequestProperty(); //implement this
 	}
 }

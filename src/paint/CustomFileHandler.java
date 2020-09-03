@@ -19,9 +19,7 @@ import static paint.Paint.opened_file;
  * @author ethan
  */
 public class CustomFileHandler {
-	
-		
-	//move these methods to a file handler class?
+			
 	public static File openFile(Window stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open File");
@@ -35,7 +33,7 @@ public class CustomFileHandler {
 	public static void saveAsFile(Window stage) {
 		// add ', File f' to the args?
 		//Image out_img = imgv.getImage();
-		//Image out_img = Paint.imgcanvas.snapshot(null, null); //need to update this part ( see gabe)
+		//Image out_img = Paint.imgcanvas.snapshot(null, null);
 		Image out_img = Paint.imgcanvas.getImage();
 
 
@@ -67,10 +65,7 @@ public class CustomFileHandler {
 		//Line below needs to change
 		//Image out_img = imgv.getImage();
 		//Image out_img = Paint.imgcanvas.snapshot(null, null);
-		Image out_img = Paint.imgcanvas.getImage();
-
-		//ask gabe?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
+		Image out_img = Paint.imgcanvas.getImage();		
 		if  (out_img == null){
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return;
