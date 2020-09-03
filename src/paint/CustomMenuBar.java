@@ -90,7 +90,7 @@ public class CustomMenuBar extends MenuBar {
 				// line drawing (have a box for the width, color picker, etc, etc
 				DrawLineBox.setOnAction((ActionEvent event) -> {
 					if (DrawLineBox.isSelected()) {
-						Popup.launchEditOptionsWindow();
+						//Popup.launchEditOptionsWindow();
 					}
 				});
 
@@ -106,7 +106,7 @@ public class CustomMenuBar extends MenuBar {
 			//but the brush size definitely does.
 			EraserBox.setOnAction((ActionEvent event) -> { 
 				if (EraserBox.isSelected()) {
-					Popup.launchEditOptionsWindow();
+					//Popup.launchEditOptionsWindow();
 				}
 			});
 		

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -57,10 +58,10 @@ public class Paint extends Application {
 		scroll.setContent(imgcanvas);
 	
 	//root
-		StackPane root = new StackPane(); //set up how the windows will laid out
-		root.getChildren().addAll(scroll, menub);
+		VBox root = new VBox(); //set up how the windows will laid out
+		root.getChildren().addAll(menub, scroll);
 		//root.getChildren().addAll(imgcanvas, menub);
-		root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
+		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
 	
 	//scene setup
