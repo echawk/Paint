@@ -27,7 +27,6 @@ public class CustomMenuBar extends MenuBar {
 	private CheckMenuItem DrawLineBox;
 	
 	public CustomMenuBar() {
-		
 		super();
 		
 	//File menu code
@@ -62,6 +61,7 @@ public class CustomMenuBar extends MenuBar {
 			exit.setOnAction((ActionEvent event) -> {
 				Paint.close();
 			});
+			exit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
 
 		MenuItem clear = new MenuItem("Clear");
 			clear.setOnAction((ActionEvent event) -> {
