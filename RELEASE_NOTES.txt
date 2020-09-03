@@ -2,16 +2,16 @@ Paint 0.0.2 - When the Pizza Roll is too Hot - 9/4/20
 
 New Features:
 	* New "Edit" menu (With a Draw & Erase option)
-	* Now using a Canvas instead of an ImageView for presenting images.
-	* The Canvas is also wrapped in a ScrollPane, to allow a complete view via scrolling.
-	* The Canvas' dimensions are now updated on the fly to fit the opened image.
 	* Added the ability to remove pixels with an "Erase" CheckMenuItem (under the Edit menu).
 	* Added the ability to draw a line with an "Line" CheckMenuItem (under Edit/Draw menu).
-	* Added a "New" option under the File menu, bringing up a dialog box to create a new image
 	* Added a "Edit Options" window, that allows you to select the brush size, as well as the color for drawing
+	* Added a "New" option under the File menu, bringing up a dialog box to create a new image
+	* The Canvas is also wrapped in a ScrollPane, to allow a complete view via scrolling.
+	* The Canvas' dimensions are now updated on the fly to fit the opened image.
 	* Work is being done to have Paint be a modal image editor.
 	* Keyboard Shortcuts are now a thing!!
 	* Switched to using a VBox for the root pane.
+	* Now using a Canvas instead of an ImageView for presenting images.
 
 Known Issues:
 	* Need to find an elegant way of drawing lines and other shapes on the canvas (maybe through a popup window?)
@@ -23,7 +23,6 @@ Expected Features:
 	* Drawing Geometric shapes (squares, circles, n-sided polygon)?
 	* Blur tool?
 	* Tutorial? (new editing style, that being a modal editor)
-
 
 Links:
 	GitHub: https://github.com/ehawkvu/Paint
