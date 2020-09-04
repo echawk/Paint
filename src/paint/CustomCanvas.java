@@ -22,7 +22,7 @@ public class CustomCanvas extends Canvas{
 	public GraphicsContext gc; //pointer to the graphics context of the canvas
 	
 	public double brushSize = 5; //set a default size of 5
-	public static ColorPicker colorpick = new ColorPicker();
+	public ColorPicker colorpick = new ColorPicker();
 
 
 	public CustomCanvas(){

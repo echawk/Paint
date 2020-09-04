@@ -30,7 +30,7 @@ public class ModeMenu extends Menu {
 			this.editm.setOnAction((ActionEvent event) -> {
 				System.out.println("Clicked Edit");
 				System.out.println("Status: " + editm.isSelected());
-				this.setMode(1);
+				this.setMode(Paint.EDIT_MODE);
 				Popup.launchEditOptionsWindow();
 			});
 			
@@ -39,7 +39,7 @@ public class ModeMenu extends Menu {
 			this.defaultm.setOnAction((ActionEvent event) -> {
 				System.out.println("Clicked Default");
 				System.out.println("Status: " + defaultm.isSelected());
-				this.setMode(0);
+				this.setMode(Paint.DEFAULT_MODE);
 			});
 			
 		this.getItems().addAll(defaultm, editm);

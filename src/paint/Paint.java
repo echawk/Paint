@@ -30,7 +30,7 @@ public class Paint extends Application {
 	public static CustomCanvas imgcanvas = new CustomCanvas();
 	public static CustomMenuBar menub;
 	
-	public static int mode = 0; //set to 0 for default mode
+	public static int mode = DEFAULT_MODE; //default to default...
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -49,7 +49,7 @@ public class Paint extends Application {
 		Paint.window = primaryStage; //have window refer to primaryStage
 		
 	//menu bar
-		Paint.menub = new CustomMenuBar(); //new code
+		Paint.menub = new CustomMenuBar();
 		
 	//scroll pane
 		ScrollPane scroll = new ScrollPane();
@@ -108,7 +108,7 @@ public class Paint extends Application {
 	
 	
 	public static void setMode(int i) {
-		if (i == 1) {
+		if (i == Paint.EDIT_MODE) {
 			Paint.mode = i;
 		} else { //if 0, or something else, return to default.
 			Paint.mode = Paint.DEFAULT_MODE;
