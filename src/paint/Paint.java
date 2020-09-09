@@ -21,8 +21,8 @@ public class Paint extends Application {
 	
 	//Constants
 	final static String PROGRAM_NAME = "Pain(t)";
-	final static String PROGRAM_VER = "0.0.2";
-	final static String RELEASE_STR = "When the Pizza Roll is too Hot";
+	final static String PROGRAM_VER = "0.0.3";
+	final static String RELEASE_STR = "Down with the Sickness";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
 	

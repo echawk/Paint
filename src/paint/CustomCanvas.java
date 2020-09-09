@@ -63,12 +63,31 @@ public class CustomCanvas extends Canvas{
 			this.setWidth(0);
 		}
 	}
-
+	
+	//this is a really hackyway of doing this, I want to make this much cleaner
+	public void updateDimensions(boolean inc_zoom) {
+		if (inc_zoom) {
+			//if we want to increase the zoom
+			this.setWidth(this.getWidth() * 2);
+			this.setHeight(this.getHeight() * 2);
+		} else {
+			//if we want to decrease the zoom
+			this.setWidth(this.getWidth() / 2);
+			this.setHeight(this.getHeight() / 2);
+		}
+	}
+	
 	public Image getImage() {
 		WritableImage wi = this.snapshot(null, null);
 		ImageView iv = new ImageView(wi);
 		return iv.getImage();
 	}
 
+	public void zoomIn(){
+		this.updateDimensions(true); // zoom in
+	}
+	public void zoomOut(){
+		this.updateDimensions(false); // zoom out
+	}
 	
 }
