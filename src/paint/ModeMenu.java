@@ -31,7 +31,8 @@ public class ModeMenu extends Menu {
 				System.out.println("Clicked Edit");
 				System.out.println("Status: " + editm.isSelected());
 				this.setMode(Paint.EDIT_MODE);
-				Popup.launchEditOptionsWindow();
+				Paint.update();
+				//Popup.launchEditOptionsWindow();
 			});
 			
 		this.defaultm = new CheckMenuItem("Default");
@@ -40,6 +41,7 @@ public class ModeMenu extends Menu {
 				System.out.println("Clicked Default");
 				System.out.println("Status: " + defaultm.isSelected());
 				this.setMode(Paint.DEFAULT_MODE);
+				Paint.update();
 			});
 			
 		this.getItems().addAll(defaultm, editm);

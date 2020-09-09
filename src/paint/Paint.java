@@ -29,6 +29,7 @@ public class Paint extends Application {
 	//Some global variables that control some vital parts of the program
 	public static CustomCanvas imgcanvas = new CustomCanvas();
 	public static CustomMenuBar menub;
+	public static EditToolBar edittoolbar;
 	
 	public static int mode = DEFAULT_MODE; //default to default...
 	
@@ -39,7 +40,8 @@ public class Paint extends Application {
 	public static File opened_file; //whatever file is opened
 	public static Image opened_image; 
 	
-		
+	private static ScrollPane scroll;
+	
 	@Override
 	public void start(Stage primaryStage) {
 	
@@ -51,13 +53,18 @@ public class Paint extends Application {
 	//menu bar
 		Paint.menub = new CustomMenuBar();
 		
+	//edit toolbar
+		Paint.edittoolbar = new EditToolBar();
+		Paint.edittoolbar.setVisible(false);
+		//would like it to be completely invisible, maybe adjust the max width and height
+		
 	//scroll pane
-		ScrollPane scroll = new ScrollPane();
+		Paint.scroll = new ScrollPane();
 		scroll.setContent(imgcanvas);
 	
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
-		root.getChildren().addAll(menub, scroll);
+		root.getChildren().addAll(menub, edittoolbar, scroll);
 		//root.getChildren().addAll(imgcanvas, menub);
 		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
@@ -106,7 +113,6 @@ public class Paint extends Application {
 		return Paint.mode;
 	}
 	
-	
 	public static void setMode(int i) {
 		if (i == Paint.EDIT_MODE) {
 			Paint.mode = i;
@@ -115,5 +121,25 @@ public class Paint extends Application {
 		}
 	}
 	
+	public static void showEditToolBar() {
+		Paint.edittoolbar.setVisible(true);
+	}
 	
+	public static void hideEditToolBar() {
+		Paint.edittoolbar.setVisible(false);
+	}
+
+	public static void setScrollPrefSize(double x, double y){
+		Paint.scroll.setPrefSize(x, y);
+	}
+
+	public static void update() {
+		// gen purpose update script
+		
+		if (getMode() == Paint.EDIT_MODE) {
+			showEditToolBar();
+		} else {
+			hideEditToolBar();
+		}
+	}
 }
