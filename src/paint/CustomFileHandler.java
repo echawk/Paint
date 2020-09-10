@@ -19,7 +19,13 @@ import static paint.Paint.opened_file;
  * @author ethan
  */
 public class CustomFileHandler {
-			
+		
+	/**
+	 * This method uses a FileChooser Object to select a File and return 
+	 * said File.
+	 * @param stage Parent Stage
+	 * @return The Selected File
+	 */
 	public static File openFile(Window stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open File");
@@ -30,15 +36,18 @@ public class CustomFileHandler {
 		return sel_file;
 	}
 	
+	/**
+	 * This method is responsible for the "Save As" functionality of Paint
+	 * 
+	 * @param stage 
+	 */
+	
 	public static void saveAsFile(Window stage) {
 		// add ', File f' to the args?
 		//Image out_img = imgv.getImage();
 		//Image out_img = Paint.imgcanvas.snapshot(null, null);
 		Image out_img = Paint.imgcanvas.getImage();
-
-
-		//Check to make sure there is a file to save
-		if (out_img == null){
+		if (out_img == null){ //Check to make sure there is a file to save
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return; // should raise an error here (like a pop-up box)
 		}
@@ -57,12 +66,15 @@ public class CustomFileHandler {
 			System.out.println("Saved Image");
 		} catch (IOException e) {
 			System.out.println("Failed to save image: " + e);
-		}
-		
+		}	
 		Paint.opened_file = out_file;
-
 	}
 	
+	/**
+	 * This method is responsible for saving Paint.opened_image into Paint.opened_file.
+	 * It implements a "Smart" save, because if opened_file is null, it will instead launch 
+	 * the "saveAsFile" method.
+	 */
 	public static void saveFile() {
 		//Line below needs to change
 		//Image out_img = imgv.getImage();
@@ -88,7 +100,14 @@ public class CustomFileHandler {
 		}
 	}
 	
-	//helper code
+	/**
+	 * 
+	 * Helper method for the other methods.
+	 * 
+	 * @param f A input file
+	 * @return A string of the file extension
+	 */
+	
 	private static String getFileExtension(File f){
 		String fn = f.getName(); //get the file name (not full path)
 		int pos = fn.lastIndexOf("."); //get the pos of the last period
