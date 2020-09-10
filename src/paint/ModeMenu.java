@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 /**
  *
@@ -33,6 +36,8 @@ public class ModeMenu extends Menu {
 				this.setMode(Paint.EDIT_MODE);
 				Paint.update();
 			});
+			editm.setAccelerator(new KeyCodeCombination(KeyCode.E, 
+					KeyCombination.CONTROL_DOWN));
 			
 		this.defaultm = new CheckMenuItem("Default");
 			
@@ -42,6 +47,7 @@ public class ModeMenu extends Menu {
 				this.setMode(Paint.DEFAULT_MODE);
 				Paint.update();
 			});
+			defaultm.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 			
 		this.getItems().addAll(defaultm, editm);
 		//this.setText("Mode");
