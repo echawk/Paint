@@ -6,7 +6,6 @@
 package paint;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -29,8 +28,8 @@ public class CustomMenuBar extends MenuBar {
 		
 	//mode menu (move to separate file (needs more complicated logic))
 		ModeMenu modemenu = new ModeMenu();
-		modemenu.setText("Mode");
-		modemenu.setMode(0);
+			modemenu.setText("Mode");
+			modemenu.setMode(0);
 					
 	//Help menu code
 		Menu helpmenu = new Menu("Help");
@@ -50,19 +49,22 @@ public class CustomMenuBar extends MenuBar {
 			zoomin.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.zoomIn();
 			});
-			zoomin.setAccelerator(new KeyCodeCombination(KeyCode.PLUS, KeyCombination.CONTROL_DOWN));
+			zoomin.setAccelerator(new KeyCodeCombination(KeyCode.I, 
+						KeyCombination.CONTROL_DOWN));
 
 		
 		MenuItem zoomout = new MenuItem("Zoom Out");
 			zoomout.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.zoomOut();
 			});
-			zoomout.setAccelerator(new KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_DOWN));
+			zoomout.setAccelerator(new KeyCodeCombination(KeyCode.D, 
+						KeyCombination.CONTROL_DOWN));
 			
 		MenuItem resetview = new MenuItem("Reset");
 			resetview.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.updateDimensions();
 			});
+			
 		viewmenu.getItems().addAll(zoomin, zoomout, resetview);
 	//Add all of the menus to the MenuBar
 		this.getMenus().addAll(filemenu, viewmenu, modemenu, helpmenu);
