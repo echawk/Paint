@@ -58,6 +58,8 @@ public class CustomFileHandler {
 		} catch (IOException e) {
 			System.out.println("Failed to save image: " + e);
 		}
+		
+		Paint.opened_file = out_file;
 
 	}
 	
@@ -70,6 +72,12 @@ public class CustomFileHandler {
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return;
 		}
+		
+		if (Paint.opened_file == null) {
+			saveAsFile(Paint.window);
+			return;
+		}
+		
 		try {
 			//there is a bug where the imgcanvas.snapshot wont allow me to save images other than as a png#############
 			ImageIO.write(SwingFXUtils.fromFXImage(out_img, null), 
