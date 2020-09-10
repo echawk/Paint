@@ -8,7 +8,6 @@ package paint;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -55,7 +54,11 @@ public class ModeMenu extends Menu {
 	
 	}
 	
-	
+	/**
+	 * This method is responsible for updating the Menu, and making sure that 
+	 * only one Mode is selected at at time.
+	 * 
+	 */
 	private void update() {
 		if (this.mode == 1) {
 			//The other modes
@@ -70,13 +73,21 @@ public class ModeMenu extends Menu {
 		}
 	}
 	
-	
+	/**
+	 * This method sets the mode for Paint (and the menu)
+	 * 
+	 * @param i Integer Representing Which mode to switch to.
+	 */
 	public void setMode(int i) {
 		this.mode = i;
 		this.update();
 		Paint.setMode(i);
 	}
-	
+	/**
+	 * 
+	 * 
+	 * @return The Currently selected Mode of the Menu. Should be the same as Paint.getMode()
+	 */
 	public int getMode(){ 
 		return this.mode;
 	}
