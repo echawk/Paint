@@ -49,7 +49,7 @@ public class CustomCanvas extends Canvas{
 			
 		});
 		
-		
+		//make sure to update both the Circle and Ellipse methods!!!!
 		this.setOnMouseReleased(e -> {
 			this.gc.setFill(this.colorpick.getValue());
 
@@ -58,27 +58,38 @@ public class CustomCanvas extends Canvas{
 						Paint.edittoolbar.LINE)) {
 					this.gc.setLineWidth(this.brushSize);
 					this.gc.setStroke(this.colorpick.getValue());
-					this.gc.strokeLine(this.mouseCoord.getKey(), this.mouseCoord.getValue(), e.getX(), e.getY());
+					this.gc.strokeLine(
+						this.mouseCoord.getKey(), 
+						this.mouseCoord.getValue(),
+						e.getX(),
+						e.getY()
+					);
+					
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CIRCLE)) {
 					double l;
 					if (e.getX() >= e.getY()) {
-						l = e.getX();
+						l = (e.getX() - this.mouseCoord.getKey());
 					} else {
-						l = e.getY();
+						l = (e.getY() - this.mouseCoord.getValue());
 					}
-					this.gc.fillOval(this.mouseCoord.getKey(), 
+					this.gc.fillOval(
+						this.mouseCoord.getKey(), 
 						this.mouseCoord.getValue(),
 						l, 
-						l);
+						l
+					);
 
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.ELLIPSE)) {
-					this.gc.fillOval(this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							e.getX(),
-							e.getY());
+					this.gc.fillOval(
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue(),
+						(e.getX() - this.mouseCoord.getKey()),
+						(e.getY() - this.mouseCoord.getValue())
+					);
 				}
 			}
 		});
@@ -134,6 +145,11 @@ public class CustomCanvas extends Canvas{
 		}
 	}
 	
+	/**
+	 * This method returns an image of the current canvas.
+	 * 
+	 * @return An Image Object of the canvas.
+	 */
 	public Image getImage() {
 		WritableImage wi = this.snapshot(null, null);
 		ImageView iv = new ImageView(wi);
