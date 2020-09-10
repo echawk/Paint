@@ -8,12 +8,10 @@ package paint;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -76,7 +74,8 @@ public class Popup {
 		aboutStage.initOwner(Paint.window);
 		GridPane gp = new GridPane();
 		Text nametxt = new Text(Paint.PROGRAM_NAME + " - " 
-			+ Paint.PROGRAM_VER + " - " + Paint.RELEASE_STR);
+					+ Paint.PROGRAM_VER + " - " 
+					+ Paint.RELEASE_STR);
 		Text copytxt = new Text("Copyright 2020 Ethan Hawk");
 		Text licetxt = new Text("Licensed under the GPLv3");
 	
