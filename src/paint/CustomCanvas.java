@@ -30,7 +30,7 @@ public class CustomCanvas extends Canvas{
 		
 		this.gc = this.getGraphicsContext2D();
 		this.colorpick.setValue(Color.BLACK);
-		
+			
 		this.setOnMouseDragged(e -> {
 			
 			double bsize = this.brushSize;
@@ -39,12 +39,24 @@ public class CustomCanvas extends Canvas{
 			
 			//if in edit mode
 			if (Paint.getMode() == Paint.EDIT_MODE) {
-				if (Paint.menub.eraserSelected()) {
+				if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.ERASE)) {
+					
 					this.gc.clearRect(x, y, bsize, bsize);
-				} else if (Paint.menub.drawLineSelected()) {
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.PENCIL)) {
+					
 					this.gc.setFill(this.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
-				}
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.LINE)) {
+					
+					//draw a line
+					this.gc.setFill(this.colorpick.getValue());
+					this.gc.setLineWidth(bsize);
+					this.gc.moveTo(x, y);
+					this.gc.stroke();
+				} 
 			}
 		});
 		
@@ -65,6 +77,7 @@ public class CustomCanvas extends Canvas{
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
+	//(ie refactor)
 	public void updateDimensions(boolean inc_zoom) {
 		if (inc_zoom) {
 			//if we want to increase the zoom
@@ -83,11 +96,17 @@ public class CustomCanvas extends Canvas{
 		return iv.getImage();
 	}
 
+	//need to preserve the image modifications
 	public void zoomIn(){
 		this.updateDimensions(true); // zoom in
+		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
+		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
 	}
 	public void zoomOut(){
 		this.updateDimensions(false); // zoom out
+		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
+		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+
 	}
 	
 }
