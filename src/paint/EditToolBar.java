@@ -28,6 +28,14 @@ public class EditToolBar extends ToolBar{
 	
 	private ComboBox drawoptionmenu;
 	
+	public final String LINE = "Line";
+	public final String PENCIL = "Pencil";
+	public final String SQUARE = "Square";
+	public final String RECTANGLE = "Rectangle";
+	public final String CIRCLE = "Circle";
+	public final String ELLIPSE = "Ellipse";
+	public final String ERASE = "Erase";
+
 	
 	public EditToolBar() {
 		
@@ -37,14 +45,14 @@ public class EditToolBar extends ToolBar{
 		
 		this.drawoptionmenu = new ComboBox();
 		//drawoptionmenu.autosize();
-		drawoptionmenu.getItems().addAll("Line", "Pencil", "Square", "Circle", "Erase");
-		drawoptionmenu.setValue("Line");
+		drawoptionmenu.getItems().addAll(this.LINE, this.PENCIL, this.SQUARE, this.RECTANGLE, this.CIRCLE, this.ELLIPSE, this.ERASE);
+		drawoptionmenu.setValue(this.LINE);
 		drawoptionmenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (drawoptionmenu.getValue().equals("Line")) {
+				if (drawoptionmenu.getValue().equals(LINE)) {
 					System.out.println("Selected Line");
-				} else if (drawoptionmenu.getValue().equals("Pencil")) {
+				} else if (drawoptionmenu.getValue().equals(PENCIL)) {
 					System.out.println("Selected Pencil");
 				} else {
 					System.out.println(getDrawSelection());
@@ -77,6 +85,7 @@ public class EditToolBar extends ToolBar{
 			colorpick.setValue(Color.BLACK);
 			brushfld.setText("5");
 			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+			this.drawoptionmenu.setValue(this.LINE);
 			//update the values?
 		});
 
@@ -87,5 +96,5 @@ public class EditToolBar extends ToolBar{
 	public String getDrawSelection(){
 		return this.drawoptionmenu.getValue().toString();
 	}
-	
+		
 }
