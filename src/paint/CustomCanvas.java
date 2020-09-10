@@ -32,7 +32,6 @@ public class CustomCanvas extends Canvas{
 		
 		this.gc = this.getGraphicsContext2D();
 		this.colorpick.setValue(Color.BLACK);
-		
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
@@ -52,16 +51,38 @@ public class CustomCanvas extends Canvas{
 		
 		
 		this.setOnMouseReleased(e -> {
+			this.gc.setFill(this.colorpick.getValue());
+
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
 					this.gc.setLineWidth(this.brushSize);
 					this.gc.setStroke(this.colorpick.getValue());
 					this.gc.strokeLine(this.mouseCoord.getKey(), this.mouseCoord.getValue(), e.getX(), e.getY());
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.CIRCLE)) {
+					double l;
+					if (e.getX() >= e.getY()) {
+						l = e.getX();
+					} else {
+						l = e.getY();
+					}
+					this.gc.fillOval(this.mouseCoord.getKey(), 
+						this.mouseCoord.getValue(),
+						l, 
+						l);
+
+					
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.ELLIPSE)) {
+					this.gc.fillOval(this.mouseCoord.getKey(),
+							this.mouseCoord.getValue(),
+							e.getX(),
+							e.getY());
 				}
 			}
 		});
-		
+				
 		this.setOnMouseDragged(e -> {
 			
 			double bsize = this.brushSize;
