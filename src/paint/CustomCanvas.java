@@ -90,6 +90,32 @@ public class CustomCanvas extends Canvas{
 						(e.getX() - this.mouseCoord.getKey()),
 						(e.getY() - this.mouseCoord.getValue())
 					);
+				
+					
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.RECTANGLE)) {
+					this.gc.fillRect(
+						this.mouseCoord.getKey(), 
+						this.mouseCoord.getValue(), 
+						(e.getX() - this.mouseCoord.getKey()), 
+						(e.getY() - this.mouseCoord.getValue())
+					);
+					
+					
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.SQUARE)) {
+					double s;
+					if (e.getX() >= e.getY()) {
+						s = (e.getX() - this.mouseCoord.getKey());
+					} else {
+						s = (e.getY() - this.mouseCoord.getValue());
+					}
+					this.gc.fillRect(
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue(),
+						s,
+						s
+					);
 				}
 			}
 		});
