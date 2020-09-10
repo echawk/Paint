@@ -6,19 +6,13 @@
 package paint;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 /**
  *
@@ -27,7 +21,8 @@ import javafx.scene.text.Text;
 public class EditToolBar extends ToolBar{
 	
 	private ComboBox drawoptionmenu;
-	
+	private TextField brushfld;
+
 	public final String LINE = "Line";
 	public final String PENCIL = "Pencil";
 	public final String SQUARE = "Square";
@@ -41,27 +36,21 @@ public class EditToolBar extends ToolBar{
 		
 		super();		
 		
-		Label drawlbl = new Label("Draw");
+		Label drawlbl = new Label("Draw:");
 		
 		this.drawoptionmenu = new ComboBox();
 		//drawoptionmenu.autosize();
-		drawoptionmenu.getItems().addAll(this.LINE, this.PENCIL, this.SQUARE, this.RECTANGLE, this.CIRCLE, this.ELLIPSE, this.ERASE);
+		drawoptionmenu.getItems().addAll(this.LINE, 
+				this.PENCIL, 
+				this.SQUARE,
+				this.RECTANGLE, 
+				this.CIRCLE, 
+				this.ELLIPSE,
+				this.ERASE);
 		drawoptionmenu.setValue(this.LINE);
-		drawoptionmenu.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (drawoptionmenu.getValue().equals(LINE)) {
-					System.out.println("Selected Line");
-				} else if (drawoptionmenu.getValue().equals(PENCIL)) {
-					System.out.println("Selected Pencil");
-				} else {
-					System.out.println(getDrawSelection());
-				}
-			}
-		});		
-		
+				
 		Label brushlbl = new Label("Brush Size (px): ");
-		TextField brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
+		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
@@ -82,10 +71,7 @@ public class EditToolBar extends ToolBar{
 		Button resetbtn = new Button();
 		resetbtn.setText("Reset Settings");
 		resetbtn.setOnAction((ActionEvent event) -> {
-			colorpick.setValue(Color.BLACK);
-			brushfld.setText("5");
-			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-			this.drawoptionmenu.setValue(this.LINE);
+			setDefaults();
 			//update the values?
 		});
 
@@ -96,5 +82,11 @@ public class EditToolBar extends ToolBar{
 	public String getDrawSelection(){
 		return this.drawoptionmenu.getValue().toString();
 	}
-		
+	
+	private void setDefaults(){
+		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
+		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		this.brushfld.setText("5");
+		this.drawoptionmenu.setValue(this.LINE);
+	}
 }
