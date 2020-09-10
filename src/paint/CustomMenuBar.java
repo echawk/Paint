@@ -10,15 +10,15 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 /**
  *
  * @author ethan
  */
 public class CustomMenuBar extends MenuBar {
-	//see if I can avoid these 
-	private CheckMenuItem EraserBox; 
-	private CheckMenuItem DrawLineBox;
 	
 	public CustomMenuBar() {
 		super();
@@ -31,43 +31,7 @@ public class CustomMenuBar extends MenuBar {
 		ModeMenu modemenu = new ModeMenu();
 		modemenu.setText("Mode");
 		modemenu.setMode(0);
-				
-	//Edit menu code
-		Menu editmenu = new Menu("Edit");
-		//maybe make this menu only show up when in the 'edit' mode?
-		
-		//nested Draw menu code
-			Menu editdraw = new Menu("Draw");
-				//MenuItem editdrawline = new MenuItem("Line");
-				DrawLineBox = new CheckMenuItem("Line");
-				//make it a popup window with all of the controls for the 
-				// line drawing (have a box for the width, color picker, etc, etc
-				DrawLineBox.setOnAction((ActionEvent event) -> {
-					if (DrawLineBox.isSelected()) {
-						//Popup.launchEditOptionsWindow();
-					}
-				});
-
-				MenuItem editdrawsquare = new MenuItem("Square");
-				
-				MenuItem editdrawcircle = new MenuItem("Circle");
-
-				
-			editdraw.getItems().addAll(DrawLineBox, editdrawsquare, editdrawcircle);
-		
-		EraserBox = new CheckMenuItem("Erase");
-			//maybe have the same dialog as the draw line? it makes sense (maybe not the color picker though)
-			//but the brush size definitely does.
-			EraserBox.setOnAction((ActionEvent event) -> { 
-				if (EraserBox.isSelected()) {
-					//Popup.launchEditOptionsWindow();
-				}
-			});
-		
-		
-		editmenu.getItems().addAll(editdraw, EraserBox);
-		
-		
+					
 	//Help menu code
 		Menu helpmenu = new Menu("Help");
 
@@ -75,32 +39,35 @@ public class CustomMenuBar extends MenuBar {
 			about.setOnAction((ActionEvent event) -> {
 				Popup.launchAboutWindow();
 			});
-
-		MenuItem drawoptions = new MenuItem("Show Draw Options");
-			drawoptions.setOnAction((ActionEvent event) -> {
-				Popup.launchEditOptionsWindow();
-			});
 			
-		helpmenu.getItems().addAll(about, drawoptions);
+		helpmenu.getItems().addAll(about);
 		
+	
+	//View menu
+		Menu viewmenu = new Menu("View");
 		
+		MenuItem zoomin = new MenuItem("Zoom In");
+			zoomin.setOnAction((ActionEvent event) -> {
+				Paint.imgcanvas.zoomIn();
+			});
+			zoomin.setAccelerator(new KeyCodeCombination(KeyCode.PLUS, KeyCombination.CONTROL_DOWN));
+
 		
-		
+		MenuItem zoomout = new MenuItem("Zoom Out");
+			zoomout.setOnAction((ActionEvent event) -> {
+				Paint.imgcanvas.zoomOut();
+			});
+			zoomout.setAccelerator(new KeyCodeCombination(KeyCode.MINUS, KeyCombination.CONTROL_DOWN));
+			
+		MenuItem resetview = new MenuItem("Reset");
+			resetview.setOnAction((ActionEvent event) -> {
+				Paint.imgcanvas.updateDimensions();
+			});
+		viewmenu.getItems().addAll(zoomin, zoomout, resetview);
 	//Add all of the menus to the MenuBar
-		this.getMenus().addAll(filemenu, modemenu, editmenu, helpmenu);
+		this.getMenus().addAll(filemenu, viewmenu, modemenu, helpmenu);
 		
 	
 	}
-	
-	
-	public boolean eraserSelected(){
-		return EraserBox.isSelected();
-	}
-	
-	public boolean drawLineSelected(){
-		return DrawLineBox.isSelected();
-	}
-	
-	
 	
 }
