@@ -28,18 +28,17 @@ public class ModeMenu extends Menu {
 		this.editm = new CheckMenuItem("Edit");
 		
 			this.editm.setOnAction((ActionEvent event) -> {
-				System.out.println("Clicked Edit");
-				System.out.println("Status: " + editm.isSelected());
+				//System.out.println("Clicked Edit");
+				//System.out.println("Status: " + editm.isSelected());
 				this.setMode(Paint.EDIT_MODE);
 				Paint.update();
-				//Popup.launchEditOptionsWindow();
 			});
 			
 		this.defaultm = new CheckMenuItem("Default");
 			
 			this.defaultm.setOnAction((ActionEvent event) -> {
-				System.out.println("Clicked Default");
-				System.out.println("Status: " + defaultm.isSelected());
+				//System.out.println("Clicked Default");
+				//System.out.println("Status: " + defaultm.isSelected());
 				this.setMode(Paint.DEFAULT_MODE);
 				Paint.update();
 			});
