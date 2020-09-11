@@ -92,7 +92,10 @@ public class Paint extends Application {
 	
 	public static void clearImage(){
 		//set the image to be nothing
-		Paint.opened_file = null; //set the opened_file to be null, to prevent accidentally saving & deleting the image
+		Paint.opened_file = null;
+			/* set the opened_file to be null,to prevent accidentally 
+			saving & deleting the image
+			*/
 		Paint.opened_image = null; //Same reasoning as above ^^^
 		Paint.setImage(null);
 	}
