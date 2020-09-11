@@ -5,6 +5,7 @@
  */
 package paint;
 
+import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
@@ -27,12 +28,15 @@ public class CustomCanvas extends Canvas{
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
+	private Stack<Image> undoStack = new Stack();
+	
 	public CustomCanvas(){
 		super();
 		
 		this.gc = this.getGraphicsContext2D();
 		this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
+		this.imgToStack(this.getImage());
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
@@ -46,7 +50,7 @@ public class CustomCanvas extends Canvas{
 					System.out.println("X: " + e.getX() + "Y: " + e.getY());
 				}
 			}
-			
+			//this.imgToStack(this.getImage());
 		});
 		
 		//make sure to update both the Circle and Ellipse methods!!!!
@@ -118,6 +122,7 @@ public class CustomCanvas extends Canvas{
 					);
 				}
 			}
+			this.imgToStack(this.getImage());
 		});
 				
 		this.setOnMouseDragged(e -> {
@@ -137,8 +142,9 @@ public class CustomCanvas extends Canvas{
 					
 					this.gc.setFill(this.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
-				} 
+				}		
 			}
+			this.imgToStack(this.getImage());
 		});
 		
 		
@@ -155,6 +161,7 @@ public class CustomCanvas extends Canvas{
 			this.setHeight(0);
 			this.setWidth(0);
 		}
+		
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
@@ -187,12 +194,29 @@ public class CustomCanvas extends Canvas{
 		this.updateDimensions(true); // zoom in
 		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		this.imgToStack(this.getImage());
+
 	}
 	public void zoomOut(){
 		this.updateDimensions(false); // zoom out
 		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		this.imgToStack(this.getImage());
 
+	}
+	
+	private void imgToStack(Image i) {
+		this.undoStack.push(i);
+		System.out.println("Added Image to undo Stack");
+	}
+	
+	public void undo() {
+		if (! undoStack.empty()) { //if the image stack is not empty
+			undoStack.pop();
+			if (! undoStack.empty()) {
+				Paint.setImage(undoStack.pop());
+			}
+		}
 	}
 	
 }
