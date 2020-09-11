@@ -1,3 +1,44 @@
+GITHUB: https://github.com/ehawkvu/Paint
+
+Paint 0.1.0 - Down with the Sickness - 9/11/20
+
+First Minor Release!
+
+Song: https://www.youtube.com/watch?v=Ea6JCPUfito
+
+New Features:
+	* Removed Edit Menu, as it was clunky and unintuitive.
+		- Replaced with an Edit ToolBar
+	* Added View Menu
+		- Has both zoom in and zoom out (plus a reset)
+			- Resizes the Canvas, and thus Image (Feature, not a bug)
+	* Added Mode Menu
+		- Now has keyboard shortcuts! (ESC to go to default menu, and CTRL+E for edit menu)
+	* Can Now Draw Straight Lines!
+	* Can Now Draw: Squares, Rectangles, Circles, & Ellipses
+		- Only fill supported, no frames.
+	* Added a primitive Stack-Based Undo system
+	* Added a "Smart"-er save
+		- Now if you create a new file, and you "Save", it will open the "Save As" prompt
+	* Fixed the Bug with trying to save images as a format that isn't a PNG
+		- TLDR: You can save as whatever format now!
+	* Stared work on Writing JavaDoc Comments throughout the code
+		- Also updated some older comments
+	* Now have a Color Grabber!!
+		- Available in the EditToolBar combobox
+
+Known Bugs:
+	* Missing JavaDoc
+		- The code isn't clear in some areas (lack of doc)
+	* When undo-ing an action, it may take dozens of presses of the undo button, because there are too
+		many images in the stack.
+	* "Reset" function under the view menu doesn't quite work yet
+	* The zoom in/out features don't work exactly how I inted for them to work
+
+Expected Features:
+	* Theming Support
+
+
 Paint 0.0.2 - When the Pizza Roll is too Hot - 9/4/20
 
 New Features:
