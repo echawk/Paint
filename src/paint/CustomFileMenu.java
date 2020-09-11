@@ -78,7 +78,6 @@ public class CustomFileMenu extends Menu {
 			newimage.setAccelerator(new KeyCodeCombination(KeyCode.N, 
 						KeyCombination.CONTROL_DOWN));
 		
-		
 		//add all of the menu items to the file menu
 		this.getItems().addAll(newimage, open, save, saveas, clear, quit);
 
