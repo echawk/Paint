@@ -36,26 +36,12 @@ public class CustomCanvas extends Canvas{
 		this.gc = this.getGraphicsContext2D();
 		this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
-		//this.imgToStack(this.getImage());
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
-			//System.out.println(mouseCoord.toString());
-			// Keeping this if statement here, in case if this handler 
-			// becomes more complex in the future
-			
-			//basic color grabber here
-			System.out.println("Color:" + this.getImage().getPixelReader().getColor(
-					roundDouble(e.getX()), 
-					roundDouble(e.getY())
-			));
 			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
-						Paint.edittoolbar.LINE)) {
-					
-					System.out.println("X: " + e.getX() + "Y: " + e.getY());
-				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.COLOR_GRAB)) {
 					
 					this.colorpick.setValue(this.getImage().getPixelReader().getColor(
@@ -67,13 +53,13 @@ public class CustomCanvas extends Canvas{
 			//this.imgToStack(this.getImage());
 		});
 		
-		//make sure to update both the Circle and Ellipse methods!!!!
 		this.setOnMouseReleased(e -> {
 			this.gc.setFill(this.colorpick.getValue());
 
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
+					
 					this.gc.setLineWidth(this.brushSize);
 					this.gc.setStroke(this.colorpick.getValue());
 					this.gc.strokeLine(
@@ -86,6 +72,7 @@ public class CustomCanvas extends Canvas{
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CIRCLE)) {
+					
 					double l;
 					if (e.getX() >= e.getY()) {
 						l = (e.getX() - this.mouseCoord.getKey());
@@ -102,6 +89,7 @@ public class CustomCanvas extends Canvas{
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.ELLIPSE)) {
+					
 					this.gc.fillOval(
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue(),
@@ -112,6 +100,7 @@ public class CustomCanvas extends Canvas{
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.RECTANGLE)) {
+					
 					this.gc.fillRect(
 						this.mouseCoord.getKey(), 
 						this.mouseCoord.getValue(), 
@@ -122,6 +111,7 @@ public class CustomCanvas extends Canvas{
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.SQUARE)) {
+					
 					double s;
 					if (e.getX() >= e.getY()) {
 						s = (e.getX() - this.mouseCoord.getKey());
@@ -218,7 +208,11 @@ public class CustomCanvas extends Canvas{
 		this.imgToStack(this.getImage());
 
 	}
-	
+	/**
+	 * Add an Image to the undo Stack 
+	 * 
+	 * @param i The image to add to the stack
+	 */
 	private void imgToStack(Image i) {
 		this.undoStack.push(i);
 		System.out.println("Added Image to undo Stack");
