@@ -30,6 +30,8 @@ public class EditToolBar extends ToolBar{
 	public final String CIRCLE = "Circle";
 	public final String ELLIPSE = "Ellipse";
 	public final String ERASE = "Erase";
+	public final String COLOR_GRAB = "Color Grab";
+	public final String NONE = "None";
 
 	
 	public EditToolBar() {
@@ -45,16 +47,19 @@ public class EditToolBar extends ToolBar{
 		
 		this.drawoptionmenu = new ComboBox();
 		//drawoptionmenu.autosize();
-		drawoptionmenu.getItems().addAll(this.LINE, 
+		drawoptionmenu.getItems().addAll(
+				this.NONE,
+				this.LINE, 
 				this.PENCIL, 
 				this.SQUARE,
 				this.RECTANGLE, 
 				this.CIRCLE, 
 				this.ELLIPSE,
+				this.COLOR_GRAB,
 				this.ERASE);
-		drawoptionmenu.setValue(this.LINE);
+		drawoptionmenu.setValue(this.NONE);
 				
-		Label brushlbl = new Label("Brush Size (px): ");
+		Label brushlbl = new Label("Brush (px): ");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
@@ -100,6 +105,6 @@ public class EditToolBar extends ToolBar{
 		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
 		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
 		this.brushfld.setText("5");
-		this.drawoptionmenu.setValue(this.LINE);
+		this.drawoptionmenu.setValue(this.NONE);
 	}
 }

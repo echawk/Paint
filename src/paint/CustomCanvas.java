@@ -40,7 +40,7 @@ public class CustomCanvas extends Canvas{
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
-			System.out.println(mouseCoord.toString());
+			//System.out.println(mouseCoord.toString());
 			// Keeping this if statement here, in case if this handler 
 			// becomes more complex in the future
 			
@@ -55,6 +55,13 @@ public class CustomCanvas extends Canvas{
 						Paint.edittoolbar.LINE)) {
 					
 					System.out.println("X: " + e.getX() + "Y: " + e.getY());
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.COLOR_GRAB)) {
+					
+					this.colorpick.setValue(this.getImage().getPixelReader().getColor(
+						roundDouble(e.getX()),
+						roundDouble(e.getY()
+					)));
 				}
 			}
 			//this.imgToStack(this.getImage());
