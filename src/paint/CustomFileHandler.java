@@ -5,6 +5,8 @@
  */
 package paint;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
@@ -59,14 +61,7 @@ public class CustomFileHandler {
 		File out_file = fileChooser.showSaveDialog(stage);
 		//need to have a catcher for if the save dialog is cancelled
 		
-		try {
-			//there is a bug where the imgcanvas.snapshot wont allow me to save images other than as a png#############
-			ImageIO.write(SwingFXUtils.fromFXImage(out_img, null), 
-				getFileExtension(out_file), out_file);
-			System.out.println("Saved Image");
-		} catch (IOException e) {
-			System.out.println("Failed to save image: " + e);
-		}	
+		saveImage(out_img, out_file);
 		Paint.opened_file = out_file;
 	}
 	
@@ -90,14 +85,7 @@ public class CustomFileHandler {
 			return;
 		}
 		
-		try {
-			//there is a bug where the imgcanvas.snapshot wont allow me to save images other than as a png#############
-			ImageIO.write(SwingFXUtils.fromFXImage(out_img, null), 
-				getFileExtension(opened_file), opened_file);
-			System.out.println("Saved Image");
-		} catch (IOException e) {
-			System.out.println("Failed to save Image: " + e);
-		}
+		saveImage(out_img, opened_file);
 	}
 	
 	/**
@@ -107,7 +95,6 @@ public class CustomFileHandler {
 	 * @param f A input file
 	 * @return A string of the file extension
 	 */
-	
 	private static String getFileExtension(File f){
 		String fn = f.getName(); //get the file name (not full path)
 		int pos = fn.lastIndexOf("."); //get the pos of the last period
@@ -118,5 +105,45 @@ public class CustomFileHandler {
 	}
 	
 	
+	/**
+	 * This method is responsible for saving out_img to opened_file, and
+	 * handles more output formats than the previous method of saving the image
+	 * 
+	 * @param out_img
+	 * @param opened_file 
+	 */
+	private static void saveImage(Image out_img, File opened_file){
+	/*	
+	try {
+		
+		//there is a bug where the imgcanvas.snapshot wont allow me to save images other than as a png#############
+		ImageIO.write(SwingFXUtils.fromFXImage(out_img, null),
+			getFileExtension(opened_file), opened_file);
+		System.out.println("Saved Image");
+	} catch (IOException ex) {
+			Logger.getLogger(CustomFileHandler.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	*/
+	// Get buffered image:
+	BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
+		
+	// Remove alpha-channel from buffered image:
+	BufferedImage imageRGB = new BufferedImage(
+		image.getWidth(),
+		image.getHeight(),
+		BufferedImage.OPAQUE);
+
+	Graphics2D graphics = imageRGB.createGraphics();
+
+	graphics.drawImage(image, 0, 0, null);
+	try {
+		ImageIO.write (imageRGB, getFileExtension(opened_file), opened_file);
+		System.out.println("Saved Image");
+	} catch (IOException ex) {
+		System.out.println("Failed to Save Image:" + ex);
+	}
+	//cleanup
+	graphics.dispose ();
 	
+	}
 }
