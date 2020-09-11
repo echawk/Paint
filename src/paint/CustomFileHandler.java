@@ -43,11 +43,8 @@ public class CustomFileHandler {
 	 * 
 	 * @param stage 
 	 */
-	
 	public static void saveAsFile(Window stage) {
 		// add ', File f' to the args?
-		//Image out_img = imgv.getImage();
-		//Image out_img = Paint.imgcanvas.snapshot(null, null);
 		Image out_img = Paint.imgcanvas.getImage();
 		if (out_img == null){ //Check to make sure there is a file to save
 			System.out.println("Warning. No image in Canvas. Failed to save.");
@@ -72,8 +69,6 @@ public class CustomFileHandler {
 	 */
 	public static void saveFile() {
 		//Line below needs to change
-		//Image out_img = imgv.getImage();
-		//Image out_img = Paint.imgcanvas.snapshot(null, null);
 		Image out_img = Paint.imgcanvas.getImage();		
 		if  (out_img == null){
 			System.out.println("Warning. No image in Canvas. Failed to save.");
@@ -99,7 +94,8 @@ public class CustomFileHandler {
 		String fn = f.getName(); //get the file name (not full path)
 		int pos = fn.lastIndexOf("."); //get the pos of the last period
 		if (pos > 0) {
-			return fn.substring(pos + 1); //return the substring that is one greater than the last period
+			return fn.substring(pos + 1); 
+		//return the substring that is one greater than the last period
 		}
 		return "";  //might want to change this to be a sensible default
 	}
@@ -113,17 +109,6 @@ public class CustomFileHandler {
 	 * @param opened_file 
 	 */
 	private static void saveImage(Image out_img, File opened_file){
-	/*	
-	try {
-		
-		//there is a bug where the imgcanvas.snapshot wont allow me to save images other than as a png#############
-		ImageIO.write(SwingFXUtils.fromFXImage(out_img, null),
-			getFileExtension(opened_file), opened_file);
-		System.out.println("Saved Image");
-	} catch (IOException ex) {
-			Logger.getLogger(CustomFileHandler.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	*/
 	// Get buffered image:
 	BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
 		
@@ -144,6 +129,5 @@ public class CustomFileHandler {
 	}
 	//cleanup
 	graphics.dispose ();
-	
 	}
 }
