@@ -36,7 +36,7 @@ public class CustomCanvas extends Canvas{
 		this.gc = this.getGraphicsContext2D();
 		this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
-		this.imgToStack(this.getImage());
+		//this.imgToStack(this.getImage());
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
