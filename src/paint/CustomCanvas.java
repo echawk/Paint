@@ -28,7 +28,7 @@ public class CustomCanvas extends Canvas{
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
-	private Stack<Image> undoStack = new Stack();
+	private Stack<Image> undoStack = new Stack(); //work on my own implementation?
 	
 	public CustomCanvas(){
 		super();
@@ -43,6 +43,13 @@ public class CustomCanvas extends Canvas{
 			System.out.println(mouseCoord.toString());
 			// Keeping this if statement here, in case if this handler 
 			// becomes more complex in the future
+			
+			//basic color grabber here
+			System.out.println("Color:" + this.getImage().getPixelReader().getColor(
+					roundDouble(e.getX()), 
+					roundDouble(e.getY())
+			));
+			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
@@ -208,6 +215,10 @@ public class CustomCanvas extends Canvas{
 	private void imgToStack(Image i) {
 		this.undoStack.push(i);
 		System.out.println("Added Image to undo Stack");
+	}
+	
+	private int roundDouble(double d) {
+		return (int) Math.round(d);
 	}
 	
 	public void undo() {
