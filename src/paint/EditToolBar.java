@@ -80,7 +80,15 @@ public class EditToolBar extends ToolBar{
 			//update the values?
 		});
 
-		this.getItems().addAll(undobtn, drawlbl, drawoptionmenu, brushlbl, brushfld, colorlbl, colorpick, resetbtn);
+		this.getItems().addAll(
+			undobtn, 
+			drawlbl, 
+			drawoptionmenu, 
+			brushlbl, 
+			brushfld, 
+			colorlbl, 
+			colorpick, 
+			resetbtn);
 	}	
 	
 	
