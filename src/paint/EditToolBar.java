@@ -36,6 +36,11 @@ public class EditToolBar extends ToolBar{
 		
 		super();		
 		
+		Button undobtn = new Button("Undo");
+			undobtn.setOnAction((ActionEvent event)-> {
+				Paint.imgcanvas.undo();
+			});
+		
 		Label drawlbl = new Label("Draw:");
 		
 		this.drawoptionmenu = new ComboBox();
@@ -75,7 +80,7 @@ public class EditToolBar extends ToolBar{
 			//update the values?
 		});
 
-		this.getItems().addAll(drawlbl, drawoptionmenu, brushlbl, brushfld, colorlbl, colorpick, resetbtn);
+		this.getItems().addAll(undobtn, drawlbl, drawoptionmenu, brushlbl, brushfld, colorlbl, colorpick, resetbtn);
 	}	
 	
 	
