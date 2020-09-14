@@ -8,6 +8,7 @@ package paint;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -86,10 +87,16 @@ public class Popup {
 				aboutStage.close();
 			});
 
+		Hyperlink rel_notes = new Hyperlink("https://raw.githubusercontent.com/ehawkvu/Paint/master/RELEASE_NOTES.txt");
+		rel_notes.setWrapText(true);
+		
 		gp.add(nametxt, 0, 0);
 		gp.add(copytxt, 0, 1);
 		gp.add(licetxt, 0, 2);
-		gp.add(closebtn, 0, 3);
+		gp.add(new Text("Release Notes:"), 0, 3);
+		gp.add(rel_notes, 1, 3);
+		
+		gp.add(closebtn, 0, 5);
 		
 		Scene aboutScene = new Scene(gp, 300, 200);
 		aboutStage.setScene(aboutScene);
