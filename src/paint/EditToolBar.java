@@ -22,6 +22,7 @@ public class EditToolBar extends ToolBar{
 	
 	private ComboBox drawoptionmenu;
 	private TextField brushfld;
+	private TextField textbox_textfld;
 
 	public final String LINE = "Line";
 	public final String PENCIL = "Pencil";
@@ -32,6 +33,7 @@ public class EditToolBar extends ToolBar{
 	public final String ERASE = "Erase";
 	public final String COLOR_GRAB = "Color Grab";
 	public final String NONE = "None";
+	public final String TEXTBOX = "Text Box";
 
 	
 	public EditToolBar() {
@@ -43,6 +45,11 @@ public class EditToolBar extends ToolBar{
 				Paint.imgcanvas.undo();
 			});
 		
+		Button redobtn = new Button("Redo");
+			redobtn.setOnAction((ActionEvent event) -> {
+				System.out.println("Redo Action here");
+			});
+			
 		Label drawlbl = new Label("Draw:");
 		
 		this.drawoptionmenu = new ComboBox();
@@ -56,9 +63,21 @@ public class EditToolBar extends ToolBar{
 				this.CIRCLE, 
 				this.ELLIPSE,
 				this.COLOR_GRAB,
-				this.ERASE);
+				this.TEXTBOX,
+				this.ERASE
+		);
 		drawoptionmenu.setValue(this.NONE);
-				
+			
+		
+		textbox_textfld = new TextField();
+		textbox_textfld.setMaxWidth(60);
+		/*
+		if (! this.getDrawSelection().equals(this.TEXTBOX)) {
+			textbox_textfld.setVisible(false);
+		} else {
+			textbox_textfld.setVisible(true);
+		}
+		*/
 		Label brushlbl = new Label("Brush (px): ");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
@@ -79,7 +98,7 @@ public class EditToolBar extends ToolBar{
 
 
 		Button resetbtn = new Button();
-		resetbtn.setText("Reset Settings");
+		resetbtn.setText("Reset");
 		resetbtn.setOnAction((ActionEvent event) -> {
 			setDefaults();
 			//update the values?
@@ -87,18 +106,25 @@ public class EditToolBar extends ToolBar{
 
 		this.getItems().addAll(
 			undobtn, 
+			redobtn,
 			drawlbl, 
 			drawoptionmenu, 
 			brushlbl, 
 			brushfld, 
 			colorlbl, 
 			colorpick, 
-			resetbtn);
+			resetbtn,
+			textbox_textfld
+		);
 	}	
 	
 	
 	public String getDrawSelection(){
 		return this.drawoptionmenu.getValue().toString();
+	}
+	
+	public String getTextBoxTextField(){
+		return this.textbox_textfld.getText();
 	}
 	
 	private void setDefaults(){
