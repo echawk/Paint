@@ -70,7 +70,7 @@ public class Paint extends Application {
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
 	
 	//scene setup
-		Scene scene = new Scene(root, 800, 600); //create the scene
+		Scene scene = new Scene(root, 1000, 500); //create the scene
 		//themeing code down here??
 		//scene.getRoot().setStyle("-fx-base:black");
 		//scene.getStylesheets().add("dark-theme.css");
