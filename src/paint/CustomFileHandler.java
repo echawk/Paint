@@ -109,25 +109,30 @@ public class CustomFileHandler {
 	 * @param opened_file 
 	 */
 	private static void saveImage(Image out_img, File opened_file){
-	// Get buffered image:
-	BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
+		// Get buffered image:
+		BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
 		
-	// Remove alpha-channel from buffered image:
-	BufferedImage imageRGB = new BufferedImage(
-		image.getWidth(),
-		image.getHeight(),
-		BufferedImage.OPAQUE);
+		// Remove alpha-channel from buffered image:
+		BufferedImage imageRGB = new BufferedImage(
+			image.getWidth(),
+			image.getHeight(),
+			BufferedImage.OPAQUE
+		);
 
-	Graphics2D graphics = imageRGB.createGraphics();
+		Graphics2D graphics = imageRGB.createGraphics();
 
-	graphics.drawImage(image, 0, 0, null);
-	try {
-		ImageIO.write (imageRGB, getFileExtension(opened_file), opened_file);
-		System.out.println("Saved Image");
-	} catch (IOException ex) {
-		System.out.println("Failed to Save Image:" + ex);
-	}
-	//cleanup
-	graphics.dispose ();
+		graphics.drawImage(image, 0, 0, null);
+		try {
+			ImageIO.write(
+				imageRGB, 
+				getFileExtension(opened_file), 
+				opened_file
+			);
+			System.out.println("Saved Image:" + opened_file);
+		} catch (IOException ex) {
+			System.out.println("Failed to Save Image:" + ex);
+		}
+		//cleanup
+		graphics.dispose ();
 	}
 }
