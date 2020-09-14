@@ -30,14 +30,16 @@ public class CustomFileMenu extends Menu {
 			});
 			saveas.setAccelerator(new KeyCodeCombination(KeyCode.S, 
 						KeyCombination.SHIFT_DOWN, 
-						KeyCombination.CONTROL_DOWN));
+						KeyCombination.CONTROL_DOWN)
+			);
 		
 		MenuItem save = new MenuItem("Save");
 			save.setOnAction((ActionEvent event) -> {
 				CustomFileHandler.saveFile();
 			});
 			save.setAccelerator(new KeyCodeCombination(KeyCode.S, 
-						KeyCombination.CONTROL_DOWN));
+						KeyCombination.CONTROL_DOWN)
+			);
 		
 		
 		MenuItem open = new MenuItem("Open");
@@ -47,7 +49,9 @@ public class CustomFileMenu extends Menu {
 					//convert the opened file to a file input stream, then to an image
 					Paint.setImage(new Image(
 						new FileInputStream(
-							Paint.opened_file)));
+							Paint.opened_file)
+						)
+					);
 					
 					Paint.imgcanvas.updateDimensions(); //works!!	
 				} catch (FileNotFoundException ex) {
@@ -55,7 +59,8 @@ public class CustomFileMenu extends Menu {
 				}
 			});
 			open.setAccelerator(new KeyCodeCombination(KeyCode.O, 
-						KeyCombination.CONTROL_DOWN));
+						KeyCombination.CONTROL_DOWN)
+			);
 
 		MenuItem quit = new MenuItem("Quit");
 			quit.setOnAction((ActionEvent event) -> {
@@ -63,7 +68,8 @@ public class CustomFileMenu extends Menu {
 			});
 			quit.setAccelerator(new KeyCodeCombination(KeyCode.Q, 
 						KeyCombination.SHIFT_DOWN, 
-						KeyCombination.CONTROL_DOWN));
+						KeyCombination.CONTROL_DOWN)
+			);
 
 		MenuItem clear = new MenuItem("Clear");
 			clear.setOnAction((ActionEvent event) -> {
@@ -76,7 +82,8 @@ public class CustomFileMenu extends Menu {
 				Popup.launchCreateNewImage();
 			});
 			newimage.setAccelerator(new KeyCodeCombination(KeyCode.N, 
-						KeyCombination.CONTROL_DOWN));
+						KeyCombination.CONTROL_DOWN)
+			);
 		
 		//add all of the menu items to the file menu
 		this.getItems().addAll(newimage, open, save, saveas, clear, quit);
