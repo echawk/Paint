@@ -39,7 +39,8 @@ public class Popup {
 			createbtn.setOnAction((ActionEvent event) -> {
 				WritableImage wi = new WritableImage(
 					Integer.parseInt(widthfld.getText()),
-					Integer.parseInt(heightfld.getText()));
+					Integer.parseInt(heightfld.getText())
+				);
 				ImageView iv = new ImageView(wi);
 				Paint.setImage(iv.getImage());
 				createnewimgStage.close();
