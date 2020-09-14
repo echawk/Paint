@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Pair;
 
 /**
@@ -29,6 +30,7 @@ public class CustomCanvas extends Canvas{
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
 	private Stack<Image> undoStack = new Stack(); //work on my own implementation?
+	private Stack<Image> redoStack = new Stack();
 	
 	public CustomCanvas(){
 		super();
@@ -123,6 +125,15 @@ public class CustomCanvas extends Canvas{
 						this.mouseCoord.getValue(),
 						s,
 						s
+					);
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.TEXTBOX)) {
+					
+					this.gc.setFont(new Font(Paint.imgcanvas.brushSize));
+					
+					this.gc.fillText(Paint.edittoolbar.getTextBoxTextField(),
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue()
 					);
 				}
 			}
@@ -228,6 +239,12 @@ public class CustomCanvas extends Canvas{
 			if (! undoStack.empty()) {
 				Paint.setImage(undoStack.pop());
 			}
+		}
+	}
+	
+	public void redo() {
+		if (! redoStack.empty()) {
+			Image lastimg = redoStack.pop(); //get the last image
 		}
 	}
 	
