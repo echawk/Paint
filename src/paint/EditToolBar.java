@@ -22,7 +22,7 @@ public class EditToolBar extends ToolBar{
 	
 	private ComboBox drawoptionmenu;
 	private TextField brushfld;
-	private TextField textbox_textfld;
+	private TextField options_fld;
 
 	public final String LINE = "Line";
 	public final String PENCIL = "Pencil";
@@ -35,6 +35,7 @@ public class EditToolBar extends ToolBar{
 	public final String NONE = "None";
 	public final String TEXTBOX = "Text Box";
 
+	public final String TRIANGLE = "Triangle";
 	
 	public EditToolBar() {
 		
@@ -47,7 +48,7 @@ public class EditToolBar extends ToolBar{
 		
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
-				System.out.println("Redo Action here");
+				Paint.imgcanvas.redo();
 			});
 			
 		Label drawlbl = new Label("Draw:");
@@ -62,15 +63,17 @@ public class EditToolBar extends ToolBar{
 				this.RECTANGLE, 
 				this.CIRCLE, 
 				this.ELLIPSE,
+				this.TRIANGLE,
 				this.COLOR_GRAB,
 				this.TEXTBOX,
 				this.ERASE
 		);
 		drawoptionmenu.setValue(this.NONE);
-			
 		
-		textbox_textfld = new TextField();
-		textbox_textfld.setMaxWidth(60);
+		
+		Label optionslbl = new Label("Option:");
+		options_fld = new TextField();
+		options_fld.setMaxWidth(60);
 		/*
 		if (! this.getDrawSelection().equals(this.TEXTBOX)) {
 			textbox_textfld.setVisible(false);
@@ -78,7 +81,7 @@ public class EditToolBar extends ToolBar{
 			textbox_textfld.setVisible(true);
 		}
 		*/
-		Label brushlbl = new Label("Brush (px): ");
+		Label brushlbl = new Label("Brush (px):");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
@@ -86,16 +89,10 @@ public class EditToolBar extends ToolBar{
 			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
 			//init_canvas();
 		});
-		Button brushapplybtn = new Button();
-		brushapplybtn.setText("Apply");
-		brushapplybtn.setOnAction((ActionEvent event) -> {
-			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-		});
-
-		Label colorlbl = new Label("Color: ");
+		
+		Label colorlbl = new Label("Color:");
 		//set the action for hexcolorfield
 		ColorPicker colorpick = Paint.imgcanvas.colorpick;
-
 
 		Button resetbtn = new Button();
 		resetbtn.setText("Reset");
@@ -113,8 +110,9 @@ public class EditToolBar extends ToolBar{
 			brushfld, 
 			colorlbl, 
 			colorpick, 
-			resetbtn,
-			textbox_textfld
+			optionslbl,
+			options_fld,
+			resetbtn
 		);
 	}	
 	
@@ -123,8 +121,8 @@ public class EditToolBar extends ToolBar{
 		return this.drawoptionmenu.getValue().toString();
 	}
 	
-	public String getTextBoxTextField(){
-		return this.textbox_textfld.getText();
+	public String getOptionsField(){
+		return this.options_fld.getText();
 	}
 	
 	private void setDefaults(){
