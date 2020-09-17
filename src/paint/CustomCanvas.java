@@ -148,6 +148,24 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, 3);
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.NGON)) {
+					
+					if (Paint.edittoolbar.getOptionsField() == null) {
+						return; // exit the statement before any damage can be done;
+					}
+					
+					int n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
+					Pair PolygonPts = getPolygonPoints(
+						n,
+						this.mouseCoord,
+						roundDouble(e.getX())
+					);
+					
+					double[] xp = (double[]) PolygonPts.getKey();
+					double[] yp = (double[]) PolygonPts.getValue();
+					
+					this.gc.fillPolygon(xp, yp, n);
 				}
 			}
 			this.imgToStack(this.getImage());
