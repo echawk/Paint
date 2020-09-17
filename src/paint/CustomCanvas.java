@@ -131,10 +131,23 @@ public class CustomCanvas extends Canvas{
 					
 					this.gc.setFont(new Font(Paint.imgcanvas.brushSize));
 					
-					this.gc.fillText(Paint.edittoolbar.getTextBoxTextField(),
+					this.gc.fillText(Paint.edittoolbar.getOptionsField(),
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue()
 					);
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.TRIANGLE)){
+					
+					Pair PolygonPts = getPolygonPoints(
+						3, 
+						this.mouseCoord, 
+						roundDouble(e.getX())
+					);
+					
+					double[] xp = (double[]) PolygonPts.getKey();
+					double[] yp = (double[]) PolygonPts.getValue();
+					
+					this.gc.fillPolygon(xp, yp, 3);
 				}
 			}
 			this.imgToStack(this.getImage());
@@ -247,5 +260,24 @@ public class CustomCanvas extends Canvas{
 			Image lastimg = redoStack.pop(); //get the last image
 		}
 	}
+	
+	
+	private Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
+		double ix = (double) initMouseCoord.getKey();
+                double iy = (double) initMouseCoord.getValue();
+                double radius = cx - ix;
+
+		double[] xp = new double[n];
+		double[] yp = new double[n];
+
+		for (int i = 0; i < n; i++) {
+			xp[i] = (ix + (radius * Math.cos(2 * Math.PI * i / n)));
+			yp[i] = (iy + (radius * Math.sin(2 * Math.PI * i / n)));
+		}
+
+		return new Pair(xp, yp);
+	}
+	
+	
 	
 }
