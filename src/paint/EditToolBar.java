@@ -36,6 +36,7 @@ public class EditToolBar extends ToolBar{
 	public final String TEXTBOX = "Text Box";
 
 	public final String TRIANGLE = "Triangle";
+	public final String NGON = "N-gon";
 	
 	public EditToolBar() {
 		
@@ -64,6 +65,7 @@ public class EditToolBar extends ToolBar{
 				this.CIRCLE, 
 				this.ELLIPSE,
 				this.TRIANGLE,
+				this.NGON,
 				this.COLOR_GRAB,
 				this.TEXTBOX,
 				this.ERASE
