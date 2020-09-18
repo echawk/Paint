@@ -37,6 +37,9 @@ public class EditToolBar extends ToolBar{
 
 	public final String TRIANGLE = "Triangle";
 	public final String NGON = "N-gon";
+	//Extras?
+	public final String BLUR = "Blur";
+	public final String CROP = "Crop";
 	
 	public EditToolBar() {
 		
@@ -68,6 +71,8 @@ public class EditToolBar extends ToolBar{
 				this.NGON,
 				this.COLOR_GRAB,
 				this.TEXTBOX,
+				this.BLUR,
+				this.CROP,
 				this.ERASE
 		);
 		drawoptionmenu.setValue(this.NONE);
@@ -132,5 +137,6 @@ public class EditToolBar extends ToolBar{
 		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
 		this.brushfld.setText("5");
 		this.drawoptionmenu.setValue(this.NONE);
+		this.options_fld.setText(null);
 	}
 }
