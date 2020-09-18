@@ -34,6 +34,8 @@ public class CustomCanvas extends Canvas{
 	private Stack<Image> undoStack = new Stack(); 
 	private Stack<Image> redoStack = new Stack();
 	
+	private Image drag_drop_image = null;
+	
 	public CustomCanvas(){
 		super();
 		
@@ -78,6 +80,7 @@ public class CustomCanvas extends Canvas{
 					Paint.edittoolbar.CIRCLE)) {
 					
 					double l;
+					//Use the larger dimension for drawing the circle
 					if (e.getX() >= e.getY()) {
 						l = (e.getX() - this.mouseCoord.getKey());
 					} else {
@@ -117,6 +120,7 @@ public class CustomCanvas extends Canvas{
 					Paint.edittoolbar.SQUARE)) {
 					
 					double s;
+					//Use the larger dimension for drawing the square
 					if (e.getX() >= e.getY()) {
 						s = (e.getX() - this.mouseCoord.getKey());
 					} else {
@@ -173,6 +177,9 @@ public class CustomCanvas extends Canvas{
 					this.gc.fillPolygon(xp, yp, n);
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CROP)) {
+					
+					//I could use somethign similar to what I've done
+					//here for the drag and drop method
 					PixelReader r = this.getImage().getPixelReader();
 					WritableImage wi = new WritableImage(
 						r,
@@ -182,6 +189,44 @@ public class CustomCanvas extends Canvas{
 						roundDouble(e.getY() - this.mouseCoord.getValue())
 					);
 					Paint.setImage(wi);
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.DRAGDROP)) {
+					
+					if (this.drag_drop_image == null) {
+						//Three steps:
+						//1 - get the image
+						//2 - make the image globally accessible
+						//3 - clear out a rectangle of the same size
+						
+						//1
+						PixelReader r = this.getImage().getPixelReader();
+						WritableImage wi = new WritableImage(
+							r,
+							roundDouble(this.mouseCoord.getKey()),
+							roundDouble(this.mouseCoord.getValue()),
+							roundDouble(e.getX() - this.mouseCoord.getKey()),
+							roundDouble(e.getY() - this.mouseCoord.getValue())
+						);
+						//2
+						this.drag_drop_image = wi;
+						//3
+						this.gc.clearRect(
+							roundDouble(this.mouseCoord.getKey()),
+							roundDouble(this.mouseCoord.getValue()),
+							roundDouble(e.getX() - this.mouseCoord.getKey()),
+							roundDouble(e.getY() - this.mouseCoord.getValue())
+						);
+						//Exit
+						return;
+					}
+					
+					this.gc.drawImage(
+						this.drag_drop_image, 
+						e.getX(), 
+						e.getY()
+					);
+					//set the image back to null
+					this.drag_drop_image = null;
 				}
 			}
 			this.imgToStack(this.getImage());
@@ -199,12 +244,16 @@ public class CustomCanvas extends Canvas{
 						Paint.edittoolbar.ERASE)) {
 					
 					this.gc.clearRect(x, y, bsize, bsize);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.PENCIL)) {
 					
 					this.gc.setFill(this.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
-				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					
+				} 
+				/*
+				else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.BLUR)) {
 					
 					this.gc.setEffect(new GaussianBlur());
@@ -212,6 +261,7 @@ public class CustomCanvas extends Canvas{
 					this.gc.fillOval(x, y, bsize, bsize);
 					this.gc.fillRect(x, y, bsize, bsize);
 				}	
+				*/
 			}
 			this.imgToStack(this.getImage());
 		});
