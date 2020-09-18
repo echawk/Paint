@@ -30,8 +30,6 @@ public class ModeMenu extends Menu {
 		this.editm = new CheckMenuItem("Edit");
 		
 			this.editm.setOnAction((ActionEvent event) -> {
-				//System.out.println("Clicked Edit");
-				//System.out.println("Status: " + editm.isSelected());
 				this.setMode(Paint.EDIT_MODE);
 				Paint.update();
 			});
@@ -41,17 +39,12 @@ public class ModeMenu extends Menu {
 		this.defaultm = new CheckMenuItem("Default");
 			
 			this.defaultm.setOnAction((ActionEvent event) -> {
-				//System.out.println("Clicked Default");
-				//System.out.println("Status: " + defaultm.isSelected());
 				this.setMode(Paint.DEFAULT_MODE);
 				Paint.update();
 			});
 			defaultm.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 			
-		this.getItems().addAll(defaultm, editm);
-		//this.setText("Mode");
-		//this.setMode(0);
-	
+		this.getItems().addAll(defaultm, editm);	
 	}
 	
 	/**
