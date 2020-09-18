@@ -40,6 +40,7 @@ public class EditToolBar extends ToolBar{
 	//Extras?
 	public final String BLUR = "Blur";
 	public final String CROP = "Crop";
+	public final String DRAGDROP = "Drag & Drop";
 	
 	public EditToolBar() {
 		
@@ -73,21 +74,16 @@ public class EditToolBar extends ToolBar{
 				this.TEXTBOX,
 				this.BLUR,
 				this.CROP,
+				this.DRAGDROP,
 				this.ERASE
 		);
-		drawoptionmenu.setValue(this.NONE);
+		drawoptionmenu.setValue(this.NONE); //Set our default value to be NONE
 		
 		
 		Label optionslbl = new Label("Option:");
 		options_fld = new TextField();
-		options_fld.setMaxWidth(60);
-		/*
-		if (! this.getDrawSelection().equals(this.TEXTBOX)) {
-			textbox_textfld.setVisible(false);
-		} else {
-			textbox_textfld.setVisible(true);
-		}
-		*/
+		options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
+		
 		Label brushlbl = new Label("Brush (px):");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
@@ -98,7 +94,6 @@ public class EditToolBar extends ToolBar{
 		});
 		
 		Label colorlbl = new Label("Color:");
-		//set the action for hexcolorfield
 		ColorPicker colorpick = Paint.imgcanvas.colorpick;
 
 		Button resetbtn = new Button();
@@ -123,15 +118,26 @@ public class EditToolBar extends ToolBar{
 		);
 	}	
 	
-	
+	/**
+	 * This method is gets the string value of the selected option; this method is 
+	 * used primarily in the CustomCanvas Handling code.
+	 * 
+	 * @return the String of the combobox's selected option
+	 */
 	public String getDrawSelection(){
 		return this.drawoptionmenu.getValue().toString();
 	}
-	
+	/**
+	 * 
+	 * @return The String of the options field.
+	 */
 	public String getOptionsField(){
 		return this.options_fld.getText();
 	}
 	
+	/**
+	 * This method sets all of the configurable part of the edit tool bar back to their default values.
+	 */
 	private void setDefaults(){
 		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
 		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
