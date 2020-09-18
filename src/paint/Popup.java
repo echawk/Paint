@@ -68,7 +68,10 @@ public class Popup {
 		createnewimgStage.show();
 	}
 	
-
+	/**
+	 * This method is responsible for creating, and showing the about window
+	 * for the program, pretty straight forward.
+	 */
 	public static void launchAboutWindow(){
 		//Here is the dialog box related to the about
 		//page. I am going to add in some basic info here
