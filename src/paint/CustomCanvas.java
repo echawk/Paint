@@ -9,8 +9,10 @@ import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,7 +31,7 @@ public class CustomCanvas extends Canvas{
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
-	private Stack<Image> undoStack = new Stack(); //work on my own implementation?
+	private Stack<Image> undoStack = new Stack(); 
 	private Stack<Image> redoStack = new Stack();
 	
 	public CustomCanvas(){
@@ -151,11 +153,14 @@ public class CustomCanvas extends Canvas{
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.NGON)) {
 					
-					if (Paint.edittoolbar.getOptionsField() == null) {
-						return; // exit the statement before any damage can be done;
-					}
+					int n = 0;
 					
-					int n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
+					try {
+						n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
+					} catch (Exception ex) {
+						System.out.println("Failed to parse options field: " + ex);
+						return; // to keep from drawing a shape
+					}
 					Pair PolygonPts = getPolygonPoints(
 						n,
 						this.mouseCoord,
@@ -166,6 +171,17 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, n);
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+					Paint.edittoolbar.CROP)) {
+					PixelReader r = this.getImage().getPixelReader();
+					WritableImage wi = new WritableImage(
+						r,
+						roundDouble(this.mouseCoord.getKey()),
+						roundDouble(this.mouseCoord.getValue()),
+						roundDouble(e.getX() - this.mouseCoord.getKey()),
+						roundDouble(e.getY() - this.mouseCoord.getValue())
+					);
+					Paint.setImage(wi);
 				}
 			}
 			this.imgToStack(this.getImage());
@@ -188,15 +204,25 @@ public class CustomCanvas extends Canvas{
 					
 					this.gc.setFill(this.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
-				}		
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.BLUR)) {
+					
+					this.gc.setEffect(new GaussianBlur());
+					this.gc.setFill(null);
+					this.gc.fillOval(x, y, bsize, bsize);
+					this.gc.fillRect(x, y, bsize, bsize);
+				}	
 			}
 			this.imgToStack(this.getImage());
 		});
 		
-		
 	}
 	
-	
+	/**
+	 * 
+	 * This method runs when Images are opened, or when the canvas is resized, and sets the canvas width to be the proper size.
+	 * 
+	 */
 	public void updateDimensions() {
 		//Also potential thought, I may have the image be a proportion of the current window size,
 		//so that when the main window is resized, the image resizes with it.
@@ -260,10 +286,23 @@ public class CustomCanvas extends Canvas{
 		System.out.println("Added Image to undo Stack");
 	}
 	
+	/**
+	 * Rounds Any Double values to integers, may be removed in favor of type casting.
+	 * 
+	 * @param d
+	 * @return An Integer rounded via the Math Library.
+	 */
+	
 	private int roundDouble(double d) {
 		return (int) Math.round(d);
 	}
 	
+	/**
+	 * 
+	 * This Method is responsible for undoing actions that are taken by the user, by pop-ing them off of the 
+	 * undo stack, and setting the canvas to be the next image in line, so to speak.
+	 * 
+	 */
 	public void undo() {
 		if (! undoStack.empty()) { //if the image stack is not empty
 			undoStack.pop();
@@ -279,7 +318,15 @@ public class CustomCanvas extends Canvas{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
+	 * 
+	 * @param n An integer for the number of sides the polygon should have.
+	 * @param initMouseCoord The initial mouse coordinates 
+	 * @param cx The current X value 
+	 * @return A Pair of double Arrays, with the key corresponding to the X points, and the value corresponding to the Y points.
+	 */
 	private Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
 		double ix = (double) initMouseCoord.getKey();
                 double iy = (double) initMouseCoord.getValue();
