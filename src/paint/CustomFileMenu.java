@@ -20,7 +20,7 @@ import javafx.scene.input.KeyCombination;
  * @author ethan
  */
 public class CustomFileMenu extends Menu {
-	
+	//This file will need extensive rewrites
 	public CustomFileMenu(){
 		super();
 		this.setText("File");
@@ -46,12 +46,14 @@ public class CustomFileMenu extends Menu {
 			open.setOnAction((ActionEvent event) -> {
 				try {
 					Paint.opened_file = CustomFileHandler.openFile(Paint.window);
+					//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).opened_file = CustomFileHandler.openFile(Paint.window);
 					//convert the opened file to a file input stream, then to an image
 					Paint.setImage(new Image(
 						new FileInputStream(
-							Paint.opened_file)
+							Paint.opened_file
+							//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).opened_file
 						)
-					);
+					));
 					
 					Paint.imgcanvas.updateDimensions(); //works!!	
 				} catch (FileNotFoundException ex) {

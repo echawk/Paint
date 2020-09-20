@@ -86,6 +86,7 @@ public class EditToolBar extends ToolBar{
 		
 		Label brushlbl = new Label("Brush (px):");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
+		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.brushSize;
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
@@ -94,7 +95,7 @@ public class EditToolBar extends ToolBar{
 		});
 		
 		Label colorlbl = new Label("Color:");
-		ColorPicker colorpick = Paint.imgcanvas.colorpick;
+		ColorPicker colorpick = Paint.imgcanvas.colorpick; //this line will need to be updated?
 
 		Button resetbtn = new Button();
 		resetbtn.setText("Reset");
@@ -141,6 +142,7 @@ public class EditToolBar extends ToolBar{
 	private void setDefaults(){
 		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
 		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
 		this.brushfld.setText("5");
 		this.drawoptionmenu.setValue(this.NONE);
 		this.options_fld.setText(null);
