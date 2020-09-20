@@ -52,8 +52,8 @@ public class CustomCanvas extends Canvas{
 					
 					this.colorpick.setValue(this.getImage().getPixelReader().getColor(
 						roundDouble(e.getX()),
-						roundDouble(e.getY()
-					)));
+						roundDouble(e.getY())
+					));
 				}
 			}
 			//this.imgToStack(this.getImage());
@@ -132,6 +132,7 @@ public class CustomCanvas extends Canvas{
 						s,
 						s
 					);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TEXTBOX)) {
 					
@@ -141,6 +142,7 @@ public class CustomCanvas extends Canvas{
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue()
 					);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TRIANGLE)){
 					
@@ -154,6 +156,7 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, 3);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.NGON)) {
 					
@@ -175,6 +178,7 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, n);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CROP)) {
 					
@@ -189,6 +193,7 @@ public class CustomCanvas extends Canvas{
 						roundDouble(e.getY() - this.mouseCoord.getValue())
 					);
 					Paint.setImage(wi);
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.DRAGDROP)) {
 					
@@ -228,8 +233,8 @@ public class CustomCanvas extends Canvas{
 					//set the image back to null
 					this.drag_drop_image = null;
 				}
+				this.imgToStack(this.getImage());
 			}
-			this.imgToStack(this.getImage());
 		});
 				
 		this.setOnMouseDragged(e -> {
@@ -257,9 +262,10 @@ public class CustomCanvas extends Canvas{
 						Paint.edittoolbar.BLUR)) {
 					
 					this.gc.setEffect(new GaussianBlur());
-					this.gc.setFill(null);
+					this.gc.setFill(Color.TRANSPARENT);
 					this.gc.fillOval(x, y, bsize, bsize);
 					this.gc.fillRect(x, y, bsize, bsize);
+					this.gc.setEffect(null);
 				}	
 				*/
 			}
@@ -314,15 +320,16 @@ public class CustomCanvas extends Canvas{
 	//need to preserve the image modifications
 	public void zoomIn(){
 		this.updateDimensions(true); // zoom in
-		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
+		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
 	public void zoomOut(){
 		this.updateDimensions(false); // zoom out
-		this.gc.drawImage(Paint.opened_image, 0, 0, this.getWidth(), this.getHeight());
+		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
