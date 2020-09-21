@@ -329,7 +329,7 @@ public class CustomCanvas extends Canvas{
 		this.updateDimensions(false); // zoom out
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
-		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).setScrollPrefSize(this.getWidth(), this.getHeight());
+		//Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
@@ -362,7 +362,7 @@ public class CustomCanvas extends Canvas{
 	 */
 	public void undo() {
 		if (! undoStack.empty()) { //if the image stack is not empty
-			undoStack.pop();
+			redoStack.add(undoStack.pop());
 			if (! undoStack.empty()) {
 				Paint.setImage(undoStack.pop());
 			}
@@ -372,6 +372,8 @@ public class CustomCanvas extends Canvas{
 	public void redo() {
 		if (! redoStack.empty()) {
 			Image lastimg = redoStack.pop(); //get the last image
+			Paint.setImage(lastimg);
+			undoStack.add(lastimg);
 		}
 	}
 	
