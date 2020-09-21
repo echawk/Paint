@@ -92,8 +92,11 @@ public class EditToolBar extends ToolBar{
 		options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
 		
 		Label brushlbl = new Label("Brush (px):");
-		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
-					//Paint.getCurrentTab().imgcanvas.brushSize;
+		if (Paint.TABBED) {
+			brushfld = new TextField(Double.toString(Paint.getCurrentTab().imgcanvas.brushSize));
+		} else {
+			brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
+		}		
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
@@ -105,7 +108,6 @@ public class EditToolBar extends ToolBar{
 		});
 		
 		Label colorlbl = new Label("Color:");
-		//ColorPicker colorpick = Paint.imgcanvas.colorpick; //this line will need to be updated?
 		
 		ColorPicker colorpick = Paint.colorpick;
 		Button resetbtn = new Button();
@@ -140,6 +142,7 @@ public class EditToolBar extends ToolBar{
 		return this.drawoptionmenu.getValue().toString();
 	}
 	/**
+	 * Returns whatever string is present in options_fld.
 	 * 
 	 * @return The String of the options field.
 	 */
