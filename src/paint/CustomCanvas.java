@@ -281,7 +281,8 @@ public class CustomCanvas extends Canvas{
 	
 	/**
 	 * 
-	 * This method runs when Images are opened, or when the canvas is resized, and sets the canvas width to be the proper size.
+	 * This method runs when Images are opened, or when the canvas is resized,
+	 * and sets the canvas width to be the proper size.
 	 * 
 	 */
 	public void updateDimensions() {
@@ -322,7 +323,7 @@ public class CustomCanvas extends Canvas{
 	}
 	
 	/**
-	 * This method returns an image of the current canvas.
+	 * This method returns the current canvas as an image.
 	 * 
 	 * @return An Image Object of the canvas.
 	 */
@@ -371,15 +372,15 @@ public class CustomCanvas extends Canvas{
 	 * @param d
 	 * @return An Integer rounded via the Math Library.
 	 */
-	
 	private int roundDouble(double d) {
 		return (int) Math.round(d);
 	}
 	
 	/**
 	 * 
-	 * This Method is responsible for undoing actions that are taken by the user, by pop-ing them off of the 
-	 * undo stack, and setting the canvas to be the next image in line, so to speak.
+	 * This Method is responsible for undoing actions that are taken by the 
+	 * user, by pop-ing them off of the undo stack, and setting the canvas 
+	 * to be the next image in line, so to speak.
 	 * 
 	 */
 	public void undo() {
@@ -395,7 +396,11 @@ public class CustomCanvas extends Canvas{
 			}
 		}
 	}
-	
+	/**
+	 * This Method is responsible for redo-ing actions that have been undone,
+	 * by setting the image to be the last image to be whatever pops off the 
+	 * redo stack, and adding that image back onto the undo stack.
+	 */
 	public void redo() {
 		if (! redoStack.empty()) {
 			Image lastimg = redoStack.pop(); //get the last image
