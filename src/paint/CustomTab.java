@@ -28,18 +28,15 @@ public class CustomTab extends Tab {
 		this.scroll = new ScrollPane();
 		this.scroll.setContent(this.imgcanvas);
 		
-		
-		
-		
-		
-		
-		
-		
-		
 		//set the tab to have the scroll
 		this.setContent(this.scroll);
 	}
-	
+	/**
+	 * Sets this Tab's image to be whatever Image object is provided; calls 
+	 * updateDimensions, then draws the image using the Tab's imgcanvas.
+	 * 
+	 * @param img The image object you want to be in this tab
+	 */
 	public void setImage(Image img) {
 		this.opened_image = img; //set the opened_image pointer to image
 		this.imgcanvas.updateDimensions(); //update the canvas dimensions
@@ -49,7 +46,11 @@ public class CustomTab extends Tab {
 			0
 		);
 	}
-
+	/**
+	 * Clears whatever the opened image is for the tab, it is made obsolete by 
+	 * the fact Paint is no longer a single image editor, but is here for
+	 * historical reasons.
+	 */
 	public void clearImage(){
 		//set the image to be nothing
 		this.opened_file = null;
@@ -59,7 +60,15 @@ public class CustomTab extends Tab {
 		this.opened_image = null; //Same reasoning as above ^^^
 		this.setImage(null);
 	}
-
+	/**
+	 * 
+	 * Set the ScrollPane's preferred size, this method is called whenever 
+	 * either of the zoom methods are called, as to keep the imgcanvas and the 
+	 * scrollpane the same size.
+	 * 
+	 * @param x The width
+	 * @param y The height
+	 */
 	public void setScrollPrefSize(double x, double y){
 		this.scroll.setPrefSize(x, y);
 	}
