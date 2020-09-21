@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class Popup {
 	
-	public static void launchCreateNewImage() {
+	public static void launchCreateNewImage() {		
 		Stage createnewimgStage = new Stage();
 		createnewimgStage.initOwner(Paint.window);
 		GridPane gp = new GridPane();
@@ -42,7 +42,11 @@ public class Popup {
 					Integer.parseInt(heightfld.getText())
 				);
 				ImageView iv = new ImageView(wi);
+				
 				Paint.setImage(iv.getImage());
+				
+				//String rn = String.valueOf(Math.random());
+				//Paint.addTab(rn, wi);
 				createnewimgStage.close();
 			});
 			

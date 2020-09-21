@@ -5,6 +5,7 @@
  */
 package paint;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.event.ActionEvent;
@@ -46,16 +47,25 @@ public class CustomFileMenu extends Menu {
 			open.setOnAction((ActionEvent event) -> {
 				try {
 					Paint.opened_file = CustomFileHandler.openFile(Paint.window);
-					//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).opened_file = CustomFileHandler.openFile(Paint.window);
 					//convert the opened file to a file input stream, then to an image
 					Paint.setImage(new Image(
 						new FileInputStream(
 							Paint.opened_file
-							//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).opened_file
 						)
 					));
-					
 					Paint.imgcanvas.updateDimensions(); //works!!	
+					/*	Tab Code below
+					File f = CustomFileHandler.openFile(Paint.window);
+					Paint.addTab(f.getName(), null);
+					Paint.getCurrentTab().setImage(
+						new Image(
+							new FileInputStream(
+								Paint.getCurrentTab().opened_file
+							)
+						)
+					);
+					Paint.getCurrentTab().imgcanvas.updateDimensions();
+					*/
 				} catch (FileNotFoundException ex) {
 					System.out.println("File was not found");
 				}

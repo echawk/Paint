@@ -49,11 +49,13 @@ public class EditToolBar extends ToolBar{
 		Button undobtn = new Button("Undo");
 			undobtn.setOnAction((ActionEvent event)-> {
 				Paint.imgcanvas.undo();
+				//Paint.getCurrentTab().imgcanvas.undo();
 			});
 		
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.redo();
+				//Paint.getCurrentTab().imgcanvas.redo();
 			});
 			
 		Label drawlbl = new Label("Draw:");
@@ -86,7 +88,7 @@ public class EditToolBar extends ToolBar{
 		
 		Label brushlbl = new Label("Brush (px):");
 		brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
-		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.brushSize;
+					//Paint.getCurrentTab().imgcanvas.brushSize;
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
@@ -96,7 +98,7 @@ public class EditToolBar extends ToolBar{
 		
 		Label colorlbl = new Label("Color:");
 		ColorPicker colorpick = Paint.imgcanvas.colorpick; //this line will need to be updated?
-
+		//ColorPicker colorpick = Paint.getCurrentTab().imgcanvas.colorpick; //might end up making the color picker "shared" across tabs
 		Button resetbtn = new Button();
 		resetbtn.setText("Reset");
 		resetbtn.setOnAction((ActionEvent event) -> {
@@ -141,9 +143,10 @@ public class EditToolBar extends ToolBar{
 	 */
 	private void setDefaults(){
 		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
-		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-		//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		//Paint.getCurrentTab().imgcanvas.colorpick.setValue(Color.BLACK);
 		this.brushfld.setText("5");
+		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		//Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
 		this.drawoptionmenu.setValue(this.NONE);
 		this.options_fld.setText(null);
 	}

@@ -167,6 +167,7 @@ public class Paint extends Application {
 		Paint.tab.getTabs().add(
 			t
 		);
+		Paint.tab.getSelectionModel().select(t);
 	}
 	
 	public static CustomTab getCurrentTab() {

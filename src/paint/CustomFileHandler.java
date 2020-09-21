@@ -48,6 +48,7 @@ public class CustomFileHandler {
 	public static void saveAsFile(Window stage) {
 		// add ', File f' to the args?
 		Image out_img = Paint.imgcanvas.getImage();
+		//Image out_img = Paint.getCurrentTab().imgcanvas.getImage();
 		if (out_img == null){ //Check to make sure there is a file to save
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return; // should raise an error here (like a pop-up box)
@@ -62,6 +63,7 @@ public class CustomFileHandler {
 		
 		saveImage(out_img, out_file);
 		Paint.opened_file = out_file;
+		//Paint.getCurrentTab().opened_file = out_file; // update the name of the tab too
 	}
 	
 	/**
@@ -71,7 +73,8 @@ public class CustomFileHandler {
 	 */
 	public static void saveFile() {
 		//Line below needs to change
-		Image out_img = Paint.imgcanvas.getImage();		
+		Image out_img = Paint.imgcanvas.getImage();
+		//Image out_img = Paint.getCurrentTab().imgcanvas.getImage();
 		if  (out_img == null){
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return;

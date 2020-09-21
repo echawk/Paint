@@ -48,7 +48,7 @@ public class CustomMenuBar extends MenuBar {
 		MenuItem zoomin = new MenuItem("Zoom In");
 			zoomin.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.zoomIn();
-				//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.zoomIn();
+				//Paint.getCurrentTab().imgcanvas.zoomIn();
 			});
 			zoomin.setAccelerator(new KeyCodeCombination(KeyCode.I, 
 						KeyCombination.CONTROL_DOWN));
@@ -57,7 +57,7 @@ public class CustomMenuBar extends MenuBar {
 		MenuItem zoomout = new MenuItem("Zoom Out");
 			zoomout.setOnAction((ActionEvent event) -> {
 				Paint.imgcanvas.zoomOut();
-				//((CustomTab) Paint.tab.getSelectionModel().getSelectedItem()).imgcanvas.zoomOut();
+				//Paint.getCurrentTab().imgcanvas.zoomOut();
 			});
 			zoomout.setAccelerator(new KeyCodeCombination(KeyCode.D, 
 						KeyCombination.CONTROL_DOWN));
@@ -65,6 +65,7 @@ public class CustomMenuBar extends MenuBar {
 		MenuItem resetview = new MenuItem("Reset");
 			resetview.setOnAction((ActionEvent event) -> {
 				Paint.setImage(Paint.opened_image); //this is only a temp fix while I figure out how to properly do this
+				//Paint.getCurrentTab().setImage(Paint.getCurrentTab().opened_image);
 			});
 			
 		viewmenu.getItems().addAll(zoomin, zoomout, resetview);

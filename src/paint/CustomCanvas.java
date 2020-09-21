@@ -282,7 +282,11 @@ public class CustomCanvas extends Canvas{
 	public void updateDimensions() {
 		//Also potential thought, I may have the image be a proportion of the current window size,
 		//so that when the main window is resized, the image resizes with it.
-		if (Paint.opened_image != null) {
+		//if (Paint.getCurrentTab().opened_image != null) {
+		if (Paint.opened_image != null) {	
+			//this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
+			//this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
+			
 			this.setHeight(Paint.opened_image.getHeight());
 			this.setWidth(Paint.opened_image.getWidth());
 		} else { // if the image is null, set the dimensions to zero
@@ -322,6 +326,7 @@ public class CustomCanvas extends Canvas{
 		this.updateDimensions(true); // zoom in
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
 		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		//Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
