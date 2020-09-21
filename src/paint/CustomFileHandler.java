@@ -124,7 +124,9 @@ public class CustomFileHandler {
 	
 	/**
 	 * This method is responsible for saving out_img to opened_file, and
-	 * handles more output formats than the previous method of saving the image
+	 * handles more output formats than the previous method of saving the image.
+	 * It also handles the new buffered image to create, based upon the opened_file's 
+	 * file extension, by removing the alpha channel from jpeg images.
 	 * 
 	 * @param out_img
 	 * @param opened_file 
@@ -132,14 +134,22 @@ public class CustomFileHandler {
 	private static void saveImage(Image out_img, File opened_file){
 		// Get buffered image:
 		BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
+		BufferedImage imageRGB;
+		if (getFileExtension(opened_file).equals("jpg")){
+			// Remove alpha-channel from buffered image:
+			imageRGB = new BufferedImage(
+				image.getWidth(),
+				image.getHeight(),
+				BufferedImage.OPAQUE
+			);
+		} else {
+			imageRGB = new BufferedImage(
+				image.getWidth(),
+				image.getHeight(),
+				BufferedImage.TRANSLUCENT
+			);
+		}
 		
-		// Remove alpha-channel from buffered image:
-		BufferedImage imageRGB = new BufferedImage(
-			image.getWidth(),
-			image.getHeight(),
-			BufferedImage.OPAQUE
-		);
-
 		Graphics2D graphics = imageRGB.createGraphics();
 
 		graphics.drawImage(image, 0, 0, null);
