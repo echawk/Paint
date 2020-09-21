@@ -34,13 +34,12 @@ public class EditToolBar extends ToolBar{
 	public final String COLOR_GRAB = "Color Grab";
 	public final String NONE = "None";
 	public final String TEXTBOX = "Text Box";
-
 	public final String TRIANGLE = "Triangle";
 	public final String NGON = "N-gon";
-	//Extras?
+	public final String DRAGDROP = "Drag & Drop";
+	//Extras
 	public final String BLUR = "Blur";
 	public final String CROP = "Crop";
-	public final String DRAGDROP = "Drag & Drop";
 	
 	public EditToolBar() {
 		
@@ -48,14 +47,20 @@ public class EditToolBar extends ToolBar{
 		
 		Button undobtn = new Button("Undo");
 			undobtn.setOnAction((ActionEvent event)-> {
-				Paint.imgcanvas.undo();
-				//Paint.getCurrentTab().imgcanvas.undo();
+				if (Paint.TABBED) {
+					Paint.getCurrentTab().imgcanvas.undo();	
+				} else {
+					Paint.imgcanvas.undo();
+				}
 			});
 		
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
-				Paint.imgcanvas.redo();
-				//Paint.getCurrentTab().imgcanvas.redo();
+				if (Paint.TABBED) {
+					Paint.getCurrentTab().imgcanvas.redo();
+				} else {
+					Paint.imgcanvas.redo();
+				}
 			});
 			
 		Label drawlbl = new Label("Draw:");
@@ -92,8 +97,11 @@ public class EditToolBar extends ToolBar{
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
-			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-			//init_canvas();
+			if (Paint.TABBED) {
+				Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+			} else {
+				Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+			}
 		});
 		
 		Label colorlbl = new Label("Color:");
@@ -144,10 +152,12 @@ public class EditToolBar extends ToolBar{
 	 */
 	private void setDefaults(){
 		Paint.colorpick.setValue(Color.BLACK);
-		//Paint.getCurrentTab().imgcanvas.colorpick.setValue(Color.BLACK);
 		this.brushfld.setText("5");
-		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-		//Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		if (Paint.TABBED) {
+			Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		} else {
+			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+		}
 		this.drawoptionmenu.setValue(this.NONE);
 		this.options_fld.setText(null);
 	}

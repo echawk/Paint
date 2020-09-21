@@ -22,8 +22,6 @@ import static paint.Paint.opened_file;
  */
 public class CustomFileHandler {
 	
-	//Once Paint is a Tabbed Image editor, I will need to patch methods to work with that system.
-		
 	/**
 	 * This method uses a FileChooser Object to select a File and return 
 	 * said File.

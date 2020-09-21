@@ -8,13 +8,11 @@ package paint;
 import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
 
@@ -62,12 +60,12 @@ public class CustomCanvas extends Canvas{
 		this.setOnMouseReleased(e -> {
 			this.gc.setFill(Paint.colorpick.getValue());
 			this.gc.setStroke(Paint.colorpick.getValue());
+			this.gc.setLineWidth(this.brushSize);
 
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
 					
-					this.gc.setLineWidth(this.brushSize);
 					this.gc.strokeLine(
 						this.mouseCoord.getKey(), 
 						this.mouseCoord.getValue(),
@@ -137,9 +135,9 @@ public class CustomCanvas extends Canvas{
 					Paint.edittoolbar.TEXTBOX)) {
 					
 					if (Paint.TABBED) {
-						this.gc.setFont(new Font(Paint.getCurrentTab().imgcanvas.brushSize));
+						this.gc.setFont(new Font(this.brushSize));
 					} else {
-						this.gc.setFont(new Font(Paint.imgcanvas.brushSize));
+						this.gc.setFont(new Font(this.brushSize));
 					}
 					
 					this.gc.fillText(Paint.edittoolbar.getOptionsField(),
@@ -388,7 +386,12 @@ public class CustomCanvas extends Canvas{
 		if (! undoStack.empty()) { //if the image stack is not empty
 			redoStack.add(undoStack.pop());
 			if (! undoStack.empty()) {
-				Paint.setImage(undoStack.pop());
+				if (Paint.TABBED) {
+					Paint.getCurrentTab().setImage(undoStack.pop());
+				} else {
+					Paint.setImage(undoStack.pop());
+				}
+				System.out.println("Undo was Successful!");
 			}
 		}
 	}
@@ -396,7 +399,11 @@ public class CustomCanvas extends Canvas{
 	public void redo() {
 		if (! redoStack.empty()) {
 			Image lastimg = redoStack.pop(); //get the last image
-			Paint.setImage(lastimg);
+			if (Paint.TABBED) {
+				Paint.getCurrentTab().setImage(lastimg);
+			} else {
+				Paint.setImage(lastimg);
+			}
 			undoStack.add(lastimg);
 		}
 	}

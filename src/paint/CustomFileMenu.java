@@ -50,7 +50,6 @@ public class CustomFileMenu extends Menu {
 					if (Paint.TABBED) {
 						File f = CustomFileHandler.openFile(Paint.window);
 						Paint.addTab(f);
-						//Paint.getCurrentTab().imgcanvas.updateDimensions();
 					} else {
 						Paint.opened_file = CustomFileHandler.openFile(Paint.window);
 						//convert the opened file to a file input stream, then to an image

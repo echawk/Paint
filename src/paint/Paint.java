@@ -12,7 +12,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -74,7 +73,7 @@ public class Paint extends Application {
 				new CustomTab("Welcome!")
 			);
 		}
-
+	
 	//color picker
 		Paint.colorpick.setValue(Color.BLACK);
 		
@@ -82,7 +81,7 @@ public class Paint extends Application {
 		Paint.scroll = new ScrollPane();
 		scroll.setContent(imgcanvas);
 		//scroll.setVisible(false);
-	
+		
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
 		if (TABBED) {
