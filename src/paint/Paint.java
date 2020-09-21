@@ -169,4 +169,8 @@ public class Paint extends Application {
 		);
 	}
 	
+	public static CustomTab getCurrentTab() {
+		return (CustomTab) Paint.tab.getSelectionModel().getSelectedItem();
+	}
+	
 }
