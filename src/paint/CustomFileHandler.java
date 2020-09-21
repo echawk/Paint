@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javax.imageio.ImageIO;
-import static paint.Paint.opened_file;
 
 /**
  *

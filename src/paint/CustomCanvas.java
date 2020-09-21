@@ -24,7 +24,7 @@ public class CustomCanvas extends Canvas{
 	
 	public GraphicsContext gc; //pointer to the graphics context of the canvas
 	
-	public double brushSize = 5; //set a default size of 5
+	//public double brushSize = 5; //set a default size of 5
 	//public ColorPicker colorpick = new ColorPicker();
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
@@ -60,7 +60,7 @@ public class CustomCanvas extends Canvas{
 		this.setOnMouseReleased(e -> {
 			this.gc.setFill(Paint.colorpick.getValue());
 			this.gc.setStroke(Paint.colorpick.getValue());
-			this.gc.setLineWidth(this.brushSize);
+			this.gc.setLineWidth(Paint.brushSize);
 
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
@@ -135,9 +135,9 @@ public class CustomCanvas extends Canvas{
 					Paint.edittoolbar.TEXTBOX)) {
 					
 					if (Paint.TABBED) {
-						this.gc.setFont(new Font(this.brushSize));
+						this.gc.setFont(new Font(Paint.brushSize));
 					} else {
-						this.gc.setFont(new Font(this.brushSize));
+						this.gc.setFont(new Font(Paint.brushSize));
 					}
 					
 					this.gc.fillText(Paint.edittoolbar.getOptionsField(),
@@ -244,7 +244,7 @@ public class CustomCanvas extends Canvas{
 				
 		this.setOnMouseDragged(e -> {
 			
-			double bsize = this.brushSize;
+			double bsize = Paint.brushSize;
 			double x = e.getX() - bsize / 2;
 			double y = e.getY() - bsize / 2;
 			
@@ -255,12 +255,14 @@ public class CustomCanvas extends Canvas{
 					
 					this.gc.clearRect(x, y, bsize, bsize);
 					
+					this.imgToStack(this.getImage());
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.PENCIL)) {
 					
 					this.gc.setFill(Paint.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
 					
+					this.imgToStack(this.getImage());
 				} 
 				/*
 				else if (Paint.edittoolbar.getDrawSelection().equals(
@@ -273,8 +275,8 @@ public class CustomCanvas extends Canvas{
 					this.gc.setEffect(null);
 				}	
 				*/
+				//this.imgToStack(this.getImage());
 			}
-			this.imgToStack(this.getImage());
 		});
 		
 	}

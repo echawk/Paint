@@ -6,7 +6,6 @@
 package paint;
 
 import java.io.File;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;

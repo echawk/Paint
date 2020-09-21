@@ -47,19 +47,27 @@ public class EditToolBar extends ToolBar{
 		
 		Button undobtn = new Button("Undo");
 			undobtn.setOnAction((ActionEvent event)-> {
-				if (Paint.TABBED) {
-					Paint.getCurrentTab().imgcanvas.undo();	
-				} else {
-					Paint.imgcanvas.undo();
+				try {
+					if (Paint.TABBED) {
+						Paint.getCurrentTab().imgcanvas.undo();	
+					} else {
+						Paint.imgcanvas.undo();
+					}
+				} catch (Exception e) {
+					System.out.println("Undo Button On-Action Failed:" + e);
 				}
 			});
 		
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
-				if (Paint.TABBED) {
-					Paint.getCurrentTab().imgcanvas.redo();
-				} else {
-					Paint.imgcanvas.redo();
+				try {
+					if (Paint.TABBED) {
+						Paint.getCurrentTab().imgcanvas.redo();
+					} else {
+						Paint.imgcanvas.redo();
+					}
+				} catch (Exception e) {
+					System.out.println("Redo Button On-Action Failed:" + e);
 				}
 			});
 			
@@ -92,18 +100,16 @@ public class EditToolBar extends ToolBar{
 		options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
 		
 		Label brushlbl = new Label("Brush (px):");
-		if (Paint.TABBED) {
-			brushfld = new TextField(Double.toString(Paint.getCurrentTab().imgcanvas.brushSize));
-		} else {
-			brushfld = new TextField(Double.toString(Paint.imgcanvas.brushSize));
-		}		
+
+		brushfld = new TextField(Double.toString(Paint.brushSize));
+		
 		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
 		brushfld.setOnAction((ActionEvent event) -> {
-			if (Paint.TABBED) {
-				Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-			} else {
-				Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
+			try {
+				Paint.brushSize = Double.parseDouble(brushfld.getText());
+			} catch (Exception e) {
+				System.out.println("Brush Field On-Action Failed:" + e);
 			}
 		});
 		
@@ -156,11 +162,7 @@ public class EditToolBar extends ToolBar{
 	private void setDefaults(){
 		Paint.colorpick.setValue(Color.BLACK);
 		this.brushfld.setText("5");
-		if (Paint.TABBED) {
-			Paint.getCurrentTab().imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-		} else {
-			Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());
-		}
+		Paint.brushSize = Double.parseDouble(brushfld.getText());
 		this.drawoptionmenu.setValue(this.NONE);
 		this.options_fld.setText(null);
 	}

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -50,6 +51,7 @@ public class Paint extends Application {
 	public static ScrollPane scroll;
 	public static CustomCanvas imgcanvas = new CustomCanvas();
 	public static ColorPicker colorpick = new ColorPicker();
+	public static double brushSize = 5;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -67,13 +69,12 @@ public class Paint extends Application {
 		Paint.edittoolbar.setVisible(false);
 		//would like it to be completely invisible, maybe adjust the max width and height
 	//tab pane
-		if (TABBED) {
+		if (Paint.TABBED) {
 			Paint.tab = new TabPane();
 			Paint.tab.getTabs().add(
 				new CustomTab("Welcome!")
 			);
 		}
-	
 	//color picker
 		Paint.colorpick.setValue(Color.BLACK);
 		
