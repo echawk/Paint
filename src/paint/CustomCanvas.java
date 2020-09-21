@@ -37,6 +37,8 @@ public class CustomCanvas extends Canvas{
 	public CustomCanvas(){
 		super();
 		
+		this.imgToStack(this.getImage());
+		
 		this.gc = this.getGraphicsContext2D();
 		//this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
@@ -238,8 +240,9 @@ public class CustomCanvas extends Canvas{
 					//set the image back to null
 					this.drag_drop_image = null;
 				}
-				this.imgToStack(this.getImage());
+				//this.imgToStack(this.getImage());
 			}
+			this.imgToStack(this.getImage());
 		});
 				
 		this.setOnMouseDragged(e -> {
