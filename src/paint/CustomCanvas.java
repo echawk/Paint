@@ -8,11 +8,16 @@ package paint;
 import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.MotionBlur;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
 
@@ -239,10 +244,35 @@ public class CustomCanvas extends Canvas{
 					);
 					//set the image back to null
 					this.drag_drop_image = null;
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.BLUR)) {
+					//Three steps:
+					//1 get image
+					//2 apply blur effect to image
+					//3 draw the new image
+					
+					//1
+					PixelReader r = this.getImage().getPixelReader();
+					WritableImage wi = new WritableImage(
+						r,
+						roundDouble(this.mouseCoord.getKey()),
+						roundDouble(this.mouseCoord.getValue()),
+						roundDouble(e.getX() - this.mouseCoord.getKey()),
+						roundDouble(e.getY() - this.mouseCoord.getValue())
+					);
+					
+					CustomCanvas t = new CustomCanvas();
+					t.gc.setEffect(new GaussianBlur());
+					t.gc.drawImage(wi, 0, 0);
+					this.gc.drawImage(
+						t.snapshot(null, null),
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue()
+					);			
 				}
-				//this.imgToStack(this.getImage());
-			}
 			this.imgToStack(this.getImage());
+			}
+			
 		});
 				
 		this.setOnMouseDragged(e -> {
@@ -268,13 +298,14 @@ public class CustomCanvas extends Canvas{
 					this.imgToStack(this.getImage());
 				} 
 				/*
+				//Experimental; dont expect to work
 				else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.BLUR)) {
 					
 					this.gc.setEffect(new GaussianBlur());
 					this.gc.setFill(Color.TRANSPARENT);
 					this.gc.fillOval(x, y, bsize, bsize);
-					this.gc.fillRect(x, y, bsize, bsize);
+					//this.gc.fillRect(x, y, bsize, bsize);
 					this.gc.setEffect(null);
 				}	
 				*/
