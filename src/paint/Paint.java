@@ -38,7 +38,7 @@ public class Paint extends Application {
 	
 	public static int mode = DEFAULT_MODE; //default to default...
 	
-	public static final boolean TABBED = false;
+	public static final boolean TABBED = true;
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -132,16 +132,24 @@ public class Paint extends Application {
 		Paint.imgcanvas.updateDimensions(); //update the canvas dimensions
 		Paint.imgcanvas.gc.drawImage(opened_image, 0, 0);
 	}
-	
+	/**
+	 * Closes Paint nicely.
+	 */
 	public static void close() {
 		Paint.window.close(); //close the main window/stage
 		System.exit(0); //Have a successful exit code.
 	}
-	
+	/**
+	 * 
+	 * @return The "mode" of Paint
+	 */
 	public static int getMode(){
 		return Paint.mode;
 	}
-	
+	/**
+	 * Sets Paint's mode, with idiot proofing built in!
+	 * @param i 
+	 */
 	public static void setMode(int i) {
 		if (i == Paint.EDIT_MODE) {
 			Paint.mode = i;
@@ -157,14 +165,16 @@ public class Paint extends Application {
 	public static void hideEditToolBar() {
 		Paint.edittoolbar.setVisible(false);
 	}
-	//moved to CustomTab
+	
 	public static void setScrollPrefSize(double x, double y){
 		Paint.scroll.setPrefSize(x, y);
 	}
-
+	/**
+	 * This method is intended to be a general purpose update script, currently
+	 * it only handles showing and hiding the edit tool bar, but it could be expanded
+	 * to do anything else that warrants updating the window. 
+	 */
 	public static void update() {
-		// gen purpose update script
-		
 		if (getMode() == Paint.EDIT_MODE) {
 			showEditToolBar();
 		} else {
@@ -172,29 +182,44 @@ public class Paint extends Application {
 		}
 	}
 	
-	
-	//To be implemented....
+	/**
+	 * 
+	 * Add a new CustomTab to Paint.tab (the TabPane). 
+	 * 
+	 * @param lbl A string of whatever you want the label to be
+	 * @param i The image you want to be shown on the tab
+	 */
 	public static void addTab(String lbl, Image i) {
 		
 		CustomTab t = new CustomTab(lbl);
-		t.setImage(i);
 		Paint.tab.getTabs().add(
 			t
 		);
 		Paint.tab.getSelectionModel().select(t);
+		t.setImage(i); 
 	}
 	
+	/**
+	 * Add a new CustomTab to Paint.tab (the TabPane). The tab title will be 
+	 * whatever the file name is.
+	 * 
+	 * @param f A file that you want to have a tab for.
+	 * @throws FileNotFoundException 
+	 */
 	public static void addTab(File f) throws FileNotFoundException {
 		CustomTab t = new CustomTab(f.getName());
-		t.setImage(new Image(new FileInputStream(f)));
-		//t.imgcanvas.updateDimensions();
 		t.opened_file = f;
 		Paint.tab.getTabs().add(
 			t
 		);
 		Paint.tab.getSelectionModel().select(t);
+		t.setImage(new Image(new FileInputStream(f)));
 	}
 	
+	/**
+	 * 
+	 * @return The current tab that is selected by Paint.
+	 */
 	public static CustomTab getCurrentTab() {
 		return (CustomTab) Paint.tab.getSelectionModel().getSelectedItem();
 	}
