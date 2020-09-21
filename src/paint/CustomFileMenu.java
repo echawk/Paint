@@ -80,7 +80,11 @@ public class CustomFileMenu extends Menu {
 
 		MenuItem clear = new MenuItem("Clear");
 			clear.setOnAction((ActionEvent event) -> {
-				Paint.clearImage();
+				if (Paint.TABBED) {
+					Paint.getCurrentTab().clearImage();
+				} else {
+					Paint.clearImage();
+				}
 			});
 			
 		MenuItem newimage = new MenuItem("New");
