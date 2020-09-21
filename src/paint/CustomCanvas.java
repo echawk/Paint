@@ -196,8 +196,11 @@ public class CustomCanvas extends Canvas{
 						roundDouble(e.getX() - this.mouseCoord.getKey()),
 						roundDouble(e.getY() - this.mouseCoord.getValue())
 					);
-					Paint.setImage(wi);
-					
+					if (Paint.TABBED) {
+						Paint.getCurrentTab().setImage(wi);
+					} else {
+						Paint.setImage(wi);
+					}
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.DRAGDROP)) {
 					
