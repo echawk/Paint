@@ -27,7 +27,7 @@ public class CustomCanvas extends Canvas{
 	public GraphicsContext gc; //pointer to the graphics context of the canvas
 	
 	public double brushSize = 5; //set a default size of 5
-	public ColorPicker colorpick = new ColorPicker();
+	//public ColorPicker colorpick = new ColorPicker();
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
@@ -40,7 +40,7 @@ public class CustomCanvas extends Canvas{
 		super();
 		
 		this.gc = this.getGraphicsContext2D();
-		this.colorpick.setValue(Color.BLACK);
+		//this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
@@ -50,7 +50,7 @@ public class CustomCanvas extends Canvas{
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.COLOR_GRAB)) {
 					
-					this.colorpick.setValue(this.getImage().getPixelReader().getColor(
+					Paint.colorpick.setValue(this.getImage().getPixelReader().getColor(
 						roundDouble(e.getX()),
 						roundDouble(e.getY())
 					));
@@ -60,14 +60,14 @@ public class CustomCanvas extends Canvas{
 		});
 		
 		this.setOnMouseReleased(e -> {
-			this.gc.setFill(this.colorpick.getValue());
+			this.gc.setFill(Paint.colorpick.getValue());
 
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
 					
 					this.gc.setLineWidth(this.brushSize);
-					this.gc.setStroke(this.colorpick.getValue());
+					this.gc.setStroke(Paint.colorpick.getValue());
 					this.gc.strokeLine(
 						this.mouseCoord.getKey(), 
 						this.mouseCoord.getValue(),
@@ -253,7 +253,7 @@ public class CustomCanvas extends Canvas{
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.PENCIL)) {
 					
-					this.gc.setFill(this.colorpick.getValue());
+					this.gc.setFill(Paint.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
 					
 				} 

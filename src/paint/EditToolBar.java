@@ -97,8 +97,9 @@ public class EditToolBar extends ToolBar{
 		});
 		
 		Label colorlbl = new Label("Color:");
-		ColorPicker colorpick = Paint.imgcanvas.colorpick; //this line will need to be updated?
-		//ColorPicker colorpick = Paint.getCurrentTab().imgcanvas.colorpick; //might end up making the color picker "shared" across tabs
+		//ColorPicker colorpick = Paint.imgcanvas.colorpick; //this line will need to be updated?
+		
+		ColorPicker colorpick = Paint.colorpick;
 		Button resetbtn = new Button();
 		resetbtn.setText("Reset");
 		resetbtn.setOnAction((ActionEvent event) -> {
@@ -142,7 +143,7 @@ public class EditToolBar extends ToolBar{
 	 * This method sets all of the configurable part of the edit tool bar back to their default values.
 	 */
 	private void setDefaults(){
-		Paint.imgcanvas.colorpick.setValue(Color.BLACK);
+		Paint.colorpick.setValue(Color.BLACK);
 		//Paint.getCurrentTab().imgcanvas.colorpick.setValue(Color.BLACK);
 		this.brushfld.setText("5");
 		Paint.imgcanvas.brushSize = Double.parseDouble(brushfld.getText());

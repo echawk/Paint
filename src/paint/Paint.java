@@ -8,6 +8,7 @@ package paint;
 import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -44,7 +45,7 @@ public class Paint extends Application {
 	public static Image opened_image; 
 	public static ScrollPane scroll;
 	public static CustomCanvas imgcanvas = new CustomCanvas();
-
+	public static ColorPicker colorpick = new ColorPicker();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -75,7 +76,7 @@ public class Paint extends Application {
 	
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
-		root.getChildren().addAll(menub, edittoolbar, scroll);
+		root.getChildren().addAll(menub, edittoolbar, Paint.tab);
 		//root.getChildren().addAll(imgcanvas, menub);
 		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);

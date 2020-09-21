@@ -45,8 +45,8 @@ public class Popup {
 				
 				Paint.setImage(iv.getImage());
 				
-				//String rn = String.valueOf(Math.random());
-				//Paint.addTab(rn, wi);
+				String rn = String.valueOf(Math.random());
+				Paint.addTab(rn, wi);
 				createnewimgStage.close();
 			});
 			
