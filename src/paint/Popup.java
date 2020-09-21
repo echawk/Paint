@@ -44,7 +44,8 @@ public class Popup {
 				ImageView iv = new ImageView(wi);
 			
 				if (Paint.TABBED) {
-					String rn = String.valueOf(Math.random());
+					//String rn = String.valueOf(Math.random());
+					String rn = "Untitled";
 					Paint.addTab(rn, wi);
 				} else {
 					Paint.setImage(iv.getImage());
