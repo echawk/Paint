@@ -42,11 +42,13 @@ public class Popup {
 					Integer.parseInt(heightfld.getText())
 				);
 				ImageView iv = new ImageView(wi);
-				
-				Paint.setImage(iv.getImage());
-				
-				String rn = String.valueOf(Math.random());
-				Paint.addTab(rn, wi);
+			
+				if (Paint.TABBED) {
+					String rn = String.valueOf(Math.random());
+					Paint.addTab(rn, wi);
+				} else {
+					Paint.setImage(iv.getImage());
+				}
 				createnewimgStage.close();
 			});
 			

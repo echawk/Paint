@@ -44,7 +44,7 @@ public class CustomTab extends Tab {
 		this.opened_image = img; //set the opened_image pointer to image
 		this.imgcanvas.updateDimensions(); //update the canvas dimensions
 		this.imgcanvas.gc.drawImage(
-			this.opened_image, 
+			opened_image,
 			0, 
 			0
 		);

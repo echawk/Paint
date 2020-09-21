@@ -61,13 +61,13 @@ public class CustomCanvas extends Canvas{
 		
 		this.setOnMouseReleased(e -> {
 			this.gc.setFill(Paint.colorpick.getValue());
+			this.gc.setStroke(Paint.colorpick.getValue());
 
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.LINE)) {
 					
 					this.gc.setLineWidth(this.brushSize);
-					this.gc.setStroke(Paint.colorpick.getValue());
 					this.gc.strokeLine(
 						this.mouseCoord.getKey(), 
 						this.mouseCoord.getValue(),
@@ -136,7 +136,11 @@ public class CustomCanvas extends Canvas{
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TEXTBOX)) {
 					
-					this.gc.setFont(new Font(Paint.imgcanvas.brushSize));
+					if (Paint.TABBED) {
+						this.gc.setFont(new Font(Paint.getCurrentTab().imgcanvas.brushSize));
+					} else {
+						this.gc.setFont(new Font(Paint.imgcanvas.brushSize));
+					}
 					
 					this.gc.fillText(Paint.edittoolbar.getOptionsField(),
 						this.mouseCoord.getKey(),
@@ -282,16 +286,22 @@ public class CustomCanvas extends Canvas{
 	public void updateDimensions() {
 		//Also potential thought, I may have the image be a proportion of the current window size,
 		//so that when the main window is resized, the image resizes with it.
-		//if (Paint.getCurrentTab().opened_image != null) {
-		if (Paint.opened_image != null) {	
-			//this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
-			//this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
-			
-			this.setHeight(Paint.opened_image.getHeight());
-			this.setWidth(Paint.opened_image.getWidth());
-		} else { // if the image is null, set the dimensions to zero
-			this.setHeight(0);
-			this.setWidth(0);
+		if (Paint.TABBED) {
+			if (Paint.getCurrentTab().opened_image != null) {
+				this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
+				this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
+			} else {
+				this.setHeight(0);
+				this.setWidth(0);
+			}
+		} else {
+			if (Paint.opened_image != null) {	
+				this.setHeight(Paint.opened_image.getHeight());
+				this.setWidth(Paint.opened_image.getWidth());
+			} else { // if the image is null, set the dimensions to zero
+				this.setHeight(0);
+				this.setWidth(0);
+			}
 		}
 		
 	}
@@ -325,16 +335,22 @@ public class CustomCanvas extends Canvas{
 	public void zoomIn(){
 		this.updateDimensions(true); // zoom in
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
-		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
-		//Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
+		if (Paint.TABBED) {
+			Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
+		} else {
+			Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		}
 		this.imgToStack(this.getImage());
 
 	}
 	public void zoomOut(){
 		this.updateDimensions(false); // zoom out
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
-		Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
-		//Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
+		if (Paint.TABBED) {
+			Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
+		} else {
+			Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
+		}	
 		this.imgToStack(this.getImage());
 
 	}

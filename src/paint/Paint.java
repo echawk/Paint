@@ -6,6 +6,8 @@
 package paint;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
@@ -14,6 +16,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +37,8 @@ public class Paint extends Application {
 	public static EditToolBar edittoolbar;
 	
 	public static int mode = DEFAULT_MODE; //default to default...
+	
+	public static final boolean TABBED = false;
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -63,12 +68,16 @@ public class Paint extends Application {
 		Paint.edittoolbar.setVisible(false);
 		//would like it to be completely invisible, maybe adjust the max width and height
 	//tab pane
-		Paint.tab = new TabPane();
-		Paint.tab.getTabs().add(
-			new CustomTab("asdf")
-		);
-	//Paint.tab.getSelectionModel().getSelectedItem();
+		if (TABBED) {
+			Paint.tab = new TabPane();
+			Paint.tab.getTabs().add(
+				new CustomTab("Welcome!")
+			);
+		}
 
+	//color picker
+		Paint.colorpick.setValue(Color.BLACK);
+		
 	//scroll pane
 		Paint.scroll = new ScrollPane();
 		scroll.setContent(imgcanvas);
@@ -76,7 +85,11 @@ public class Paint extends Application {
 	
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
-		root.getChildren().addAll(menub, edittoolbar, Paint.tab);
+		if (TABBED) {
+			root.getChildren().addAll(menub, edittoolbar, tab);
+		} else {
+			root.getChildren().addAll(menub, edittoolbar, scroll);
+		}
 		//root.getChildren().addAll(imgcanvas, menub);
 		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
@@ -165,6 +178,17 @@ public class Paint extends Application {
 		
 		CustomTab t = new CustomTab(lbl);
 		t.setImage(i);
+		Paint.tab.getTabs().add(
+			t
+		);
+		Paint.tab.getSelectionModel().select(t);
+	}
+	
+	public static void addTab(File f) throws FileNotFoundException {
+		CustomTab t = new CustomTab(f.getName());
+		t.setImage(new Image(new FileInputStream(f)));
+		//t.imgcanvas.updateDimensions();
+		t.opened_file = f;
 		Paint.tab.getTabs().add(
 			t
 		);
