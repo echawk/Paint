@@ -1,5 +1,44 @@
 GITHUB: https://github.com/ehawkvu/Paint
 
+Paint 0.2.0 - Paint it, Black - 9/21/20
+
+Song: https://www.youtube.com/watch?v=Uf1TWSMCfWE
+
+Second Minor Release!!!
+
+New Features:
+	* Paint now supports using TABS!!!!! (EXTRA)
+		- This means you can have mulitple images open at once and switch between them.
+	* Added in A Drag and Drop Feature!!!
+		- This is the "big feature"
+	* New Text Box Draw option!
+	* In the about Window, it links to this document (on github)
+	* New Cropping Tool (Extra)
+	* New Blur Tool (Extra)
+		- Still experimental at this stage, doesn't work exactly as intended. (so is disabled by default)
+		- I want to figure out how to properly implement this tool, my thought is that you can draw a rectangle and the blur tool will apply a blur effect to the selected area (similar to the drag and drop)
+	* Added an Equilateral Triangle as a drawing option!
+	* Added an "Options" text field to allow for more complex operations on cetain draw commands
+		- Should serve as a general place to allow for finer grained control
+	* Added the ability to Draw an N-gon (using the new Options text field as an input for "N")
+	* Added more JavaDoc where it's needed.
+		- Most Classes now have JavaDoc in some form
+	* The color picker is now owned by paint, and allows you to pick colors from one image, and use them in a different image
+	* CustomCanvas objects no longer have their own brushSize, there is now a global brushSize manage by Paint itself
+		- Having the CustomCanvas objects behave the old way gave me Null Pointer Exceptions when using Paint tabbed
+	* Added a Redo Button to the Edit tool bar
+	* Added a "None" tool, which is the default.
+
+Known Bugs:
+	* Doesn't currently display the shape/line being drawn, this should be easy to remedy (I believe it would just involve drawing a shape onto the scrollpane and canvas, then disabling the one on the scrollpane), but because I extended Pain(t) to support tabs, this feature had to wait.
+	* Making the Undo & Redo methods work properly, and have a proper algorithm in place.
+
+
+Expected Features:
+	* Theming Support!!!
+	* Live Drawing of shapes/lines
+	* Auto Saving
+
 Paint 0.1.0 - Down with the Sickness - 9/11/20
 
 First Minor Release!
