@@ -86,11 +86,7 @@ public class Paint extends Application {
 		
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
-		if (TABBED) {
-			root.getChildren().addAll(menub, edittoolbar, tab);
-		} else {
-			root.getChildren().addAll(menub, edittoolbar, scroll);
-		}
+		root.getChildren().addAll(menub, edittoolbar, tab);
 		//root.getChildren().addAll(imgcanvas, menub);
 		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
 		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
