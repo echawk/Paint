@@ -116,13 +116,14 @@ public class CustomFileHandler {
 		// Get buffered image:
 		BufferedImage image = SwingFXUtils.fromFXImage(out_img, null);
 		BufferedImage imageRGB;
-		if (getFileExtension(Paint.getCurrentTab().opened_file).equals(
-			getFileExtension(opened_file))) {
-			System.out.println("Image Formats are the same.");
-		} else {
-			Popup.saveWarning();
+		if (Paint.getCurrentTab().opened_file != null) {
+			if (getFileExtension(Paint.getCurrentTab().opened_file).equals(
+				getFileExtension(opened_file))) {
+				System.out.println("Image Formats are the same.");
+			} else {
+				Popup.saveWarning();
+			}
 		}
-		
 		if (getFileExtension(opened_file).equals("jpg")){
 			// Remove alpha-channel from buffered image:
 			imageRGB = new BufferedImage(
