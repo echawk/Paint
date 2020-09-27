@@ -102,6 +102,7 @@ public class CustomFileHandler {
 			}
 			saveImage(out_img, Paint.opened_file);
 		}
+		Paint.getCurrentTab().imgHasBeenSaved = true;
 	}
 	
 	/**
@@ -115,7 +116,7 @@ public class CustomFileHandler {
 		String fn = f.getName(); //get the file name (not full path)
 		int pos = fn.lastIndexOf("."); //get the pos of the last period
 		if (pos > 0) {
-			return fn.substring(pos + 1); 
+			return fn.substring(pos + 1).toLowerCase();
 		//return the substring that is one greater than the last period
 		}
 		return "";  //might want to change this to be a sensible default
@@ -126,7 +127,7 @@ public class CustomFileHandler {
 	 * This method is responsible for saving out_img to opened_file, and
 	 * handles more output formats than the previous method of saving the image.
 	 * It also handles the new buffered image to create, based upon the opened_file's 
-	 * file extension, by removing the alpha channel from jpeg images.
+	 * file extension, by removing the alpha channel from jpg images.
 	 * 
 	 * @param out_img
 	 * @param opened_file 
