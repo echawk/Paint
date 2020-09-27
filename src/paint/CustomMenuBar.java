@@ -38,8 +38,18 @@ public class CustomMenuBar extends MenuBar {
 			about.setOnAction((ActionEvent event) -> {
 				Popup.launchAboutWindow();
 			});
-			
-		helpmenu.getItems().addAll(about);
+		MenuItem autosaveToggle = new MenuItem("AutoSave On");
+			autosaveToggle.setOnAction((ActionEvent event) -> {
+				if (Paint.AUTOSAVEON) {
+					Paint.AUTOSAVEON = false;
+					autosaveToggle.setText("AutoSave Off");
+				} else {
+					Paint.AUTOSAVEON = true;
+					autosaveToggle.setText("AutoSave On");
+				}
+			});
+		
+		helpmenu.getItems().addAll(about, autosaveToggle);
 		
 	
 	//View menu
@@ -57,8 +67,8 @@ public class CustomMenuBar extends MenuBar {
 						KeyCombination.CONTROL_DOWN));
 
 		
-		MenuItem zoomout = new MenuItem("Zoom Out");
-			zoomout.setOnAction((ActionEvent event) -> {
+		MenuItem zoomout = new MenuItem("Zoom Out");	
+		zoomout.setOnAction((ActionEvent event) -> {
 				if (Paint.TABBED) {
 					Paint.getCurrentTab().imgcanvas.zoomOut();
 				} else {

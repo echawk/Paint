@@ -36,8 +36,9 @@ public class Paint extends Application {
 	public static EditToolBar edittoolbar;
 	
 	public static int mode = DEFAULT_MODE; //default to default...
+	public static boolean AUTOSAVEON = true; 
 	
-	public static final boolean TABBED = true;
+	public static final boolean TABBED = true; //boolean until all of the if statements are removed
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -54,8 +55,9 @@ public class Paint extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-	
-		
+		//start up the autosave timer
+		Timer time = new Timer();
+		time.start();
 		
 	//setup the window pointer
 		Paint.window = primaryStage; //have window refer to primaryStage
@@ -66,7 +68,7 @@ public class Paint extends Application {
 	//edit toolbar
 		Paint.edittoolbar = new EditToolBar();
 		Paint.edittoolbar.setVisible(false);
-		//would like it to be completely invisible, maybe adjust the max width and height
+		//would like it to be completely invisible, maybe adjust the max width and height?
 	//tab pane
 		if (Paint.TABBED) {
 			Paint.tab = new TabPane();
