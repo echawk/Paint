@@ -48,11 +48,7 @@ public class EditToolBar extends ToolBar{
 		Button undobtn = new Button("Undo");
 			undobtn.setOnAction((ActionEvent event)-> {
 				try {
-					if (Paint.TABBED) {
-						Paint.getCurrentTab().imgcanvas.undo();	
-					} else {
-						Paint.imgcanvas.undo();
-					}
+					Paint.getCurrentTab().imgcanvas.undo();	
 				} catch (Exception e) {
 					System.out.println("Undo Button On-Action Failed:" + e);
 				}
@@ -61,11 +57,7 @@ public class EditToolBar extends ToolBar{
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
 				try {
-					if (Paint.TABBED) {
-						Paint.getCurrentTab().imgcanvas.redo();
-					} else {
-						Paint.imgcanvas.redo();
-					}
+					Paint.getCurrentTab().imgcanvas.redo();
 				} catch (Exception e) {
 					System.out.println("Redo Button On-Action Failed:" + e);
 				}
