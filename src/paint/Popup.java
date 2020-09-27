@@ -111,6 +111,21 @@ public class Popup {
 		aboutStage.show();
 	}
 	
+	public static void saveWarning() {
+		Stage saveWarnStage = new Stage();
+		saveWarnStage.initOwner(Paint.window);
+		VBox vb = new VBox();
+		Text warning = new Text("Warning, You are saving an image as a different filetype, and there could be potential loss of data.");
+		Button okbtn = new Button("Ok");
+		okbtn.setOnAction(e -> {
+			saveWarnStage.close();
+		});
+		vb.getChildren().addAll(warning, okbtn);
+		Scene savewarn = new Scene(vb, 700, 100);
+		saveWarnStage.setScene(savewarn);
+		saveWarnStage.show();	
+	}
+	
 	public static void closeConfirmation() {
 		Stage closeConfirmStage = new Stage();
 		closeConfirmStage.initOwner(Paint.window);
