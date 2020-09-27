@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ScrollPane;
@@ -37,9 +38,7 @@ public class Paint extends Application {
 	
 	public static int mode = DEFAULT_MODE; //default to default...
 	public static boolean AUTOSAVEON = true; 
-	
-	public static final boolean TABBED = true; //boolean until all of the if statements are removed
-	
+		
 	//pointers
 	public static Stage window; //basically primaryStage
 	
@@ -55,10 +54,8 @@ public class Paint extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		//start up the autosave timer
-		Timer time = new Timer();
-		time.start();
 		
+		Platform.setImplicitExit(false);
 	//setup the window pointer
 		Paint.window = primaryStage; //have window refer to primaryStage
 		
@@ -101,6 +98,13 @@ public class Paint extends Application {
 		primaryStage.show();
 		
 		//Maybe have a welcome window? 
+	
+		//start up the autosave timer
+		Timer time = new Timer();
+		//Platform.runLater(time);
+		//Thread timeThread = new Thread(time);
+		//timeThread.start();
+
 	}
 
 	/**
