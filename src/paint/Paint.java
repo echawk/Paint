@@ -32,52 +32,42 @@ public class Paint extends Application {
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
 	
-	//Some global variables that control some vital parts of the program
-	public static CustomMenuBar menub;
-	public static EditToolBar edittoolbar;
-	
-	public static int mode = DEFAULT_MODE; //default to default...
-	public static boolean AUTOSAVEON = true; 
-		
 	//pointers
 	public static Stage window; //basically primaryStage
-	
 	public static TabPane tab;
-	
-	//Moving these to CustomTab
-	public static File opened_file; //whatever file is opened
-	public static Image opened_image; 
-	public static ScrollPane scroll;
-	public static CustomCanvas imgcanvas = new CustomCanvas();
+	public static CustomMenuBar menub;
+	public static EditToolBar edittoolbar;
+
+	//Variables
+	public static int mode = DEFAULT_MODE; //default to default...
+	public static boolean AUTOSAVEON = true; //have autosave be on by default
 	public static ColorPicker colorpick = new ColorPicker();
 	public static double brushSize = 5;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-		Platform.setImplicitExit(false);
+		//Platform.setImplicitExit(false);
+		
 	//setup the window pointer
 		Paint.window = primaryStage; //have window refer to primaryStage
-		
-	//menu bar
-		Paint.menub = new CustomMenuBar();
 		
 	//edit toolbar
 		Paint.edittoolbar = new EditToolBar();
 		Paint.edittoolbar.setVisible(false);
 		//would like it to be completely invisible, maybe adjust the max width and height?
+	
+	//menu bar
+		Paint.menub = new CustomMenuBar();
+		
 	//tab pane
 		Paint.tab = new TabPane();
 		Paint.tab.getTabs().add(
 			new CustomTab("Welcome!")
 		);
+		
 	//color picker
 		Paint.colorpick.setValue(Color.BLACK);
-		
-	//scroll pane
-		Paint.scroll = new ScrollPane();
-		scroll.setContent(imgcanvas);
-		//scroll.setVisible(false);
 		
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
