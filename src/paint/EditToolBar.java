@@ -40,6 +40,7 @@ public class EditToolBar extends ToolBar{
 	//Extras
 	public final String BLUR = "Blur";
 	public final String CROP = "Crop";
+	public final String ROTATE = "Rotate";
 	
 	public EditToolBar() {
 		
@@ -79,9 +80,10 @@ public class EditToolBar extends ToolBar{
 				this.NGON,
 				this.COLOR_GRAB,
 				this.TEXTBOX,
-				this.BLUR,
 				this.CROP,
 				this.DRAGDROP,
+				this.ROTATE, // broken
+				this.BLUR, //broken
 				this.ERASE
 		);
 		drawoptionmenu.setValue(this.NONE); //Set our default value to be NONE

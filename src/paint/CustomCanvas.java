@@ -255,6 +255,8 @@ public class CustomCanvas extends Canvas{
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.BLUR)) {
+					//INCOMPLETE
+					
 					//Three steps:
 					//1 get image
 					//2 apply blur effect to image
@@ -280,7 +282,39 @@ public class CustomCanvas extends Canvas{
 					);			
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
-				}
+				}  else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.ROTATE)) {
+					
+					//INCOMPLETE
+					//Three steps:
+					//1 - get selection
+					//2 - rotate selectin
+					//3 - draw rotated selection
+					
+					//1
+					PixelReader r = this.getImage().getPixelReader();
+					WritableImage wi = new WritableImage(
+						r,
+						roundDouble(this.mouseCoord.getKey()),
+						roundDouble(this.mouseCoord.getValue()),
+						roundDouble(e.getX() - this.mouseCoord.getKey()),
+						roundDouble(e.getY() - this.mouseCoord.getValue())
+					);
+					
+					//2
+					CustomCanvas t = new CustomCanvas();
+					t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
+					t.gc.drawImage(wi, 0, 0);
+					
+					//3
+					this.gc.drawImage(
+						t.getImage(),
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue()
+					);
+					
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+				}	
 			this.imgToStack(this.getImage());
 			}
 			
