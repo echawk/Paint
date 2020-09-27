@@ -45,11 +45,7 @@ public class CustomFileHandler {
 	public static void saveAsFile(Window stage) {
 		// add ', File f' to the args?
 		Image out_img;
-		if (Paint.TABBED) {
-			out_img = Paint.getCurrentTab().imgcanvas.getImage();
-		} else {
-			out_img = Paint.imgcanvas.getImage();
-		}
+		out_img = Paint.getCurrentTab().imgcanvas.getImage();
 		if (out_img == null){ //Check to make sure there is a file to save
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return; // should raise an error here (like a pop-up box)
@@ -63,12 +59,8 @@ public class CustomFileHandler {
 		//need to have a catcher for if the save dialog is cancelled
 		
 		saveImage(out_img, out_file);
-		if (Paint.TABBED) {
-			Paint.getCurrentTab().opened_file = out_file; // update the name of the tab too
-			Paint.getCurrentTab().setText(out_file.getName());
-		} else {
-			Paint.opened_file = out_file;
-		}
+		Paint.getCurrentTab().opened_file = out_file; // update the name of the tab too
+		Paint.getCurrentTab().setText(out_file.getName());
 	}
 	
 	/**
@@ -79,29 +71,17 @@ public class CustomFileHandler {
 	public static void saveFile() {
 		//Line below needs to change
 		Image out_img;
-		if (Paint.TABBED) {
-			out_img = Paint.getCurrentTab().imgcanvas.getImage();
-		} else {
-			out_img = Paint.imgcanvas.getImage();
-		}
+		out_img = Paint.getCurrentTab().imgcanvas.getImage();
 		
 		if  (out_img == null){
 			System.out.println("Warning. No image in Canvas. Failed to save.");
 			return;
 		}
-		if (Paint.TABBED) {
-			if (Paint.getCurrentTab().opened_file == null) {
-				saveAsFile(Paint.window);
-				return;
-			}
-			saveImage(out_img, Paint.getCurrentTab().opened_file);
-		} else {
-			if (Paint.opened_file == null) {
-				saveAsFile(Paint.window);
-				return;
-			}
-			saveImage(out_img, Paint.opened_file);
+		if (Paint.getCurrentTab().opened_file == null) {
+			saveAsFile(Paint.window);
+			return;
 		}
+		saveImage(out_img, Paint.getCurrentTab().opened_file);
 		Paint.getCurrentTab().imgHasBeenSaved = true;
 	}
 	
