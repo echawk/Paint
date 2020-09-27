@@ -46,20 +46,8 @@ public class CustomFileMenu extends Menu {
 		MenuItem open = new MenuItem("Open");
 			open.setOnAction((ActionEvent event) -> {
 				try {
-					
-					if (Paint.TABBED) {
-						File f = CustomFileHandler.openFile(Paint.window);
-						Paint.addTab(f);
-					} else {
-						Paint.opened_file = CustomFileHandler.openFile(Paint.window);
-						//convert the opened file to a file input stream, then to an image
-						Paint.setImage(new Image(
-							new FileInputStream(
-								Paint.opened_file
-							)
-						));
-						Paint.imgcanvas.updateDimensions(); //works!!	
-					}
+					File f = CustomFileHandler.openFile(Paint.window);
+					Paint.addTab(f);
 				} catch (FileNotFoundException ex) {
 					System.out.println("File was not found");
 				}
@@ -79,11 +67,7 @@ public class CustomFileMenu extends Menu {
 
 		MenuItem clear = new MenuItem("Clear");
 			clear.setOnAction((ActionEvent event) -> {
-				if (Paint.TABBED) {
-					Paint.getCurrentTab().clearImage();
-				} else {
-					Paint.clearImage();
-				}
+				Paint.getCurrentTab().clearImage();
 			});
 			
 		MenuItem newimage = new MenuItem("New");
