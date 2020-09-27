@@ -6,12 +6,13 @@
 package paint;
 
 import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 
 /**
  *
  * @author ethan
  */
-public class Timer extends Thread {
+public class Timer implements Runnable {
 	
 	public int time;
 	public int autosavemultiple = 20;
@@ -24,9 +25,16 @@ public class Timer extends Thread {
 				this.time++;
 				//if 5 minutes have passed
 				if (this.time % this.autosavemultiple == 0) {
+					System.out.println("Attempting Autosave...");
 					//if the current tab's image hasn't been saved
-					if (!Paint.getCurrentTab().imgHasBeenSaved) {
-						CustomFileHandler.saveFile();
+					if (Paint.getCurrentTab().opened_image != null) {
+						if (!Paint.getCurrentTab().imgHasBeenSaved) {
+							try {
+							CustomFileHandler.saveFile(); //gives me an error
+							} catch (Exception ex) {
+								System.out.println("Error with 'saveFile()':" + ex);
+							}
+						}
 					}
 				}
 				System.out.println("Current Time:" + this.time);
