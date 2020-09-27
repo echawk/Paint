@@ -100,7 +100,7 @@ public class Paint extends Application {
 		//Maybe have a welcome window? 
 	
 		//start up the autosave timer
-		Timer time = new Timer();
+		//AutoSaveTimer time = new AutoSaveTimer();
 		//Platform.runLater(time);
 		//Thread timeThread = new Thread(time);
 		//timeThread.start();
@@ -113,24 +113,7 @@ public class Paint extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	//moved to CustomTab
-	public static void clearImage(){
-		//set the image to be nothing
-		Paint.opened_file = null;
-			/* set the opened_file to be null,to prevent accidentally 
-			saving & deleting the image
-			*/
-		Paint.opened_image = null; //Same reasoning as above ^^^
-		Paint.setImage(null);
-	}
-	
-	//moved to CustomTab
-	public static void setImage(Image img){
-		Paint.opened_image = img; //set the opened_image pointer to image
-		Paint.imgcanvas.updateDimensions(); //update the canvas dimensions
-		Paint.imgcanvas.gc.drawImage(opened_image, 0, 0);
-	}
+		
 	/**
 	 * Closes Paint nicely.
 	 */
@@ -165,9 +148,6 @@ public class Paint extends Application {
 		Paint.edittoolbar.setVisible(false);
 	}
 	
-	public static void setScrollPrefSize(double x, double y){
-		Paint.scroll.setPrefSize(x, y);
-	}
 	/**
 	 * This method is intended to be a general purpose update script, currently
 	 * it only handles showing and hiding the edit tool bar, but it could be expanded
