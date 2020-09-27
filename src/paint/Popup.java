@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -43,12 +44,8 @@ public class Popup {
 				);
 				ImageView iv = new ImageView(wi);
 			
-				if (Paint.TABBED) {
-					String rn = "Untitled";
-					Paint.addTab(rn, wi);
-				} else {
-					Paint.setImage(iv.getImage());
-				}
+				String rn = "Untitled";
+				Paint.addTab(rn, wi);
 				createnewimgStage.close();
 			});
 			
@@ -113,4 +110,28 @@ public class Popup {
 		aboutStage.setTitle("About");
 		aboutStage.show();
 	}
+	
+	public static void closeConfirmation() {
+		Stage closeConfirmStage = new Stage();
+		closeConfirmStage.initOwner(Paint.window);
+		VBox vb = new VBox();
+		Text warning = new Text("Warning, You could lose unsaved moidifcations! Save?");
+		Button yesbtn = new Button("Yes");
+		yesbtn.setOnAction(e -> {
+			CustomFileHandler.saveFile();
+			closeConfirmStage.close();
+		});
+		Button nobtn = new Button("No");
+		nobtn.setOnAction(e -> {
+			closeConfirmStage.close();
+		});
+		
+		vb.getChildren().addAll(warning, yesbtn, nobtn);
+		
+		Scene closeConfirmScene = new Scene(vb, 400, 100);
+		closeConfirmStage.setScene(closeConfirmScene);
+		closeConfirmStage.show();
+	}
+	
+	
 }
