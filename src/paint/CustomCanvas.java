@@ -79,7 +79,7 @@ public class CustomCanvas extends Canvas{
 						e.getX(),
 						e.getY()
 					);
-					
+					Paint.getCurrentTab().imgHasBeenSaved = false;
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CIRCLE)) {
@@ -97,6 +97,7 @@ public class CustomCanvas extends Canvas{
 						l, 
 						l
 					);
+					Paint.getCurrentTab().imgHasBeenSaved = false;
 
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
@@ -108,7 +109,8 @@ public class CustomCanvas extends Canvas{
 						(e.getX() - this.mouseCoord.getKey()),
 						(e.getY() - this.mouseCoord.getValue())
 					);
-				
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.RECTANGLE)) {
@@ -119,7 +121,8 @@ public class CustomCanvas extends Canvas{
 						(e.getX() - this.mouseCoord.getKey()), 
 						(e.getY() - this.mouseCoord.getValue())
 					);
-					
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.SQUARE)) {
@@ -137,6 +140,8 @@ public class CustomCanvas extends Canvas{
 						s,
 						s
 					);
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TEXTBOX)) {
@@ -151,6 +156,8 @@ public class CustomCanvas extends Canvas{
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue()
 					);
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TRIANGLE)){
@@ -165,6 +172,8 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, 3);
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.NGON)) {
@@ -187,7 +196,9 @@ public class CustomCanvas extends Canvas{
 					double[] yp = (double[]) PolygonPts.getValue();
 					
 					this.gc.fillPolygon(xp, yp, n);
+					Paint.getCurrentTab().imgHasBeenSaved = false;
 					
+
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.CROP)) {
 					
@@ -206,6 +217,9 @@ public class CustomCanvas extends Canvas{
 					} else {
 						Paint.setImage(wi);
 					}
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.DRAGDROP)) {
 					
@@ -244,6 +258,9 @@ public class CustomCanvas extends Canvas{
 					);
 					//set the image back to null
 					this.drag_drop_image = null;
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
+					
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.BLUR)) {
 					//Three steps:
@@ -269,6 +286,8 @@ public class CustomCanvas extends Canvas{
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue()
 					);			
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 				}
 			this.imgToStack(this.getImage());
 			}
@@ -289,6 +308,8 @@ public class CustomCanvas extends Canvas{
 					this.gc.clearRect(x, y, bsize, bsize);
 					
 					this.imgToStack(this.getImage());
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.PENCIL)) {
 					
@@ -296,6 +317,8 @@ public class CustomCanvas extends Canvas{
 					this.gc.fillRect(x, y, bsize, bsize);
 					
 					this.imgToStack(this.getImage());
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
 				} 
 				/*
 				//Experimental; dont expect to work

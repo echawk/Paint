@@ -20,12 +20,19 @@ public class CustomTab extends Tab {
 	public File opened_file;
 	public Image opened_image;
 	public CustomCanvas imgcanvas = new CustomCanvas();
+	public boolean imgHasBeenSaved;
 	
 	public CustomTab(String label){
 		super(label);
 		
 		this.scroll = new ScrollPane();
 		this.scroll.setContent(this.imgcanvas);
+		
+		this.setOnCloseRequest(e -> {
+			//if the file hasn't been saved, ask if the user would 
+			//like to save it
+			//Popup.closeConfirmation();
+		});
 		
 		//set the tab to have the scroll
 		this.setContent(this.scroll);
