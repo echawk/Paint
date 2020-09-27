@@ -70,12 +70,10 @@ public class Paint extends Application {
 		Paint.edittoolbar.setVisible(false);
 		//would like it to be completely invisible, maybe adjust the max width and height?
 	//tab pane
-		if (Paint.TABBED) {
-			Paint.tab = new TabPane();
-			Paint.tab.getTabs().add(
-				new CustomTab("Welcome!")
-			);
-		}
+		Paint.tab = new TabPane();
+		Paint.tab.getTabs().add(
+			new CustomTab("Welcome!")
+		);
 	//color picker
 		Paint.colorpick.setValue(Color.BLACK);
 		
