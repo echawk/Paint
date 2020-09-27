@@ -146,11 +146,7 @@ public class CustomCanvas extends Canvas{
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
 					Paint.edittoolbar.TEXTBOX)) {
 					
-					if (Paint.TABBED) {
-						this.gc.setFont(new Font(Paint.brushSize));
-					} else {
-						this.gc.setFont(new Font(Paint.brushSize));
-					}
+					this.gc.setFont(new Font(Paint.brushSize));
 					
 					this.gc.fillText(Paint.edittoolbar.getOptionsField(),
 						this.mouseCoord.getKey(),
@@ -212,11 +208,7 @@ public class CustomCanvas extends Canvas{
 						roundDouble(e.getX() - this.mouseCoord.getKey()),
 						roundDouble(e.getY() - this.mouseCoord.getValue())
 					);
-					if (Paint.TABBED) {
-						Paint.getCurrentTab().setImage(wi);
-					} else {
-						Paint.setImage(wi);
-					}
+					Paint.getCurrentTab().setImage(wi);
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
 					
@@ -347,24 +339,13 @@ public class CustomCanvas extends Canvas{
 	public void updateDimensions() {
 		//Also potential thought, I may have the image be a proportion of the current window size,
 		//so that when the main window is resized, the image resizes with it.
-		if (Paint.TABBED) {
-			if (Paint.getCurrentTab().opened_image != null) {
-				this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
-				this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
-			} else {
-				this.setHeight(0);
-				this.setWidth(0);
-			}
+		if (Paint.getCurrentTab().opened_image != null) {
+			this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
+			this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
 		} else {
-			if (Paint.opened_image != null) {	
-				this.setHeight(Paint.opened_image.getHeight());
-				this.setWidth(Paint.opened_image.getWidth());
-			} else { // if the image is null, set the dimensions to zero
-				this.setHeight(0);
-				this.setWidth(0);
-			}
+			this.setHeight(0);
+			this.setWidth(0);
 		}
-		
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
@@ -396,22 +377,14 @@ public class CustomCanvas extends Canvas{
 	public void zoomIn(){
 		this.updateDimensions(true); // zoom in
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
-		if (Paint.TABBED) {
-			Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
-		} else {
-			Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
-		}
+		Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
 	public void zoomOut(){
 		this.updateDimensions(false); // zoom out
 		this.gc.drawImage(this.getImage(), 0, 0, this.getWidth(), this.getHeight());
-		if (Paint.TABBED) {
-			Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
-		} else {
-			Paint.setScrollPrefSize(this.getWidth(), this.getHeight());
-		}	
+		Paint.getCurrentTab().setScrollPrefSize(this.getWidth(), this.getHeight());
 		this.imgToStack(this.getImage());
 
 	}
@@ -446,11 +419,7 @@ public class CustomCanvas extends Canvas{
 		if (! undoStack.empty()) { //if the image stack is not empty
 			redoStack.add(undoStack.pop());
 			if (! undoStack.empty()) {
-				if (Paint.TABBED) {
-					Paint.getCurrentTab().setImage(undoStack.pop());
-				} else {
-					Paint.setImage(undoStack.pop());
-				}
+				Paint.getCurrentTab().setImage(undoStack.pop());
 				System.out.println("Undo was Successful!");
 			}
 		}
@@ -463,11 +432,7 @@ public class CustomCanvas extends Canvas{
 	public void redo() {
 		if (! redoStack.empty()) {
 			Image lastimg = redoStack.pop(); //get the last image
-			if (Paint.TABBED) {
-				Paint.getCurrentTab().setImage(lastimg);
-			} else {
-				Paint.setImage(lastimg);
-			}
+			Paint.getCurrentTab().setImage(lastimg);
 			undoStack.add(lastimg);
 		}
 	}
