@@ -6,11 +6,9 @@
 package paint;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
