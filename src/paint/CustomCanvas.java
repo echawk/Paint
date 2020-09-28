@@ -9,6 +9,7 @@ import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -278,6 +279,31 @@ public class CustomCanvas extends Canvas{
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
 				}  else if (Paint.edittoolbar.getDrawSelection().equals(
+						Paint.edittoolbar.SEPIA)) {
+					PixelReader r = this.getImage().getPixelReader();
+					WritableImage wi = new WritableImage(
+						r,
+						roundDouble(this.mouseCoord.getKey()),
+						roundDouble(this.mouseCoord.getValue()),
+						roundDouble(e.getX() - this.mouseCoord.getKey()),
+						roundDouble(e.getY() - this.mouseCoord.getValue())
+					);
+					
+					CustomCanvas t = new CustomCanvas();
+					t.updateDimensions(wi); //need to make sure the canvas has dimensions
+					t.gc.setEffect(new SepiaTone());
+					t.gc.drawImage(wi, 0, 0);
+					//Popup.showImage(t.getImage()); //DEBUG
+					this.gc.drawImage(
+						t.getImage(),
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue()
+					);			
+					Paint.getCurrentTab().imgHasBeenSaved = false;
+
+				
+				
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
 						Paint.edittoolbar.ROTATE)) {
 					
 					//INCOMPLETE
