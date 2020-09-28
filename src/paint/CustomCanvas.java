@@ -8,16 +8,12 @@ package paint;
 import java.util.Stack;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Blend;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.MotionBlur;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
 
@@ -28,9 +24,6 @@ import javafx.util.Pair;
 public class CustomCanvas extends Canvas{
 	
 	public GraphicsContext gc; //pointer to the graphics context of the canvas
-	
-	//public double brushSize = 5; //set a default size of 5
-	//public ColorPicker colorpick = new ColorPicker();
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
@@ -64,7 +57,7 @@ public class CustomCanvas extends Canvas{
 			//this.imgToStack(this.getImage());
 		});
 		
-		this.setOnMouseReleased(e -> {
+		this.setOnMouseReleased((MouseEvent e) -> {
 			this.gc.setFill(Paint.colorpick.getValue());
 			this.gc.setStroke(Paint.colorpick.getValue());
 			this.gc.setLineWidth(Paint.brushSize);
@@ -273,10 +266,12 @@ public class CustomCanvas extends Canvas{
 					);
 					
 					CustomCanvas t = new CustomCanvas();
+					t.updateDimensions(wi); //need to make sure the canvas has dimensions
 					t.gc.setEffect(new GaussianBlur());
 					t.gc.drawImage(wi, 0, 0);
+					//Popup.showImage(t.getImage()); //DEBUG
 					this.gc.drawImage(
-						t.snapshot(null, null),
+						t.getImage(),
 						this.mouseCoord.getKey(),
 						this.mouseCoord.getValue()
 					);			
@@ -303,9 +298,11 @@ public class CustomCanvas extends Canvas{
 					
 					//2
 					CustomCanvas t = new CustomCanvas();
-					t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
+					t.updateDimensions(wi);
 					t.gc.drawImage(wi, 0, 0);
-					
+					//doesn't work
+					//t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
+					Popup.showImage(t.getImage()); //DEBUG
 					//3
 					this.gc.drawImage(
 						t.getImage(),
@@ -380,6 +377,11 @@ public class CustomCanvas extends Canvas{
 			this.setHeight(0);
 			this.setWidth(0);
 		}
+	}
+	
+	public void updateDimensions(Image i) {
+		this.setHeight(i.getHeight());
+		this.setWidth(i.getWidth());
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
@@ -495,7 +497,5 @@ public class CustomCanvas extends Canvas{
 
 		return new Pair(xp, yp);
 	}
-	
-	
 	
 }
