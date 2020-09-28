@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
 
@@ -33,10 +34,12 @@ public class CustomCanvas extends Canvas{
 	
 	private Image drag_drop_image = null;
 	
+	private Rectangle r;
+	
 	public CustomCanvas(){
 		super();
 		
-		this.imgToStack(this.getImage());
+		//this.imgToStack(this.getImage());
 		
 		this.gc = this.getGraphicsContext2D();
 		this.mouseCoord = new Pair(0, 0);
@@ -52,6 +55,15 @@ public class CustomCanvas extends Canvas{
 						roundDouble(e.getX()),
 						roundDouble(e.getY())
 					));
+				} else if (Paint.edittoolbar.getDrawSelection().equals(
+						EditToolBar.RECTANGLE)) {
+					this.r = new Rectangle(
+						this.mouseCoord.getKey(),
+						this.mouseCoord.getValue(),
+						0,
+						0
+					);
+					
 				}
 			}
 			//this.imgToStack(this.getImage());
@@ -101,7 +113,10 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							(e.getX() - this.mouseCoord.getKey()),
 							(e.getY() - this.mouseCoord.getValue())
-						);	Paint.getCurrentTab().imgHasBeenSaved = false;
+						);	
+						Paint.getCurrentTab().pane.getChildren().remove(this.r);
+						this.r = null;
+						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.SQUARE:
 						double s;
@@ -338,6 +353,11 @@ public class CustomCanvas extends Canvas{
 					this.imgToStack(this.getImage());
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
+				}  else if (Paint.edittoolbar.getDrawSelection().equals(
+						EditToolBar.RECTANGLE)) {
+					this.r.setWidth(e.getX() - this.mouseCoord.getKey());
+					this.r.setHeight(e.getY() - this.mouseCoord.getValue());
+					Paint.getCurrentTab().pane.getChildren().add(this.r);
 				} 
 				//this.imgToStack(this.getImage());
 			}

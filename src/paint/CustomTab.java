@@ -9,6 +9,7 @@ import java.io.File;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -21,12 +22,14 @@ public class CustomTab extends Tab {
 	public Image opened_image;
 	public CustomCanvas imgcanvas = new CustomCanvas();
 	public boolean imgHasBeenSaved;
+	public Pane pane = new Pane();
 	
 	public CustomTab(String label){
 		super(label);
 		
 		this.scroll = new ScrollPane();
-		this.scroll.setContent(this.imgcanvas);
+		this.pane.getChildren().add(this.imgcanvas);
+		this.scroll.setContent(this.pane);
 		
 		this.setOnCloseRequest(e -> {
 			//if the file hasn't been saved, ask if the user would 
