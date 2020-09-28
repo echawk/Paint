@@ -39,7 +39,6 @@ public class CustomCanvas extends Canvas{
 		this.imgToStack(this.getImage());
 		
 		this.gc = this.getGraphicsContext2D();
-		//this.colorpick.setValue(Color.BLACK);
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
@@ -47,7 +46,7 @@ public class CustomCanvas extends Canvas{
 			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
-						Paint.edittoolbar.COLOR_GRAB)) {
+						EditToolBar.COLOR_GRAB)) {
 					
 					Paint.colorpick.setValue(this.getImage().getPixelReader().getColor(
 						roundDouble(e.getX()),
@@ -141,6 +140,11 @@ public class CustomCanvas extends Canvas{
 						}
 					case EditToolBar.NGON:
 						{
+							//1 - get number of sides
+							//2 - get the proper points
+							//3 - fill the poly gon
+							
+							//1
 							int n = 0;
 							try {
 								n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
@@ -152,16 +156,20 @@ public class CustomCanvas extends Canvas{
 								this.mouseCoord,
 								roundDouble(e.getX())
 							);		
+							//2
 							double[] xp = (double[]) PolygonPts.getKey();
 							double[] yp = (double[]) PolygonPts.getValue();
+							//3
 							this.gc.fillPolygon(xp, yp, n);
 							Paint.getCurrentTab().imgHasBeenSaved = false;
 							break;
 						}
 					case EditToolBar.CROP:
 						{
-							//I could use somethign similar to what I've done
-							//here for the drag and drop method
+							//1 - save selection to image
+							//2 - set the canvas to be the new image
+							
+							//1
 							PixelReader r = this.getImage().getPixelReader();
 							WritableImage wi = new WritableImage(
 								r,
@@ -169,7 +177,8 @@ public class CustomCanvas extends Canvas{
 								roundDouble(this.mouseCoord.getValue()),
 								roundDouble(e.getX() - this.mouseCoord.getKey()),
 								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		
+							);
+							//2
 							Paint.getCurrentTab().setImage(wi);
 							Paint.getCurrentTab().imgHasBeenSaved = false;
 							break;
@@ -267,7 +276,7 @@ public class CustomCanvas extends Canvas{
 							//INCOMPLETE
 							//Three steps:
 							//1 - get selection
-							//2 - rotate selectin
+							//2 - rotate selection
 							//3 - draw rotated selection
 							
 							//1
@@ -278,7 +287,8 @@ public class CustomCanvas extends Canvas{
 								roundDouble(this.mouseCoord.getValue()),
 								roundDouble(e.getX() - this.mouseCoord.getKey()),
 								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		//2
+							);		
+							//2
 							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi);
 							t.gc.save();
@@ -312,7 +322,7 @@ public class CustomCanvas extends Canvas{
 			//if in edit mode
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				if (Paint.edittoolbar.getDrawSelection().equals(
-						Paint.edittoolbar.ERASE)) {
+						EditToolBar.ERASE)) {
 					
 					this.gc.clearRect(x, y, bsize, bsize);
 					
@@ -320,7 +330,7 @@ public class CustomCanvas extends Canvas{
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
 				} else if (Paint.edittoolbar.getDrawSelection().equals(
-						Paint.edittoolbar.PENCIL)) {
+						EditToolBar.PENCIL)) {
 					
 					this.gc.setFill(Paint.colorpick.getValue());
 					this.gc.fillRect(x, y, bsize, bsize);
@@ -329,18 +339,6 @@ public class CustomCanvas extends Canvas{
 					Paint.getCurrentTab().imgHasBeenSaved = false;
 
 				} 
-				/*
-				//Experimental; dont expect to work
-				else if (Paint.edittoolbar.getDrawSelection().equals(
-						Paint.edittoolbar.BLUR)) {
-					
-					this.gc.setEffect(new GaussianBlur());
-					this.gc.setFill(Color.TRANSPARENT);
-					this.gc.fillOval(x, y, bsize, bsize);
-					//this.gc.fillRect(x, y, bsize, bsize);
-					this.gc.setEffect(null);
-				}	
-				*/
 				//this.imgToStack(this.getImage());
 			}
 		});
@@ -364,6 +362,12 @@ public class CustomCanvas extends Canvas{
 			this.setWidth(0);
 		}
 	}
+	
+	/**
+	 * Update the canvas dimensions to be that of an image.
+	 * 
+	 * @param i The image who's dimensions you want to set the canvas to
+	 */
 	
 	public void updateDimensions(Image i) {
 		this.setHeight(i.getHeight());

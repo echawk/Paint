@@ -116,7 +116,7 @@ public class Popup {
 		Stage saveWarnStage = new Stage();
 		saveWarnStage.initOwner(Paint.window);
 		VBox vb = new VBox();
-		Text warning = new Text("Warning, You are saving an image as a different filetype, and there could be potential loss of data.");
+		Text warning = new Text("Warning, You saved an image as a different filetype, and there could be potential loss of data.");
 		Button okbtn = new Button("Ok");
 		okbtn.setOnAction(e -> {
 			saveWarnStage.close();
@@ -128,6 +128,7 @@ public class Popup {
 	}
 	
 	public static void closeConfirmation() {
+		//maybe make this a boolean method?
 		Stage closeConfirmStage = new Stage();
 		closeConfirmStage.initOwner(Paint.window);
 		VBox vb = new VBox();
@@ -148,7 +149,13 @@ public class Popup {
 		closeConfirmStage.setScene(closeConfirmScene);
 		closeConfirmStage.show();
 	}
-	
+	/**
+	 * 
+	 * Make a Popup window with whatever the provided Image is; meant to help in 
+	 * debugging.
+	 * 
+	 * @param i The image to show.
+	 */
 	public static void showImage(Image i) {
 		Stage showImage = new Stage();
 		showImage.initOwner(Paint.window);
