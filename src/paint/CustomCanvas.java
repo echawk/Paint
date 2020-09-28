@@ -421,7 +421,7 @@ public class CustomCanvas extends Canvas{
 	 */
 	private void imgToStack(Image i) {
 		this.undoStack.push(i);
-		this.redoStack = null; // reset the redo stack (should only be able to redo what you've undone)
+		this.redoStack.clear(); // reset the redo stack (should only be able to redo what you've undone
 		System.out.println("Added Image to undo Stack");
 	}
 	
@@ -443,12 +443,29 @@ public class CustomCanvas extends Canvas{
 	 * 
 	 */
 	public void undo() {
-		if (! undoStack.empty()) { //if the image stack is not empty
-			redoStack.add(undoStack.pop());
+		if (! this.undoStack.empty()) { //if the image stack is not empty
+			//System.out.println("CustomCanvas.java; undoStack isn't empty");
+			Image i = this.undoStack.pop();
+			//Popup.showImage(i);
+			try { 
+				this.redoStack.add(i); //this line breaks undo for some reason (null pointer exception)
+			} catch (Exception e) {
+				System.out.println("CustomCanvas.java; Failed to add i to redoStack:" + e);
+			}
+			try {
+				Paint.getCurrentTab().setImage(i);
+			} catch (Exception e) {
+				System.out.println("CustomCanvas.java; Failed to execute setImage():" + e);
+			}
+			
+			/*
 			if (! undoStack.empty()) {
 				Paint.getCurrentTab().setImage(undoStack.pop());
 				System.out.println("Undo was Successful!");
 			}
+			*/
+		} else {
+			System.out.println("CustomCanvas.java; undoStack is empty");
 		}
 	}
 	/**

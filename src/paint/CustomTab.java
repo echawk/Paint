@@ -44,13 +44,18 @@ public class CustomTab extends Tab {
 	 * @param img The image object you want to be in this tab
 	 */
 	public void setImage(Image img) {
-		this.opened_image = img; //set the opened_image pointer to image
-		this.imgcanvas.updateDimensions(); //update the canvas dimensions
-		this.imgcanvas.gc.drawImage(
-			opened_image,
-			0, 
-			0
-		);
+		try {
+			this.opened_image = img; //set the opened_image pointer to image
+			this.imgcanvas.updateDimensions(); //update the canvas dimensions
+			this.imgcanvas.gc.drawImage(
+				opened_image,
+				0, 
+				0
+			);
+			System.out.println("CustomTab.java; setImage succeeded.");
+		} catch (Exception e) {
+			System.out.println("CustomTab.java; Failed to setImage:" + e);
+		}
 	}
 	/**
 	 * Clears whatever the opened image is for the tab, it is made obsolete by 
@@ -78,4 +83,13 @@ public class CustomTab extends Tab {
 	public void setScrollPrefSize(double x, double y){
 		this.scroll.setPrefSize(x, y);
 	}
+	
+	public void undo(){
+		this.imgcanvas.undo();
+	}
+	
+	public void redo() {
+		this.imgcanvas.redo();
+	}
+	
 }
