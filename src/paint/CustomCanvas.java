@@ -325,10 +325,11 @@ public class CustomCanvas extends Canvas{
 					//2
 					CustomCanvas t = new CustomCanvas();
 					t.updateDimensions(wi);
+					t.gc.save();
+					t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
 					t.gc.drawImage(wi, 0, 0);
-					//doesn't work
-					//t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
-					Popup.showImage(t.getImage()); //DEBUG
+					t.gc.restore();
+					//Popup.showImage(t.getImage()); //DEBUG
 					//3
 					this.gc.drawImage(
 						t.getImage(),
