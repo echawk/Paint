@@ -106,7 +106,7 @@ public class EditToolBar extends ToolBar{
 			try {
 				Paint.brushSize = Double.parseDouble(brushfld.getText());
 			} catch (Exception e) {
-				System.out.println("Brush Field On-Action Failed:" + e);
+				System.out.println("EditToolBar.java; Brush Field On-Action Failed:" + e);
 			}
 		});
 
