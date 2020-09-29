@@ -5,6 +5,8 @@
  */
 package paint;
 
+import java.io.File;
+import java.io.FileInputStream;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -76,7 +78,7 @@ public class Popup {
 	 * This method is responsible for creating, and showing the about window
 	 * for the program, pretty straight forward.
 	 */
-	public static void launchAboutWindow(){
+	public static void launchAboutWindow() {
 		//Here is the dialog box related to the about
 		//page. I am going to add in some basic info here
 		//about the project.
@@ -101,6 +103,12 @@ public class Popup {
 		gp.add(nametxt, 0, 0);
 		gp.add(copytxt, 0, 1);
 		gp.add(licetxt, 0, 2);
+		try {
+			//System.out.println(CustomFileHandler.openFile(Paint.window).toString());
+			gp.add(new ImageView(new Image(new FileInputStream(new File("gplv3.png")))), 1, 2);
+		} catch (Exception e) {
+			System.out.println("Popup.java; Failed to add ImageView:" + e);
+		}
 		gp.add(new Text("Release Notes:"), 0, 3);
 		gp.add(rel_notes, 1, 3);
 		
