@@ -17,13 +17,14 @@ import javafx.concurrent.Task;
 public class AutoSaveTimer extends Timer {
 	
 	public int time;
-	public int autosavemultiple = 20000;
+	public int autosavemultiple = 20000; //time in milliseconds
 	
 	public AutoSaveTimer() {
 		
 		this.scheduleAtFixedRate(
 			new TimerTask() {
 				public void run() {
+					if (Paint.AUTOSAVEON) {
 					if (Paint.getCurrentTab().opened_image != null) {
 						if (!Paint.getCurrentTab().imgHasBeenSaved) {
 							try {
@@ -33,7 +34,7 @@ public class AutoSaveTimer extends Timer {
 							}
 						}
 					}
-	
+					}
 				}
 			}, 
 			this.autosavemultiple,
