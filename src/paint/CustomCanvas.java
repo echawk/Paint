@@ -34,7 +34,7 @@ public class CustomCanvas extends Canvas{
 	
 	private Image drag_drop_image = null;
 	
-	private Rectangle r;
+	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
 	
 	public CustomCanvas(){
 		super();
@@ -48,22 +48,24 @@ public class CustomCanvas extends Canvas{
 			this.mouseCoord = new Pair(e.getX(), e.getY());
 			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
-				if (Paint.edittoolbar.getDrawSelection().equals(
-						EditToolBar.COLOR_GRAB)) {
-					
-					Paint.colorpick.setValue(this.getImage().getPixelReader().getColor(
-						roundDouble(e.getX()),
-						roundDouble(e.getY())
-					));
-				} else if (Paint.edittoolbar.getDrawSelection().equals(
-						EditToolBar.RECTANGLE)) {
-					this.r = new Rectangle(
-						this.mouseCoord.getKey(),
-						this.mouseCoord.getValue(),
-						0,
-						0
-					);
-					
+				switch (Paint.edittoolbar.getDrawSelection()) {
+					case EditToolBar.COLOR_GRAB:
+						Paint.colorpick.setValue(this.getImage().getPixelReader().getColor(
+							roundDouble(e.getX()),
+							roundDouble(e.getY())
+						));	
+						break;
+					case EditToolBar.BLUR:
+					case EditToolBar.DRAGDROP:
+					case EditToolBar.RECTANGLE:
+						this.r = new Rectangle(
+							this.mouseCoord.getKey(),
+							this.mouseCoord.getValue(),
+							0,
+							0
+						);	break;
+					default:
+						break;
 				}
 			}
 			//this.imgToStack(this.getImage());
@@ -223,6 +225,10 @@ public class CustomCanvas extends Canvas{
 								roundDouble(e.getX() - this.mouseCoord.getKey()),
 								roundDouble(e.getY() - this.mouseCoord.getValue())
 							);
+							
+							//for live draw
+							Paint.getCurrentTab().pane.getChildren().remove(this.r);
+							this.r = null;
 							//Exit
 							return;
 						}	
@@ -260,7 +266,9 @@ public class CustomCanvas extends Canvas{
 								t.getImage(),
 								this.mouseCoord.getKey(),
 								this.mouseCoord.getValue()
-							);		
+							);
+							Paint.getCurrentTab().pane.getChildren().remove(this.r);
+							this.r = null;
 							Paint.getCurrentTab().imgHasBeenSaved = false;
 							break;
 						}
@@ -336,30 +344,29 @@ public class CustomCanvas extends Canvas{
 			
 			//if in edit mode
 			if (Paint.getMode() == Paint.EDIT_MODE) {
-				if (Paint.edittoolbar.getDrawSelection().equals(
-						EditToolBar.ERASE)) {
-					
-					this.gc.clearRect(x, y, bsize, bsize);
-					
-					this.imgToStack(this.getImage());
-					Paint.getCurrentTab().imgHasBeenSaved = false;
-
-				} else if (Paint.edittoolbar.getDrawSelection().equals(
-						EditToolBar.PENCIL)) {
-					
-					this.gc.setFill(Paint.colorpick.getValue());
-					this.gc.fillRect(x, y, bsize, bsize);
-					
-					this.imgToStack(this.getImage());
-					Paint.getCurrentTab().imgHasBeenSaved = false;
-
-				}  else if (Paint.edittoolbar.getDrawSelection().equals(
-						EditToolBar.RECTANGLE)) {
-					this.r.setWidth(e.getX() - this.mouseCoord.getKey());
-					this.r.setHeight(e.getY() - this.mouseCoord.getValue());
-					Paint.getCurrentTab().pane.getChildren().add(this.r);
-				} 
+				switch (Paint.edittoolbar.getDrawSelection()) {
+					case EditToolBar.ERASE:
+						this.gc.clearRect(x, y, bsize, bsize);
+						this.imgToStack(this.getImage());
+						Paint.getCurrentTab().imgHasBeenSaved = false;
+						break; 
 				//this.imgToStack(this.getImage());
+					case EditToolBar.PENCIL:
+						this.gc.setFill(Paint.colorpick.getValue());
+						this.gc.fillRect(x, y, bsize, bsize);
+						this.imgToStack(this.getImage());
+						Paint.getCurrentTab().imgHasBeenSaved = false;
+						break;
+					case EditToolBar.BLUR:
+					case EditToolBar.DRAGDROP:
+					case EditToolBar.RECTANGLE:
+						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
+						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.r);
+						break;
+					default:
+						break;
+				}
 			}
 		});
 		
@@ -524,6 +531,13 @@ public class CustomCanvas extends Canvas{
 		}
 
 		return new Pair(xp, yp);
+	}
+	
+	/**
+	 * Clears out the canvas of any drawn image by drawing a 'null' image.
+	 */
+	public void clear() {
+		this.gc.drawImage(null, 0, 0);
 	}
 	
 }
