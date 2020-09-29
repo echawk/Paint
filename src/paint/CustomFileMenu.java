@@ -47,7 +47,7 @@ public class CustomFileMenu extends Menu {
 					File f = CustomFileHandler.openFile(Paint.window);
 					Paint.addTab(f);
 				} catch (FileNotFoundException ex) {
-					System.out.println("File was not found");
+					System.out.println("CustomFileMenu; File was not found:" + ex);
 				}
 			});
 			open.setAccelerator(new KeyCodeCombination(KeyCode.O, 
