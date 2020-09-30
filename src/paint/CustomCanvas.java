@@ -23,9 +23,9 @@ import javafx.util.Pair;
  *
  * @author ethan
  */
-public class CustomCanvas extends Canvas{
+public class CustomCanvas extends ECanvas{
 	
-	public GraphicsContext gc; //pointer to the graphics context of the canvas
+	//public GraphicsContext gc; //pointer to the graphics context of the canvas
 
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
@@ -41,7 +41,7 @@ public class CustomCanvas extends Canvas{
 		
 		//this.imgToStack(this.getImage());
 		
-		this.gc = this.getGraphicsContext2D();
+		//this.gc = this.getGraphicsContext2D();
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
@@ -80,15 +80,20 @@ public class CustomCanvas extends Canvas{
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
+						super.drawLine(this.mouseCoord, e.getX(), e.getY());
+						/*
 						this.gc.strokeLine(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
 							e.getX(),
 							e.getY()
 						);	
+						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.CIRCLE:
+						super.drawCircle(this.mouseCoord, e.getX(), e.getY());
+						/*
 						double l;
 						//Use the larger dimension for drawing the circle
 						if (e.getX() >= e.getY()) {
@@ -101,30 +106,39 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							l,
 							l
-						);	
+						);
+						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.ELLIPSE:
+						super.drawEllipse(this.mouseCoord, e.getX(), e.getY());
+						/*
 						this.gc.fillOval(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
 							(e.getX() - this.mouseCoord.getKey()),
 							(e.getY() - this.mouseCoord.getValue())
 						);	
+						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.RECTANGLE:
+						super.drawRectangle(this.mouseCoord, e.getX(), e.getY());
+						/*
 						this.gc.fillRect(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
 							(e.getX() - this.mouseCoord.getKey()),
 							(e.getY() - this.mouseCoord.getValue())
 						);	
+						*/
 						Paint.getCurrentTab().pane.getChildren().remove(this.r);
 						this.r = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.SQUARE:
+						super.drawSquare(this.mouseCoord, e.getX(), e.getY());
+						/*
 						double s;
 						//Use the larger dimension for drawing the square
 						if (e.getX() >= e.getY()) {
@@ -138,6 +152,7 @@ public class CustomCanvas extends Canvas{
 							s,
 							s
 						);	
+						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.TEXTBOX:
@@ -149,19 +164,22 @@ public class CustomCanvas extends Canvas{
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.TRIANGLE:
-						{
+						super.drawTriangle(this.mouseCoord, e.getX());
+						/*
 							Pair PolygonPts = getPolygonPoints(
 								3,
 								this.mouseCoord,
 								roundDouble(e.getX())
-							);		double[] xp = (double[]) PolygonPts.getKey();
+							);		
+							double[] xp = (double[]) PolygonPts.getKey();
 							double[] yp = (double[]) PolygonPts.getValue();
 							this.gc.fillPolygon(xp, yp, 3);
+						*/
 							Paint.getCurrentTab().imgHasBeenSaved = false;
 							break;
-						}
+						
 					case EditToolBar.NGON:
-						{
+						
 							//1 - get number of sides
 							//2 - get the proper points
 							//3 - fill the poly gon
@@ -173,7 +191,9 @@ public class CustomCanvas extends Canvas{
 							} catch (Exception ex) {
 								System.out.println("Failed to parse options field: " + ex);
 								return; // to keep from drawing a shape
-							}		Pair PolygonPts = getPolygonPoints(
+							}
+							/*
+							Pair PolygonPts = getPolygonPoints(
 								n,
 								this.mouseCoord,
 								roundDouble(e.getX())
@@ -183,9 +203,11 @@ public class CustomCanvas extends Canvas{
 							double[] yp = (double[]) PolygonPts.getValue();
 							//3
 							this.gc.fillPolygon(xp, yp, n);
+							*/
+							super.drawNGon(this.mouseCoord, e.getX(), n);
 							Paint.getCurrentTab().imgHasBeenSaved = false;
 							break;
-						}
+						
 					case EditToolBar.CROP:
 						{
 							//1 - save selection to image
@@ -262,7 +284,8 @@ public class CustomCanvas extends Canvas{
 								roundDouble(this.mouseCoord.getValue()),
 								roundDouble(e.getX() - this.mouseCoord.getKey()),
 								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		CustomCanvas t = new CustomCanvas();
+							);		
+							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi); //need to make sure the canvas has dimensions
 							t.gc.setEffect(new GaussianBlur());
 							t.gc.drawImage(wi, 0, 0);
@@ -286,7 +309,8 @@ public class CustomCanvas extends Canvas{
 								roundDouble(this.mouseCoord.getValue()),
 								roundDouble(e.getX() - this.mouseCoord.getKey()),
 								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		CustomCanvas t = new CustomCanvas();
+							);		
+							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi); //need to make sure the canvas has dimensions
 							t.gc.setEffect(new SepiaTone());
 							t.gc.drawImage(wi, 0, 0);
