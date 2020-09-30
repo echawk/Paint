@@ -63,7 +63,8 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							0,
 							0
-						);	break;
+						);	
+						break;
 					default:
 						break;
 				}
@@ -84,7 +85,8 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							e.getX(),
 							e.getY()
-						);	Paint.getCurrentTab().imgHasBeenSaved = false;
+						);	
+						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.CIRCLE:
 						double l;
@@ -99,7 +101,8 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							l,
 							l
-						);	Paint.getCurrentTab().imgHasBeenSaved = false;
+						);	
+						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.ELLIPSE:
 						this.gc.fillOval(
@@ -107,7 +110,8 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							(e.getX() - this.mouseCoord.getKey()),
 							(e.getY() - this.mouseCoord.getValue())
-						);	Paint.getCurrentTab().imgHasBeenSaved = false;
+						);	
+						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.RECTANGLE:
 						this.gc.fillRect(
@@ -133,7 +137,8 @@ public class CustomCanvas extends Canvas{
 							this.mouseCoord.getValue(),
 							s,
 							s
-						);	Paint.getCurrentTab().imgHasBeenSaved = false;
+						);	
+						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.TEXTBOX:
 						this.gc.setFont(new Font(Paint.brushSize));
