@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
@@ -53,6 +54,7 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.RECTANGLE:
+					case EditToolBar.SQUARE:
 						//this.livecanvas.clear();
 						//this.livecanvas.drawRectangle(this.mouseCoord, 0, 0);
 						//Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
@@ -92,13 +94,14 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.RECTANGLE:
 						super.drawRectangle(this.mouseCoord, e.getX(), e.getY());
-						Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
+						//Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
 						Paint.getCurrentTab().pane.getChildren().remove(this.r);
 						this.r = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.SQUARE:
 						super.drawSquare(this.mouseCoord, e.getX(), e.getY());
+						Paint.getCurrentTab().pane.getChildren().remove(this.r);
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.TEXTBOX:
@@ -324,6 +327,17 @@ public class CustomCanvas extends ECanvas{
 						*/
 						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.r);
+						break;
+					case EditToolBar.SQUARE:
+						double s;
+						if (e.getX() >= e.getY()) {
+							s = e.getX() - this.mouseCoord.getKey(); 
+						} else {
+							s = e.getY() - this.mouseCoord.getValue();
+						}
+						this.r.setWidth(s);
+						this.r.setHeight(s);
 						Paint.getCurrentTab().pane.getChildren().add(this.r);
 						break;
 					default:
