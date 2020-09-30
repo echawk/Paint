@@ -41,7 +41,6 @@ public class CustomCanvas extends ECanvas{
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
 
-			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.COLOR_GRAB:
@@ -68,6 +67,7 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.CROP:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.SEPIA:
+					case EditToolBar.ROTATE:
 						this.r = new Rectangle(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
@@ -76,7 +76,7 @@ public class CustomCanvas extends ECanvas{
 						);
 						this.r.setFill(Paint.colorpick.getValue()
 							.grayscale()
-							.deriveColor(-255, 1, 1, .5));
+							.deriveColor(-360, 1, 1, .5));
 					default:
 						break;
 				}
@@ -189,14 +189,8 @@ public class CustomCanvas extends ECanvas{
 							//3 draw the new image
 							
 							//1
-							PixelReader r = this.getImage().getPixelReader();
-							WritableImage wi = new WritableImage(
-								r,
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		
+							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
+							//2
 							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi); //need to make sure the canvas has dimensions
 							t.gc.setEffect(new GaussianBlur());
@@ -250,7 +244,7 @@ public class CustomCanvas extends ECanvas{
 								this.mouseCoord.getKey(),
 								this.mouseCoord.getValue()
 							);		
-							Paint.getCurrentTab().imgHasBeenSaved = false;
+							postDraw();
 							break;
 						}
 					default:
@@ -284,6 +278,8 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
+					case EditToolBar.ROTATE:
+					case EditToolBar.SEPIA:
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.CROP:
 						/*
