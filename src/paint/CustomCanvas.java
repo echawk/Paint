@@ -9,7 +9,6 @@ import java.util.Stack;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +40,7 @@ public class CustomCanvas extends ECanvas{
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
+
 			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
@@ -53,12 +53,16 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.RECTANGLE:
+						//this.livecanvas.clear();
+						//this.livecanvas.drawRectangle(this.mouseCoord, 0, 0);
+						//Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
+						
 						this.r = new Rectangle(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
 							0,
 							0
-						);	
+						);
 						break;
 					default:
 						break;
@@ -88,6 +92,7 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.RECTANGLE:
 						super.drawRectangle(this.mouseCoord, e.getX(), e.getY());
+						Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
 						Paint.getCurrentTab().pane.getChildren().remove(this.r);
 						this.r = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
@@ -173,6 +178,7 @@ public class CustomCanvas extends ECanvas{
 							
 							//for live draw
 							Paint.getCurrentTab().pane.getChildren().remove(this.r);
+							//Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
 							this.r = null;
 							//Exit
 							return;
@@ -307,6 +313,15 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.RECTANGLE:
+						/*
+						this.livecanvas.clear();
+						this.livecanvas.drawRectangle(this.mouseCoord, e.getX(), e.getY());
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
+						} catch (Exception ex) {
+							System.out.println("CustomCanvas.java; Failed to add livecanvas to pane:" + ex);
+						}
+						*/
 						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
 						Paint.getCurrentTab().pane.getChildren().add(this.r);
@@ -346,6 +361,8 @@ public class CustomCanvas extends ECanvas{
 	public void updateDimensions(Image i) {
 		this.setHeight(i.getHeight());
 		this.setWidth(i.getWidth());
+		this.livecanvas.setHeight(i.getHeight());
+		this.livecanvas.setWidth(i.getWidth());
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
@@ -355,23 +372,17 @@ public class CustomCanvas extends ECanvas{
 			//if we want to increase the zoom
 			this.setWidth(this.getWidth() * 2);
 			this.setHeight(this.getHeight() * 2);
+			this.livecanvas.setHeight(this.getHeight() * 2);
+			this.livecanvas.setWidth(this.getWidth() * 2);
 		} else {
 			//if we want to decrease the zoom
 			this.setWidth(this.getWidth() / 2);
 			this.setHeight(this.getHeight() / 2);
+			this.livecanvas.setHeight(this.getHeight() / 2);
+			this.livecanvas.setWidth(this.getWidth() / 2);
 		}
 	}
 	
-	/**
-	 * This method returns the current canvas as an image.
-	 * 
-	 * @return An Image Object of the canvas.
-	 */
-	public Image getImage() {
-		WritableImage wi = this.snapshot(null, null);
-		ImageView iv = new ImageView(wi);
-		return iv.getImage();
-	}
 
 	//need to preserve the image modifications
 	public void zoomIn(){
