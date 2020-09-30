@@ -1,5 +1,32 @@
 GITHUB: https://github.com/ehawkvu/Paint
 
+Paint 0.2.1 - Where is my Mind? - 9/29/20
+
+Song: https://www.youtube.com/watch?v=49FB9hhoO6c
+
+New Features:
+	* Autosave toggle (available under the help menu)
+	* Added more JavaDoc
+		- As Always
+	* Added a warning when saving as a different file format than what the original file was
+	* Gaussian Blur tool works!!! (EXTRA)
+	* Undo/Redo now work as intended
+	* Added in a simple version of live draw for some tools
+		- Currently supported: Rectangle, Blur, Drag & Drop
+		- Will be updated in the future to support more tools
+	* Added in Unit Tests for every method in the CustomTab class and the ModeMenu class
+
+Known Bugs:
+	* Support for Paint in a non-tabbed mode has been phased out, the Paint source tree now only uses tabs
+	* The thread for autosaving constantly complains that it is not a javafx thread, so that bug needs to be solved
+
+Expected Features:
+	* Support for a Rotate option
+	* Support for a Sepia option
+	* Theming
+	* AutoSave
+
+
 Paint 0.2.0 - Paint it, Black - 9/21/20
 
 Song: https://www.youtube.com/watch?v=Uf1TWSMCfWE
