@@ -23,8 +23,9 @@ public class CustomFileHandler {
 	
 	/**
 	 * This method uses a FileChooser Object to select a File and return 
-	 * said File.
-	 * @param stage Parent Stage
+	 * said File. Requires a Window object as input, and will always be 
+	 * "Paint.window"
+	 * @param stage Parent Stage 
 	 * @return The Selected File
 	 */
 	public static File openFile(Window stage) {
@@ -101,7 +102,6 @@ public class CustomFileHandler {
 		}
 		return "";  //might want to change this to be a sensible default
 	}
-	
 	
 	/**
 	 * This method is responsible for saving out_img to opened_file, and
