@@ -67,6 +67,7 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.CROP:
 					case EditToolBar.DRAGDROP:
+					case EditToolBar.SEPIA:
 						this.r = new Rectangle(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
@@ -146,14 +147,7 @@ public class CustomCanvas extends ECanvas{
 						//2 - set the canvas to be the new image
 						
 						//1
-						PixelReader r = this.getImage().getPixelReader();
-						WritableImage wi = new WritableImage(
-							r,
-							roundDouble(this.mouseCoord.getKey()),
-							roundDouble(this.mouseCoord.getValue()),
-							roundDouble(e.getX() - this.mouseCoord.getKey()),
-							roundDouble(e.getY() - this.mouseCoord.getValue())
-							);						
+						Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 						//2
 						Paint.getCurrentTab().setImage(wi);
 						postDraw();
@@ -202,8 +196,6 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.BLUR:
 						{
-							//INCOMPLETE
-							
 							//Three steps:
 							//1 get image
 							//2 apply blur effect to image
@@ -233,14 +225,7 @@ public class CustomCanvas extends ECanvas{
 						}
 					case EditToolBar.SEPIA:
 						{
-							PixelReader r = this.getImage().getPixelReader();
-							WritableImage wi = new WritableImage(
-								r,
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		
+							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi); //need to make sure the canvas has dimensions
 							t.gc.setEffect(new SepiaTone());
@@ -251,7 +236,7 @@ public class CustomCanvas extends ECanvas{
 								this.mouseCoord.getKey(),
 								this.mouseCoord.getValue()
 							);		
-							Paint.getCurrentTab().imgHasBeenSaved = false;
+							postDraw();
 							break;
 						}
 					case EditToolBar.ROTATE:
@@ -263,14 +248,7 @@ public class CustomCanvas extends ECanvas{
 							//3 - draw rotated selection
 							
 							//1
-							PixelReader r = this.getImage().getPixelReader();
-							WritableImage wi = new WritableImage(
-								r,
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);		
+							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 							//2
 							CustomCanvas t = new CustomCanvas();
 							t.updateDimensions(wi);

@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.util.Pair;
 
@@ -193,6 +194,19 @@ public class ECanvas extends Canvas{
 		return iv.getImage();
 	}
 
+	public Image getSelectionAsImage(Pair ic, double cx, double cy) {
+		PixelReader r = this.getImage().getPixelReader();
+		double ix = (double) ic.getKey();
+		double iy = (double) ic.getValue();
+		WritableImage wi = new WritableImage(
+			r,
+			roundDouble(ix),
+			roundDouble(iy),
+			roundDouble(cx - ix),
+			roundDouble(cy - iy)
+		);
+		return (Image) wi;
+	}
 	
 	/**
 	 * Clears out the canvas of any drawn image by drawing a 'null' image.
@@ -200,7 +214,6 @@ public class ECanvas extends Canvas{
 	public void clear() {
 		this.gc.drawImage(null, 0, 0);
 	}
-	
 	
 	
 }
