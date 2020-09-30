@@ -156,22 +156,12 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.DRAGDROP:
 						if (this.drag_drop_image == null) {
 							//Three steps:
-							//1 - get the image
-							//2 - make the image globally accessible
-							//3 - clear out a rectangle of the same size
+							//1 - get the image & make it globally accessible
+							//2 - clear out a rectangle of the same size
 							
 							//1
-							PixelReader r = this.getImage().getPixelReader();
-							WritableImage wi = new WritableImage(
-								r,
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);
+							this.drag_drop_image = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 							//2
-							this.drag_drop_image = wi;
-							//3
 							this.gc.clearRect(
 								roundDouble(this.mouseCoord.getKey()),
 								roundDouble(this.mouseCoord.getValue()),
@@ -179,10 +169,7 @@ public class CustomCanvas extends ECanvas{
 								roundDouble(e.getY() - this.mouseCoord.getValue())
 							);
 							
-							//for live draw
-							Paint.getCurrentTab().pane.getChildren().remove(this.r);
-							//Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
-							this.r = null;
+							postDraw();
 							//Exit
 							return;
 						}	
