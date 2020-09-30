@@ -6,8 +6,6 @@
 package paint;
 
 import java.util.Stack;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
@@ -25,8 +23,6 @@ import javafx.util.Pair;
  */
 public class CustomCanvas extends ECanvas{
 	
-	//public GraphicsContext gc; //pointer to the graphics context of the canvas
-
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 
 	private Stack<Image> undoStack = new Stack(); 
@@ -41,7 +37,6 @@ public class CustomCanvas extends ECanvas{
 		
 		//this.imgToStack(this.getImage());
 		
-		//this.gc = this.getGraphicsContext2D();
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
@@ -81,78 +76,24 @@ public class CustomCanvas extends ECanvas{
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
 						super.drawLine(this.mouseCoord, e.getX(), e.getY());
-						/*
-						this.gc.strokeLine(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							e.getX(),
-							e.getY()
-						);	
-						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.CIRCLE:
 						super.drawCircle(this.mouseCoord, e.getX(), e.getY());
-						/*
-						double l;
-						//Use the larger dimension for drawing the circle
-						if (e.getX() >= e.getY()) {
-							l = (e.getX() - this.mouseCoord.getKey());
-						} else {
-							l = (e.getY() - this.mouseCoord.getValue());
-						}	
-						this.gc.fillOval(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							l,
-							l
-						);
-						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.ELLIPSE:
 						super.drawEllipse(this.mouseCoord, e.getX(), e.getY());
-						/*
-						this.gc.fillOval(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							(e.getX() - this.mouseCoord.getKey()),
-							(e.getY() - this.mouseCoord.getValue())
-						);	
-						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.RECTANGLE:
 						super.drawRectangle(this.mouseCoord, e.getX(), e.getY());
-						/*
-						this.gc.fillRect(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							(e.getX() - this.mouseCoord.getKey()),
-							(e.getY() - this.mouseCoord.getValue())
-						);	
-						*/
 						Paint.getCurrentTab().pane.getChildren().remove(this.r);
 						this.r = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.SQUARE:
 						super.drawSquare(this.mouseCoord, e.getX(), e.getY());
-						/*
-						double s;
-						//Use the larger dimension for drawing the square
-						if (e.getX() >= e.getY()) {
-							s = (e.getX() - this.mouseCoord.getKey());
-						} else {
-							s = (e.getY() - this.mouseCoord.getValue());
-						}	
-						this.gc.fillRect(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							s,
-							s
-						);	
-						*/
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
 					case EditToolBar.TEXTBOX:
@@ -165,48 +106,25 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.TRIANGLE:
 						super.drawTriangle(this.mouseCoord, e.getX());
-						/*
-							Pair PolygonPts = getPolygonPoints(
-								3,
-								this.mouseCoord,
-								roundDouble(e.getX())
-							);		
-							double[] xp = (double[]) PolygonPts.getKey();
-							double[] yp = (double[]) PolygonPts.getValue();
-							this.gc.fillPolygon(xp, yp, 3);
-						*/
-							Paint.getCurrentTab().imgHasBeenSaved = false;
-							break;
+						Paint.getCurrentTab().imgHasBeenSaved = false;
+						break;
 						
 					case EditToolBar.NGON:
-						
-							//1 - get number of sides
-							//2 - get the proper points
-							//3 - fill the poly gon
+						//1 - get number of sides
+						//2 - get the proper points
+						//3 - fill the poly gon
 							
-							//1
-							int n = 0;
-							try {
-								n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
-							} catch (Exception ex) {
-								System.out.println("Failed to parse options field: " + ex);
-								return; // to keep from drawing a shape
-							}
-							/*
-							Pair PolygonPts = getPolygonPoints(
-								n,
-								this.mouseCoord,
-								roundDouble(e.getX())
-							);		
-							//2
-							double[] xp = (double[]) PolygonPts.getKey();
-							double[] yp = (double[]) PolygonPts.getValue();
-							//3
-							this.gc.fillPolygon(xp, yp, n);
-							*/
-							super.drawNGon(this.mouseCoord, e.getX(), n);
-							Paint.getCurrentTab().imgHasBeenSaved = false;
-							break;
+						//1
+						int n = 0;
+						try {
+							n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
+						} catch (Exception ex) {
+							System.out.println("Failed to parse options field: " + ex);
+							return; // to keep from drawing a shape			
+						}							
+						super.drawNGon(this.mouseCoord, e.getX(), n);
+						Paint.getCurrentTab().imgHasBeenSaved = false;
+						break;
 						
 					case EditToolBar.CROP:
 						{
@@ -536,32 +454,7 @@ public class CustomCanvas extends ECanvas{
 			undoStack.add(lastimg);
 		}
 	}
-	
-	/**
-	 * 
-	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
-	 * 
-	 * @param n An integer for the number of sides the polygon should have.
-	 * @param initMouseCoord The initial mouse coordinates 
-	 * @param cx The current X value 
-	 * @return A Pair of double Arrays, with the key corresponding to the X points, and the value corresponding to the Y points.
-	 */
-	private Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
-		double ix = (double) initMouseCoord.getKey();
-                double iy = (double) initMouseCoord.getValue();
-                double radius = cx - ix;
-
-		double[] xp = new double[n];
-		double[] yp = new double[n];
-
-		for (int i = 0; i < n; i++) {
-			xp[i] = (ix + (radius * Math.cos(2 * Math.PI * i / n)));
-			yp[i] = (iy + (radius * Math.sin(2 * Math.PI * i / n)));
-		}
-
-		return new Pair(xp, yp);
-	}
-	
+		
 	/**
 	 * Clears out the canvas of any drawn image by drawing a 'null' image.
 	 */
