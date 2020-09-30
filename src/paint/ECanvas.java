@@ -228,7 +228,7 @@ public class ECanvas extends Canvas{
 		CustomCanvas t = new CustomCanvas();
 		t.updateDimensions(wi); //need to make sure the canvas has dimensions
 		t.gc.save();
-		t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
+		t.gc.rotate(deg);
 		t.gc.drawImage(wi, 0, 0);
 		t.gc.restore();
 		this.gc.drawImage(

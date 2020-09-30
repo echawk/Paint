@@ -193,9 +193,14 @@ public class CustomCanvas extends ECanvas{
 						}
 					case EditToolBar.ROTATE:
 						{
-						super.rotateSelection(this.mouseCoord, e.getX(), e.getY(), 
-							Double.parseDouble(Paint.edittoolbar.getOptionsField())
-						);
+						double deg;
+						try {
+							deg = Double.parseDouble(Paint.edittoolbar.getOptionsField());
+						} catch (Exception ex) {
+							deg = 0;
+							System.out.println("CustomCanvas.java; Failed to parse the options field:" + ex);
+						}
+						super.rotateSelection(this.mouseCoord, e.getX(), e.getY(), deg);
 						postDraw();
 						break;
 						}
