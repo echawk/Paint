@@ -7,6 +7,7 @@ package paint;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -206,6 +207,36 @@ public class ECanvas extends Canvas{
 			roundDouble(cy - iy)
 		);
 		return (Image) wi;
+	}
+	
+	public void applyEffectToSelection(Pair ic, double cx, double cy, Effect e) {
+		Image wi = getSelectionAsImage(ic, cx, cy);
+		//2
+		CustomCanvas t = new CustomCanvas();
+		t.updateDimensions(wi); //need to make sure the canvas has dimensions
+		t.gc.setEffect(e);
+		t.gc.drawImage(wi, 0, 0);
+		this.gc.drawImage(
+			t.getImage(), 
+			(double) ic.getKey(), 
+			(double) ic.getValue()
+		);
+	}
+	
+	public void rotateSelection(Pair ic, double cx, double cy, Double deg) {
+		Image wi = getSelectionAsImage(ic, cx, cy);
+		CustomCanvas t = new CustomCanvas();
+		t.updateDimensions(wi); //need to make sure the canvas has dimensions
+		t.gc.save();
+		t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
+		t.gc.drawImage(wi, 0, 0);
+		t.gc.restore();
+		this.gc.drawImage(
+			t.getImage(), 
+			(double) ic.getKey(), 
+			(double) ic.getValue()
+		);
+
 	}
 	
 	/**
