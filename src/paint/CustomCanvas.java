@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
@@ -52,7 +51,6 @@ public class CustomCanvas extends ECanvas{
 						));	
 						break;
 					case EditToolBar.BLUR:
-					case EditToolBar.DRAGDROP:
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.SQUARE:
 						//this.livecanvas.clear();
@@ -65,7 +63,19 @@ public class CustomCanvas extends ECanvas{
 							0,
 							0
 						);
+						this.r.setFill(Paint.colorpick.getValue());
 						break;
+					case EditToolBar.CROP:
+					case EditToolBar.DRAGDROP:
+						this.r = new Rectangle(
+							this.mouseCoord.getKey(),
+							this.mouseCoord.getValue(),
+							0,
+							0
+						);
+						this.r.setFill(Paint.colorpick.getValue()
+							.grayscale()
+							.deriveColor(-255, 1, 1, .5));
 					default:
 						break;
 				}
@@ -135,24 +145,24 @@ public class CustomCanvas extends ECanvas{
 						break;
 						
 					case EditToolBar.CROP:
-						{
-							//1 - save selection to image
-							//2 - set the canvas to be the new image
-							
-							//1
-							PixelReader r = this.getImage().getPixelReader();
-							WritableImage wi = new WritableImage(
-								r,
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);
-							//2
-							Paint.getCurrentTab().setImage(wi);
-							Paint.getCurrentTab().imgHasBeenSaved = false;
-							break;
-						}
+					{ //Proper scoping
+						//1 - save selection to image
+						//2 - set the canvas to be the new image
+						
+						//1
+						PixelReader r = this.getImage().getPixelReader();
+						WritableImage wi = new WritableImage(
+							r,
+							roundDouble(this.mouseCoord.getKey()),
+							roundDouble(this.mouseCoord.getValue()),
+							roundDouble(e.getX() - this.mouseCoord.getKey()),
+							roundDouble(e.getY() - this.mouseCoord.getValue())
+							);						//2
+						Paint.getCurrentTab().setImage(wi);
+						Paint.getCurrentTab().pane.getChildren().remove(this.r);
+						Paint.getCurrentTab().imgHasBeenSaved = false;
+						break;
+					}
 					case EditToolBar.DRAGDROP:
 						if (this.drag_drop_image == null) {
 							//Three steps:
@@ -316,6 +326,7 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.RECTANGLE:
+					case EditToolBar.CROP:
 						/*
 						this.livecanvas.clear();
 						this.livecanvas.drawRectangle(this.mouseCoord, e.getX(), e.getY());
