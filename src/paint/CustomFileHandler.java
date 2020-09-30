@@ -29,12 +29,17 @@ public class CustomFileHandler {
 	 * @return The Selected File
 	 */
 	public static File openFile(Window stage) {
+		File sel_file = null;
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open File");
 		fileChooser.getExtensionFilters().addAll(
 			new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"),
 			new FileChooser.ExtensionFilter("All Files", "*.*"));
-		File sel_file = fileChooser.showOpenDialog(stage);
+		try {
+			sel_file = fileChooser.showOpenDialog(stage);
+		} catch (Exception e){
+			System.out.println("CustomFileHandler.java; Failed to set sel_file:" + e);
+		}
 		return sel_file;
 	}
 	
