@@ -28,7 +28,6 @@ public class ECanvas extends Canvas{
 	public void drawRectangle(Pair ic, double cx, double cy) {
 		this.drawRectangle((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
-	
 	public void drawRectangle(double ix, double iy, double cx, double cy) {
 		this.gc.fillRect(				
 			ix,
@@ -53,6 +52,14 @@ public class ECanvas extends Canvas{
 	public void drawSquare(Pair ic, double cx, double cy) {
 		this.drawSquare((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
+	/**
+	 * Method to draw a square on the canvas, the side length is determined by
+	 * whatever value is greater, cx or cy
+	 * @param ix initial X 
+	 * @param iy initial Y
+	 * @param cx current X
+	 * @param cy current Y
+	 */
 	public void drawSquare(double ix, double iy, double cx, double cy) {
 		double s;
 		if (cx >= cy) {
@@ -71,6 +78,14 @@ public class ECanvas extends Canvas{
 	public void drawCircle(Pair ic, double cx, double cy) {
 		this.drawCircle((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
+	/**
+	 * Method to draw a circle on the canvas, the diameter is whatever value is 
+	 * greater, cx or cy
+	 * @param ix initial X
+	 * @param iy initial Y
+	 * @param cx current X
+	 * @param cy current Y
+	 */
 	public void drawCircle(double ix, double iy, double cx, double cy) {
 		double d; //diameter
 		if (cx >= cy) {
@@ -98,6 +113,11 @@ public class ECanvas extends Canvas{
 		);	
 	}
 	
+	/**
+	 * Method to draw a triangle on the canvas.
+	 * @param ic A pair of the initial coordinates
+	 * @param cx The current X value
+	 */
 	public void drawTriangle(Pair ic, double cx) {
 		Pair PolygonPts = getPolygonPoints(
 			3,
@@ -108,7 +128,12 @@ public class ECanvas extends Canvas{
 		double[] yp = (double[]) PolygonPts.getValue();
 		this.gc.fillPolygon(xp, yp, 3);
 	}
-	
+	/**
+	 * Method to draw a 'n' sided polygon on the canvas.
+	 * @param ic A pair of the input coordinates
+	 * @param cx The current X value
+	 * @param n The number of sides
+	 */
 	public void drawNGon(Pair ic, double cx, int n) {
 		Pair PolygonPts = getPolygonPoints(
 			n,
