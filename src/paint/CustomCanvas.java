@@ -35,7 +35,7 @@ public class CustomCanvas extends Canvas{
 	private Image drag_drop_image = null;
 	
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
-	
+	private LiveCanvas livecanvas = new LiveCanvas();
 	public CustomCanvas(){
 		super();
 		
