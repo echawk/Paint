@@ -47,7 +47,6 @@ public class CustomCanvas extends ECanvas{
 							roundDouble(e.getY())
 						));	
 						break;
-					case EditToolBar.BLUR:
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.SQUARE:
 						//this.livecanvas.clear();
@@ -62,6 +61,7 @@ public class CustomCanvas extends ECanvas{
 						);
 						this.r.setFill(Paint.colorpick.getValue());
 						break;
+					case EditToolBar.BLUR:
 					case EditToolBar.CROP:
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.SEPIA:
@@ -181,69 +181,23 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.BLUR:
 						{
-							//Three steps:
-							//1 get image
-							//2 apply blur effect to image
-							//3 draw the new image
-							
-							//1
-							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
-							//2
-							CustomCanvas t = new CustomCanvas();
-							t.updateDimensions(wi); //need to make sure the canvas has dimensions
-							t.gc.setEffect(new GaussianBlur());
-							t.gc.drawImage(wi, 0, 0);
-							//Popup.showImage(t.getImage()); //DEBUG
-							this.gc.drawImage(
-								t.getImage(),
-								this.mouseCoord.getKey(),
-								this.mouseCoord.getValue()
-							);
-							postDraw();
-							break;
+						super.applyEffectToSelection(this.mouseCoord, e.getX(), e.getY(), new GaussianBlur());
+						postDraw();
+						break;
 						}
 					case EditToolBar.SEPIA:
 						{
-							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
-							CustomCanvas t = new CustomCanvas();
-							t.updateDimensions(wi); //need to make sure the canvas has dimensions
-							t.gc.setEffect(new SepiaTone());
-							t.gc.drawImage(wi, 0, 0);
-							//Popup.showImage(t.getImage()); //DEBUG
-							this.gc.drawImage(
-								t.getImage(),
-								this.mouseCoord.getKey(),
-								this.mouseCoord.getValue()
-							);		
-							postDraw();
-							break;
+						super.applyEffectToSelection(this.mouseCoord, e.getX(), e.getY(), new SepiaTone());
+						postDraw();
+						break;
 						}
 					case EditToolBar.ROTATE:
 						{
-							//INCOMPLETE
-							//Three steps:
-							//1 - get selection
-							//2 - rotate selection
-							//3 - draw rotated selection
-							
-							//1
-							Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
-							//2
-							CustomCanvas t = new CustomCanvas();
-							t.updateDimensions(wi);
-							t.gc.save();
-							t.gc.rotate(Double.parseDouble(Paint.edittoolbar.getOptionsField()));
-							t.gc.drawImage(wi, 0, 0);
-							t.gc.restore();
-							//Popup.showImage(t.getImage()); //DEBUG
-							//3
-							this.gc.drawImage(
-								t.getImage(),
-								this.mouseCoord.getKey(),
-								this.mouseCoord.getValue()
-							);		
-							postDraw();
-							break;
+						super.rotateSelection(this.mouseCoord, e.getX(), e.getY(), 
+							Double.parseDouble(Paint.edittoolbar.getOptionsField())
+						);
+						postDraw();
+						break;
 						}
 					default:
 						break;
