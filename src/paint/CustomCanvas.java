@@ -465,12 +465,4 @@ public class CustomCanvas extends ECanvas{
 			undoStack.add(lastimg);
 		}
 	}
-		
-	/**
-	 * Clears out the canvas of any drawn image by drawing a 'null' image.
-	 */
-	public void clear() {
-		this.gc.drawImage(null, 0, 0);
-	}
-	
 }
