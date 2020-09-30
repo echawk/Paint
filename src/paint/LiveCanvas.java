@@ -12,7 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
  *
  * @author ethan
  */
-public class LiveCanvas extends Canvas{
+public class LiveCanvas extends ECanvas{
 
 	public GraphicsContext gc;
 	
@@ -25,10 +25,5 @@ public class LiveCanvas extends Canvas{
 		this.setWidth(width);
 		this.setHeight(height);
 	}
-	
-	public void clear() {
-		this.gc.drawImage(null, 0, 0);
-	}
-	
 	
 }
