@@ -34,7 +34,7 @@ public class CustomCanvas extends ECanvas{
 	public CustomCanvas(){
 		super();
 		
-		//this.imgToStack(this.getImage());
+		this.imgToStack(getImage());
 		
 		this.mouseCoord = new Pair(0, 0);
 		
@@ -92,27 +92,23 @@ public class CustomCanvas extends ECanvas{
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
 						super.drawLine(this.mouseCoord, e.getX(), e.getY());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.CIRCLE:
 						super.drawCircle(this.mouseCoord, e.getX(), e.getY());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.ELLIPSE:
 						super.drawEllipse(this.mouseCoord, e.getX(), e.getY());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.RECTANGLE:
 						super.drawRectangle(this.mouseCoord, e.getX(), e.getY());
-						//Paint.getCurrentTab().pane.getChildren().remove(this.livecanvas);
-						Paint.getCurrentTab().pane.getChildren().remove(this.r);
-						this.r = null;
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.SQUARE:
 						super.drawSquare(this.mouseCoord, e.getX(), e.getY());
-						Paint.getCurrentTab().pane.getChildren().remove(this.r);
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.TEXTBOX:
 						this.gc.setFont(new Font(Paint.brushSize));
@@ -120,11 +116,11 @@ public class CustomCanvas extends ECanvas{
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue()
 						);	
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.TRIANGLE:
 						super.drawTriangle(this.mouseCoord, e.getX());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 						
 					case EditToolBar.NGON:
@@ -141,7 +137,7 @@ public class CustomCanvas extends ECanvas{
 							return; // to keep from drawing a shape			
 						}							
 						super.drawNGon(this.mouseCoord, e.getX(), n);
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 						
 					case EditToolBar.CROP:
@@ -157,10 +153,10 @@ public class CustomCanvas extends ECanvas{
 							roundDouble(this.mouseCoord.getValue()),
 							roundDouble(e.getX() - this.mouseCoord.getKey()),
 							roundDouble(e.getY() - this.mouseCoord.getValue())
-							);						//2
+							);						
+						//2
 						Paint.getCurrentTab().setImage(wi);
-						Paint.getCurrentTab().pane.getChildren().remove(this.r);
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					}
 					case EditToolBar.DRAGDROP:
@@ -232,9 +228,7 @@ public class CustomCanvas extends ECanvas{
 								this.mouseCoord.getKey(),
 								this.mouseCoord.getValue()
 							);
-							Paint.getCurrentTab().pane.getChildren().remove(this.r);
-							this.r = null;
-							Paint.getCurrentTab().imgHasBeenSaved = false;
+							postDraw();
 							break;
 						}
 					case EditToolBar.SEPIA:
@@ -314,14 +308,14 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.ERASE:
 						this.gc.clearRect(x, y, bsize, bsize);
 						this.imgToStack(this.getImage());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break; 
 				//this.imgToStack(this.getImage());
 					case EditToolBar.PENCIL:
 						this.gc.setFill(Paint.colorpick.getValue());
 						this.gc.fillRect(x, y, bsize, bsize);
 						this.imgToStack(this.getImage());
-						Paint.getCurrentTab().imgHasBeenSaved = false;
+						postDraw();
 						break;
 					case EditToolBar.BLUR:
 					case EditToolBar.DRAGDROP:
@@ -490,4 +484,11 @@ public class CustomCanvas extends ECanvas{
 			undoStack.add(lastimg);
 		}
 	}
+	
+	public void postDraw() {
+		Paint.getCurrentTab().pane.getChildren().remove(this.r);
+		this.r = null;
+		Paint.getCurrentTab().imgHasBeenSaved = false;
+	}
+	
 }
