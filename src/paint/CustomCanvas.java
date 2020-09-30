@@ -30,7 +30,7 @@ public class CustomCanvas extends ECanvas{
 	private Image drag_drop_image = null;
 	
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
-	private LiveCanvas livecanvas = new LiveCanvas();
+	private ECanvas livecanvas = new ECanvas();
 	public CustomCanvas(){
 		super();
 		
