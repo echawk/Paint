@@ -123,11 +123,6 @@ public class CustomCanvas extends ECanvas{
 						break;
 						
 					case EditToolBar.NGON:
-						//1 - get number of sides
-						//2 - get the proper points
-						//3 - fill the poly gon
-							
-						//1
 						int n = 0;
 						try {
 							n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
@@ -175,7 +170,8 @@ public class CustomCanvas extends ECanvas{
 							this.drag_drop_image,
 							e.getX(),
 							e.getY()
-						);	//set the image back to null
+						);	
+						//set the image back to null
 						this.drag_drop_image = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
 						break;
