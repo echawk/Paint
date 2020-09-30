@@ -407,7 +407,7 @@ public class CustomCanvas extends ECanvas{
 	private void imgToStack(Image i) {
 		this.undoStack.push(i);
 		this.redoStack.clear(); // reset the redo stack (should only be able to redo what you've undone
-		System.out.println("Added Image to undo Stack");
+		System.out.println("CustomCanvas.java; Added Image to undo Stack");
 	}
 	
 	/**
