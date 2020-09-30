@@ -178,7 +178,11 @@ public class ECanvas extends Canvas{
 
 		return new Pair(xp, yp);
 	}
-	
+	/**
+	 * Set the dimensions of the canvas.
+	 * @param width
+	 * @param height 
+	 */
 	public void setDimensions(int width, int height) {
 		this.setWidth(width);
 		this.setHeight(height);
@@ -194,7 +198,13 @@ public class ECanvas extends Canvas{
 		ImageView iv = new ImageView(wi);
 		return iv.getImage();
 	}
-
+	/**
+	 * This method returns the current selection as an Image.
+	 * @param ic The initial mouse coordinates.
+	 * @param cx current X
+	 * @param cy current Y
+	 * @return the subset of the current image enclosed by the selection
+	 */
 	public Image getSelectionAsImage(Pair ic, double cx, double cy) {
 		PixelReader r = this.getImage().getPixelReader();
 		double ix = (double) ic.getKey();
@@ -208,7 +218,13 @@ public class ECanvas extends Canvas{
 		);
 		return (Image) wi;
 	}
-	
+	/**
+	 * This method applies an effect to the current selection of the Image.
+	 * @param ic The initial mouse coordinates.
+	 * @param cx current X
+	 * @param cy current Y
+	 * @param e the effect to apply.
+	 */
 	public void applyEffectToSelection(Pair ic, double cx, double cy, Effect e) {
 		Image wi = getSelectionAsImage(ic, cx, cy);
 		//2
@@ -222,8 +238,14 @@ public class ECanvas extends Canvas{
 			(double) ic.getValue()
 		);
 	}
-	
-	public void rotateSelection(Pair ic, double cx, double cy, Double deg) {
+	/**
+	 * This method rotates the current selection by a the provided number of degrees
+	 * @param ic the initial mouse coordinates
+	 * @param cx current X
+	 * @param cy current Y
+	 * @param deg the degrees to rotate the image by
+	 */
+	public void rotateSelection(Pair ic, double cx, double cy, double deg) {
 		Image wi = getSelectionAsImage(ic, cx, cy);
 		CustomCanvas t = new CustomCanvas();
 		t.updateDimensions(wi); //need to make sure the canvas has dimensions

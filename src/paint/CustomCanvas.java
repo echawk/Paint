@@ -239,15 +239,6 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.SEPIA:
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.CROP:
-						/*
-						this.livecanvas.clear();
-						this.livecanvas.drawRectangle(this.mouseCoord, e.getX(), e.getY());
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
-						} catch (Exception ex) {
-							System.out.println("CustomCanvas.java; Failed to add livecanvas to pane:" + ex);
-						}
-						*/
 						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
 						Paint.getCurrentTab().pane.getChildren().add(this.r);
@@ -281,6 +272,7 @@ public class CustomCanvas extends ECanvas{
 		//Also potential thought, I may have the image be a proportion of the current window size,
 		//so that when the main window is resized, the image resizes with it.
 		if (Paint.getCurrentTab().opened_image != null) {
+			//setDimensions(Paint.getCurrentTab().opened_image.getWidth(), Paint.getCurrentTab().opened_image.getHeight());
 			this.setHeight(Paint.getCurrentTab().opened_image.getHeight());
 			this.setWidth(Paint.getCurrentTab().opened_image.getWidth());
 		} else {
@@ -296,10 +288,9 @@ public class CustomCanvas extends ECanvas{
 	 */
 	
 	public void updateDimensions(Image i) {
-		this.setHeight(i.getHeight());
-		this.setWidth(i.getWidth());
-		this.livecanvas.setHeight(i.getHeight());
-		this.livecanvas.setWidth(i.getWidth());
+		setDimensions((int) i.getWidth(), (int) i.getHeight());
+		//this.livecanvas.setHeight(i.getHeight());
+		//this.livecanvas.setWidth(i.getWidth());
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
@@ -379,13 +370,6 @@ public class CustomCanvas extends ECanvas{
 			} catch (Exception e) {
 				System.out.println("CustomCanvas.java; Failed to execute setImage():" + e);
 			}
-			
-			/*
-			if (! undoStack.empty()) {
-				Paint.getCurrentTab().setImage(undoStack.pop());
-				System.out.println("Undo was Successful!");
-			}
-			*/
 		} else {
 			System.out.println("CustomCanvas.java; undoStack is empty");
 		}
