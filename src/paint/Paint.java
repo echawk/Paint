@@ -8,16 +8,19 @@ package paint;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -31,6 +34,7 @@ public class Paint extends Application {
 	final static String RELEASE_STR = "Where is my Mind?";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
+	final static int AUTOSAVE_INTERVAL = 20; //in seconds
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -48,7 +52,7 @@ public class Paint extends Application {
 	public void start(Stage primaryStage) {
 		
 		//Platform.setImplicitExit(false);
-		
+		Platform.setImplicitExit(false);
 	//setup the window pointer
 		Paint.window = primaryStage; //have window refer to primaryStage
 		
@@ -94,6 +98,24 @@ public class Paint extends Application {
 		//Platform.runLater(time);
 		//Thread timeThread = new Thread(time);
 		//timeThread.start();
+		Timeline autosave = new Timeline(
+			new KeyFrame(Duration.seconds(Paint.AUTOSAVE_INTERVAL),
+				ev -> {
+					System.out.println("Autosave is running");
+					if (Paint.AUTOSAVEON) {
+						System.out.println("Autosave is on");
+						if (Paint.getCurrentTab().opened_file != null) {
+							System.out.println("The opened file is not null");
+							if (!Paint.getCurrentTab().imgHasBeenSaved) {
+								System.out.println("Image has not been saved");
+								CustomFileHandler.saveFile();
+							}
+						}
+					}
+				})
+		);
+		autosave.setCycleCount(Animation.INDEFINITE);
+		autosave.play();
 
 	}
 
