@@ -7,6 +7,9 @@ package paint;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.util.Pair;
 
 /**
@@ -148,6 +151,23 @@ public class ECanvas extends Canvas{
 
 		return new Pair(xp, yp);
 	}
+	
+	public void setDimensions(int width, int height) {
+		this.setWidth(width);
+		this.setHeight(height);
+	}
+
+	/**
+	 * This method returns the current canvas as an image.
+	 * 
+	 * @return An Image Object of the canvas.
+	 */
+	public Image getImage() {
+		WritableImage wi = this.snapshot(null, null);
+		ImageView iv = new ImageView(wi);
+		return iv.getImage();
+	}
+
 	
 	/**
 	 * Clears out the canvas of any drawn image by drawing a 'null' image.
