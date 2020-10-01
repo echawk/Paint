@@ -112,11 +112,19 @@ public class Paint extends Application {
 							}
 						}
 					}
-				})
+				}
+			)
 		);
 		autosave.setCycleCount(Animation.INDEFINITE);
 		autosave.play();
-
+		/*
+		Timeline logger = new Timeline(
+			new KeyFrame(Duration.seconds(1),
+				ev -> {
+					
+				})
+		);
+		*/
 	}
 
 	/**
