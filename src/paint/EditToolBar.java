@@ -54,7 +54,6 @@ public class EditToolBar extends ToolBar{
 					Paint.getCurrentTab().undo();
 				} catch (Exception e) {
 					System.out.println("EditToolBar.java; Undo Button On-Action Failed:" + e);
-					e.printStackTrace();
 				}
 			});
 			undobtn.setTooltip(new Tooltip("Undo a draw action"));
@@ -64,7 +63,6 @@ public class EditToolBar extends ToolBar{
 					Paint.getCurrentTab().redo();
 				} catch (Exception e) {
 					System.out.println("EditToolBar.java; Redo Button On-Action Failed:" + e);
-					e.printStackTrace();
 				}
 			});
 			redobtn.setTooltip(new Tooltip("Redo an undone action"));
@@ -90,7 +88,7 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.BLUR,
 				EditToolBar.ERASE
 		);
-		drawoptionmenu.setValue(this.NONE); //Set our default value to be NONE
+		drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
 		drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
 
 		Label optionslbl = new Label("Option:");
@@ -106,7 +104,7 @@ public class EditToolBar extends ToolBar{
 		brushfld.setOnAction((ActionEvent event) -> {
 			try {
 				Paint.brushSize = Double.parseDouble(brushfld.getText());
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
 				System.out.println("EditToolBar.java; Brush Field On-Action Failed:" + e);
 			}
 		});
@@ -162,7 +160,7 @@ public class EditToolBar extends ToolBar{
 		Paint.colorpick.setValue(Color.BLACK);
 		this.brushfld.setText("5");
 		Paint.brushSize = Double.parseDouble(brushfld.getText());
-		this.drawoptionmenu.setValue(this.NONE);
+		this.drawoptionmenu.setValue(EditToolBar.NONE);
 		this.options_fld.setText(null);
 	}
 }
