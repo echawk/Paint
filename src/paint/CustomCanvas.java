@@ -246,9 +246,7 @@ public class CustomCanvas extends ECanvas{
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
 						try {
 							Paint.getCurrentTab().pane.getChildren().add(this.r);
-						} catch (Exception ex){
-							System.out.println("CustomCanvas.java; Adding retangle failed:" + ex);
-						}
+						} catch (Exception ex){}
 						break;
 					case EditToolBar.SQUARE:
 						double s;
