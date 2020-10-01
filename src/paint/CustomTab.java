@@ -55,7 +55,7 @@ public class CustomTab extends Tab {
 				0, 
 				0
 			);
-			System.out.println("CustomTab.java; setImage succeeded.");
+			//System.out.println("CustomTab.java; setImage succeeded.");
 		} catch (Exception e) {
 			System.out.println("CustomTab.java; Failed to setImage:" + e);
 		}
