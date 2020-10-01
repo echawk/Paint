@@ -104,13 +104,9 @@ public class Paint extends Application {
 		Timeline autosave = new Timeline(
 			new KeyFrame(Duration.seconds(Paint.AUTOSAVE_INTERVAL),
 				ev -> {
-					System.out.println("Autosave is running");
 					if (Paint.AUTOSAVEON) {
-						System.out.println("Autosave is on");
 						if (Paint.getCurrentTab().opened_file != null) {
-							System.out.println("The opened file is not null");
 							if (!Paint.getCurrentTab().imgHasBeenSaved) {
-								System.out.println("Image has not been saved");
 								CustomFileHandler.saveFile();
 							}
 						}
@@ -124,7 +120,7 @@ public class Paint extends Application {
 		Timeline logger = new Timeline(
 			new KeyFrame(Duration.seconds(10),
 				ev -> {
-					LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + "| Saved: " + Paint.getCurrentTab().imgHasBeenSaved + "| Opened File: " + Paint.getCurrentTab().opened_file);
+					Paint.LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + "| Saved: " + Paint.getCurrentTab().imgHasBeenSaved + "| Opened File: " + Paint.getCurrentTab().opened_file);
 				})
 		);
 		
