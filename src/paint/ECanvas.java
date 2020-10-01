@@ -80,6 +80,7 @@ public class ECanvas extends Canvas{
 	 * @param iy initial Y
 	 * @param cx current X
 	 * @param cy current Y
+	 * @param f whether the shape is to be filled in or a frame
 	 */
 	public void drawSquare(double ix, double iy, double cx, double cy, boolean f) {
 		double s;
@@ -115,6 +116,7 @@ public class ECanvas extends Canvas{
 	 * @param iy initial Y
 	 * @param cx current X
 	 * @param cy current Y
+	 * @param f whether the shape is to be filled in or a frame
 	 */
 	public void drawCircle(double ix, double iy, double cx, double cy, boolean f) {
 		double d; //diameter
@@ -156,6 +158,7 @@ public class ECanvas extends Canvas{
 	 * Method to draw a triangle on the canvas.
 	 * @param ic A pair of the initial coordinates
 	 * @param cx The current X value
+	 * @param f whether the shape is to be filled in or a frame
 	 */
 	public void drawTriangle(Pair ic, double cx, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
@@ -176,6 +179,7 @@ public class ECanvas extends Canvas{
 	 * @param ic A pair of the input coordinates
 	 * @param cx The current X value
 	 * @param n The number of sides
+	 * @param f whether the shape is to be filled in or a frame
 	 */
 	public void drawNGon(Pair ic, double cx, int n, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
