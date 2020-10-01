@@ -86,6 +86,7 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.DRAGDROP,
 				EditToolBar.ROTATE, // broken
 				EditToolBar.BLUR,
+				EditToolBar.SEPIA,
 				EditToolBar.ERASE
 		);
 		drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
