@@ -5,6 +5,7 @@
  */
 package paint;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.Effect;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 /**
@@ -194,7 +196,9 @@ public class ECanvas extends Canvas{
 	 * @return An Image Object of the canvas.
 	 */
 	public Image getImage() {
-		WritableImage wi = this.snapshot(null, null);
+		SnapshotParameters params = new SnapshotParameters();
+		//params.setFill(Color.TRANSPARENT);
+		WritableImage wi = this.snapshot(params, null);
 		ImageView iv = new ImageView(wi);
 		return iv.getImage();
 	}
