@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 /**
@@ -29,32 +28,50 @@ public class ECanvas extends Canvas{
 		this.gc = this.getGraphicsContext2D();
 	}
 	
-	public void drawRectangle(Pair ic, double cx, double cy) {
-		this.drawRectangle((double) ic.getKey(), (double) ic.getValue(), cx, cy);
+	public void drawRectangle(Pair ic, double cx, double cy, boolean f) {
+		this.drawRectangle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
-	public void drawRectangle(double ix, double iy, double cx, double cy) {
+	public void drawRectangle(double ix, double iy, double cx, double cy, boolean f) {
+		if (f) {
 		this.gc.fillRect(				
 			ix,
 			iy,
 			(cx - ix),				
 			(cy - iy)
 		);	
+		} else {
+		this.gc.strokeRect(
+			ix, 
+			iy, 
+			(cx - ix), 
+			(cy - iy)
+		);
+		}
 	}
 	
-	public void drawEllipse(Pair ic, double cx, double cy) {
-		this.drawEllipse((double) ic.getKey(), (double) ic.getValue(), cx, cy);
+	public void drawEllipse(Pair ic, double cx, double cy, boolean f) {
+		this.drawEllipse((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
-	public void drawEllipse(double ix, double iy, double cx, double cy) {
+	public void drawEllipse(double ix, double iy, double cx, double cy, boolean f) {
+		if (f) {
 		this.gc.fillOval(
 			ix, 
 			iy, 
 			(cx - ix), 
 			(cy - iy)
 		);
+		} else {
+		this.gc.strokeOval(
+			ix, 
+			iy, 
+			(cx - ix), 
+			(cy - iy)
+		);
+		}
 	}
 	
-	public void drawSquare(Pair ic, double cx, double cy) {
-		this.drawSquare((double) ic.getKey(), (double) ic.getValue(), cx, cy);
+	public void drawSquare(Pair ic, double cx, double cy, boolean f) {
+		this.drawSquare((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
 	/**
 	 * Method to draw a square on the canvas, the side length is determined by
@@ -64,23 +81,32 @@ public class ECanvas extends Canvas{
 	 * @param cx current X
 	 * @param cy current Y
 	 */
-	public void drawSquare(double ix, double iy, double cx, double cy) {
+	public void drawSquare(double ix, double iy, double cx, double cy, boolean f) {
 		double s;
 		if (cx >= cy) {
 			s = (cx - ix);
 		} else {
 			s = (cy - iy);
 		}
+		if (f) {
 		this.gc.fillRect(
 			ix, 
 			iy, 
 			s, 
 			s
 		);
+		} else {
+		this.gc.strokeRect(
+			ix, 
+			iy, 
+			s, 
+			s
+		);
+		}
 	}
 	
-	public void drawCircle(Pair ic, double cx, double cy) {
-		this.drawCircle((double) ic.getKey(), (double) ic.getValue(), cx, cy);
+	public void drawCircle(Pair ic, double cx, double cy, boolean f) {
+		this.drawCircle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
 	/**
 	 * Method to draw a circle on the canvas, the diameter is whatever value is 
@@ -90,19 +116,28 @@ public class ECanvas extends Canvas{
 	 * @param cx current X
 	 * @param cy current Y
 	 */
-	public void drawCircle(double ix, double iy, double cx, double cy) {
+	public void drawCircle(double ix, double iy, double cx, double cy, boolean f) {
 		double d; //diameter
 		if (cx >= cy) {
 			d = (cx - ix);
 		} else {
 			d = (cy - iy);
 		}	
+		if (f) {
 		this.gc.fillOval(
 			ix,
 			iy,
 			d,
 			d
 		);
+		} else {
+		this.gc.strokeOval(
+			ix,
+			iy,
+			d,
+			d
+		);
+		}
 	}
 	
 	public void drawLine(Pair ic, double cx, double cy) {
@@ -122,7 +157,7 @@ public class ECanvas extends Canvas{
 	 * @param ic A pair of the initial coordinates
 	 * @param cx The current X value
 	 */
-	public void drawTriangle(Pair ic, double cx) {
+	public void drawTriangle(Pair ic, double cx, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
 			3,
 			ic,
@@ -130,7 +165,11 @@ public class ECanvas extends Canvas{
 		);		
 		double[] xp = (double[]) PolygonPts.getKey();
 		double[] yp = (double[]) PolygonPts.getValue();
+		if (f) {
 		this.gc.fillPolygon(xp, yp, 3);
+		} else {
+		this.gc.strokePolygon(xp, yp, 3);
+		}
 	}
 	/**
 	 * Method to draw a 'n' sided polygon on the canvas.
@@ -138,7 +177,7 @@ public class ECanvas extends Canvas{
 	 * @param cx The current X value
 	 * @param n The number of sides
 	 */
-	public void drawNGon(Pair ic, double cx, int n) {
+	public void drawNGon(Pair ic, double cx, int n, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
 			n,
 			ic,
@@ -148,7 +187,11 @@ public class ECanvas extends Canvas{
 		double[] xp = (double[]) PolygonPts.getKey();
 		double[] yp = (double[]) PolygonPts.getValue();
 		//3
+		if (f) {
 		this.gc.fillPolygon(xp, yp, n);
+		} else {
+		this.gc.strokePolygon(xp, yp, n);
+		}
 
 	}
 	
