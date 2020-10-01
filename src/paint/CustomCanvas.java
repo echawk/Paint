@@ -10,6 +10,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
@@ -26,8 +27,8 @@ public class CustomCanvas extends ECanvas{
 	private Stack<Image> redoStack = new Stack();
 	
 	private Image drag_drop_image = null;
-	
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
+	private Line l;
 	private ECanvas livecanvas = new ECanvas();
 	public CustomCanvas(){
 		super();
@@ -73,6 +74,14 @@ public class CustomCanvas extends ECanvas{
 						this.r.setFill(Paint.colorpick.getValue()
 							.grayscale()
 							.deriveColor(-360, 1, 1, .5));
+					case EditToolBar.LINE:
+						this.l = new Line(
+							this.mouseCoord.getKey(),
+							this.mouseCoord.getValue(),
+							0,
+							0
+						);
+						this.l.setStroke(Paint.colorpick.getValue());
 					default:
 						break;
 				}
@@ -252,9 +261,14 @@ public class CustomCanvas extends ECanvas{
 						this.r.setHeight(s);
 						try {
 							Paint.getCurrentTab().pane.getChildren().add(this.r);
-						} catch (Exception ex) {
-							System.out.println("CustomCanvas.java; Adding retangle failed:" + ex);
-						}
+						} catch (Exception ex) {}
+						break;
+					case EditToolBar.LINE:
+						this.l.setEndX(e.getX());
+						this.l.setEndY(e.getY());
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.l);
+						} catch (Exception ex) {}
 						break;
 					default:
 						break;
@@ -392,6 +406,8 @@ public class CustomCanvas extends ECanvas{
 	public void postDraw() {
 		Paint.getCurrentTab().pane.getChildren().remove(this.r);
 		this.r = null;
+		Paint.getCurrentTab().pane.getChildren().remove(this.l);
+		this.l = null;
 		Paint.getCurrentTab().imgHasBeenSaved = false;
 	}
 	
