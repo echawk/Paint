@@ -7,6 +7,7 @@ package paint;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -66,6 +67,11 @@ public class EditToolBar extends ToolBar{
 				}
 			});
 			redobtn.setTooltip(new Tooltip("Redo an undone action"));
+		
+		CheckBox fillcb = new CheckBox("Fill?");
+		fillcb.setSelected(true);
+		fillcb.setTooltip(new Tooltip("Check if you want solid shapes:"));
+			
 		Label drawlbl = new Label("Draw:");
 
 		this.drawoptionmenu = new ComboBox();
@@ -126,6 +132,7 @@ public class EditToolBar extends ToolBar{
 			redobtn,
 			drawlbl,
 			drawoptionmenu,
+			fillcb,
 			brushlbl,
 			brushfld,
 			colorlbl,
