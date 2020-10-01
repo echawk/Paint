@@ -16,12 +16,13 @@ import javafx.scene.layout.Pane;
  * @author ethan
  */
 public class CustomTab extends Tab {
-	
-	public ScrollPane scroll;
+	//variables
 	public File opened_file;
 	public Image opened_image;
-	public CustomCanvas imgcanvas = new CustomCanvas();
 	public boolean imgHasBeenSaved;
+	//viewable elements
+	public ScrollPane scroll;
+	public CustomCanvas imgcanvas = new CustomCanvas();
 	public Pane pane = new Pane();
 	
 	public CustomTab(String label){
@@ -55,7 +56,6 @@ public class CustomTab extends Tab {
 				0, 
 				0
 			);
-			//System.out.println("CustomTab.java; setImage succeeded.");
 		} catch (Exception e) {
 			System.out.println("CustomTab.java; Failed to setImage:" + e);
 		}
