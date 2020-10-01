@@ -8,6 +8,8 @@ package paint;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -35,6 +37,7 @@ public class Paint extends Application {
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
 	final static int AUTOSAVE_INTERVAL = 20; //in seconds
+	final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	//pointers
 	public static Stage window; //basically primaryStage
@@ -117,14 +120,16 @@ public class Paint extends Application {
 		);
 		autosave.setCycleCount(Animation.INDEFINITE);
 		autosave.play();
-		/*
+		
 		Timeline logger = new Timeline(
-			new KeyFrame(Duration.seconds(1),
+			new KeyFrame(Duration.seconds(10),
 				ev -> {
-					
+					LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + "| Saved: " + Paint.getCurrentTab().imgHasBeenSaved + "| Opened File: " + Paint.getCurrentTab().opened_file);
 				})
 		);
-		*/
+		
+		logger.setCycleCount(Animation.INDEFINITE);
+		logger.play();
 	}
 
 	/**
