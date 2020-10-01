@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
 /**
@@ -56,7 +57,7 @@ public class EditToolBar extends ToolBar{
 					e.printStackTrace();
 				}
 			});
-
+			undobtn.setTooltip(new Tooltip("Undo a draw action"));
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
 				try {
@@ -66,7 +67,7 @@ public class EditToolBar extends ToolBar{
 					e.printStackTrace();
 				}
 			});
-
+			redobtn.setTooltip(new Tooltip("Redo an undone action"));
 		Label drawlbl = new Label("Draw:");
 
 		this.drawoptionmenu = new ComboBox();
@@ -90,7 +91,7 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.ERASE
 		);
 		drawoptionmenu.setValue(this.NONE); //Set our default value to be NONE
-
+		drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
 
 		Label optionslbl = new Label("Option:");
 		options_fld = new TextField();
@@ -119,6 +120,7 @@ public class EditToolBar extends ToolBar{
 			setDefaults();
 			//update the values?
 		});
+		resetbtn.setTooltip(new Tooltip("Reset draw settings"));
 
 		this.getItems().addAll(
 			undobtn,
