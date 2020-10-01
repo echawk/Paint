@@ -237,7 +237,11 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.CROP:
 						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
-						Paint.getCurrentTab().pane.getChildren().add(this.r);
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.r);
+						} catch (Exception ex){
+							System.out.println("CustomCanvas.java; Adding retangle failed:" + ex);
+						}
 						break;
 					case EditToolBar.SQUARE:
 						double s;
@@ -248,7 +252,11 @@ public class CustomCanvas extends ECanvas{
 						}
 						this.r.setWidth(s);
 						this.r.setHeight(s);
-						Paint.getCurrentTab().pane.getChildren().add(this.r);
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.r);
+						} catch (Exception ex) {
+							System.out.println("CustomCanvas.java; Adding retangle failed:" + ex);
+						}
 						break;
 					default:
 						break;
