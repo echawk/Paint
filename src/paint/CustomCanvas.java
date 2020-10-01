@@ -31,9 +31,7 @@ public class CustomCanvas extends ECanvas{
 	private ECanvas livecanvas = new ECanvas();
 	public CustomCanvas(){
 		super();
-		
-		this.imgToStack(getImage());
-		
+				
 		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
