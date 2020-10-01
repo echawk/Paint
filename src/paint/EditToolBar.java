@@ -25,6 +25,7 @@ public class EditToolBar extends ToolBar{
 	private ComboBox drawoptionmenu;
 	private TextField brushfld;
 	private TextField options_fld;
+	private CheckBox fillcb;
 
 	public static final String LINE = "Line";
 	public static final String PENCIL = "Pencil";
@@ -68,15 +69,15 @@ public class EditToolBar extends ToolBar{
 			});
 			redobtn.setTooltip(new Tooltip("Redo an undone action"));
 		
-		CheckBox fillcb = new CheckBox("Fill?");
-		fillcb.setSelected(true);
-		fillcb.setTooltip(new Tooltip("Check if you want solid shapes:"));
+		this.fillcb = new CheckBox("Fill?");
+		this.fillcb.setSelected(true);
+		this.fillcb.setTooltip(new Tooltip("Check if you want solid shapes:"));
 			
 		Label drawlbl = new Label("Draw:");
 
 		this.drawoptionmenu = new ComboBox();
 		//drawoptionmenu.autosize();
-		drawoptionmenu.getItems().addAll(
+		this.drawoptionmenu.getItems().addAll(
 				EditToolBar.NONE,
 				EditToolBar.LINE,
 				EditToolBar.PENCIL,
@@ -95,20 +96,20 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.SEPIA,
 				EditToolBar.ERASE
 		);
-		drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
-		drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
+		this.drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
+		this.drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
 
 		Label optionslbl = new Label("Option:");
-		options_fld = new TextField();
-		options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
+		this.options_fld = new TextField();
+		this.options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
 
 		Label brushlbl = new Label("Brush (px):");
 
-		brushfld = new TextField(Double.toString(Paint.brushSize));
+		this.brushfld = new TextField(Double.toString(Paint.brushSize));
 
-		brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
+		this.brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
 		//set the action for brushsize
-		brushfld.setOnAction((ActionEvent event) -> {
+		this.brushfld.setOnAction((ActionEvent event) -> {
 			try {
 				Paint.brushSize = Double.parseDouble(brushfld.getText());
 			} catch (NumberFormatException e) {
@@ -131,14 +132,14 @@ public class EditToolBar extends ToolBar{
 			undobtn,
 			redobtn,
 			drawlbl,
-			drawoptionmenu,
-			fillcb,
+			this.drawoptionmenu,
+			this.fillcb,
 			brushlbl,
-			brushfld,
+			this.brushfld,
 			colorlbl,
 			colorpick,
 			optionslbl,
-			options_fld,
+			this.options_fld,
 			resetbtn
 		);
 	}
@@ -170,5 +171,9 @@ public class EditToolBar extends ToolBar{
 		Paint.brushSize = Double.parseDouble(brushfld.getText());
 		this.drawoptionmenu.setValue(EditToolBar.NONE);
 		this.options_fld.setText(null);
+	}
+	
+	public boolean getFill() {
+		return this.fillcb.isSelected();
 	}
 }
