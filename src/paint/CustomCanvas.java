@@ -51,7 +51,6 @@ public class CustomCanvas extends ECanvas{
 						//this.livecanvas.clear();
 						//this.livecanvas.drawRectangle(this.mouseCoord, 0, 0);
 						//Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
-						
 						this.r = new Rectangle(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
@@ -93,7 +92,8 @@ public class CustomCanvas extends ECanvas{
 			this.gc.setFill(Paint.colorpick.getValue());
 			this.gc.setStroke(Paint.colorpick.getValue());
 			this.gc.setLineWidth(Paint.brushSize);
-
+			boolean fill = Paint.edittoolbar.getFill();
+			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
@@ -101,19 +101,19 @@ public class CustomCanvas extends ECanvas{
 						postDraw();
 						break;
 					case EditToolBar.CIRCLE:
-						super.drawCircle(this.mouseCoord, e.getX(), e.getY(), Paint.edittoolbar.getFill());
+						super.drawCircle(this.mouseCoord, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.ELLIPSE:
-						super.drawEllipse(this.mouseCoord, e.getX(), e.getY(), Paint.edittoolbar.getFill());
+						super.drawEllipse(this.mouseCoord, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.RECTANGLE:
-						super.drawRectangle(this.mouseCoord, e.getX(), e.getY(), Paint.edittoolbar.getFill());
+						super.drawRectangle(this.mouseCoord, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.SQUARE:
-						super.drawSquare(this.mouseCoord, e.getX(), e.getY(), Paint.edittoolbar.getFill());
+						super.drawSquare(this.mouseCoord, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.TEXTBOX:
@@ -125,7 +125,7 @@ public class CustomCanvas extends ECanvas{
 						postDraw();
 						break;
 					case EditToolBar.TRIANGLE:
-						super.drawTriangle(this.mouseCoord, e.getX(), Paint.edittoolbar.getFill());
+						super.drawTriangle(this.mouseCoord, e.getX(), fill);
 						postDraw();
 						break;
 						
@@ -137,7 +137,7 @@ public class CustomCanvas extends ECanvas{
 							System.out.println("Failed to parse options field: " + ex);
 							return; // to keep from drawing a shape			
 						}							
-						super.drawNGon(this.mouseCoord, e.getX(), n, Paint.edittoolbar.getFill());
+						super.drawNGon(this.mouseCoord, e.getX(), n, fill);
 						postDraw();
 						break;
 						
