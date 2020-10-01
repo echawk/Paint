@@ -133,7 +133,7 @@ public class CustomCanvas extends ECanvas{
 						int n = 0;
 						try {
 							n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
-						} catch (Exception ex) {
+						} catch (NumberFormatException ex) {
 							System.out.println("Failed to parse options field: " + ex);
 							return; // to keep from drawing a shape			
 						}							
@@ -199,7 +199,7 @@ public class CustomCanvas extends ECanvas{
 						double deg;
 						try {
 							deg = Double.parseDouble(Paint.edittoolbar.getOptionsField());
-						} catch (Exception ex) {
+						} catch (NumberFormatException ex) {
 							deg = 0;
 							System.out.println("CustomCanvas.java; Failed to parse the options field:" + ex);
 						}
