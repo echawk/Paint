@@ -298,13 +298,31 @@ public class CustomCanvas extends ECanvas{
 						} catch (Exception ex) {}
 						break;
 					case EditToolBar.TRIANGLE:
-						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(3, this.mouseCoord, (int) e.getX())));
+						this.p.getPoints().addAll(
+							this.convPairToArray(
+								super.getPolygonPoints(
+									3, 
+									this.mouseCoord, 
+									(int) e.getX()
+								)
+							)
+						);
 						try {
 							Paint.getCurrentTab().pane.getChildren().add(this.p);
 						} catch (Exception ex) {}
 						break;
 					case EditToolBar.NGON:
-						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(Integer.parseInt(Paint.edittoolbar.getOptionsField()), this.mouseCoord, (int) e.getX())));
+						this.p.getPoints().addAll(
+							this.convPairToArray(
+								super.getPolygonPoints(
+									Integer.parseInt(
+										Paint.edittoolbar.getOptionsField()
+									), 
+									this.mouseCoord, 
+									(int) e.getX()
+								)
+							)
+						);
 						try {
 							Paint.getCurrentTab().pane.getChildren().add(this.p);
 						} catch (Exception ex) {}
