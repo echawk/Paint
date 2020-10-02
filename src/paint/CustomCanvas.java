@@ -94,6 +94,7 @@ public class CustomCanvas extends ECanvas{
 								)
 							)
 						);
+						this.p.setFill(Paint.colorpick.getValue());
 					case EditToolBar.NGON:
 						this.p = new Polygon();
 						this.p.getPoints().addAll(
@@ -107,6 +108,7 @@ public class CustomCanvas extends ECanvas{
 								)
 							)
 						);
+						this.p.setFill(Paint.colorpick.getValue());
 					default:
 						break;
 				}
