@@ -318,6 +318,6 @@ public class ECanvas extends Canvas{
 	public void clear() {
 		this.gc.drawImage(null, 0, 0);
 	}
-	
+
 	
 }

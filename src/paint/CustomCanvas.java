@@ -28,6 +28,7 @@ public class CustomCanvas extends ECanvas{
 	private Stack<Image> undoStack = new Stack(); 
 	private Stack<Image> redoStack = new Stack();
 	
+	private Stack<Pair> freeNgonStack = new Stack();
 	private Image drag_drop_image = null;
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
 	private Line l;
@@ -125,6 +126,10 @@ public class CustomCanvas extends ECanvas{
 						this.ell = new Ellipse();
 						this.ell.setFill(Paint.colorpick.getValue());
 						Paint.getCurrentTab().pane.getChildren().add(this.ell);
+						break;
+					case EditToolBar.FREENGON:
+						this.freeNgonStack.add(new Pair(e.getX(), e.getY()));
+						this.p = new Polygon();
 						break;
 					default:
 						break;
@@ -252,6 +257,20 @@ public class CustomCanvas extends ECanvas{
 						postDraw();
 						break;
 						}
+					case EditToolBar.FREENGON:
+						if (this.freeNgonStack.size() == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
+							Pair freengon = convStackToPair(this.freeNgonStack);
+							this.gc.setFill(Paint.colorpick.getValue());
+							this.gc.fillPolygon(
+								(double[]) freengon.getKey(), 
+								(double[]) freengon.getValue(), 
+								Integer.parseInt(
+									Paint.edittoolbar.getOptionsField()
+								)
+							);
+							this.freeNgonStack.clear();	
+						}
+						break;
 					default:
 						break;
 				}	
@@ -259,7 +278,26 @@ public class CustomCanvas extends ECanvas{
 			}
 			
 		});
-				
+		
+		/*
+		this.setOnMouseEntered(e -> {
+			if (Paint.getMode() == Paint.EDIT_MODE) {
+				switch (Paint.edittoolbar.getDrawSelection()) {
+					case EditToolBar.FREENGON:
+						if (this.freeNgonStack.size() + 1 == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
+							Stack tstack = (Stack) this.freeNgonStack.clone();
+							tstack.add(new Pair(e.getX(), e.getY()));
+							Pair tpair = convStackToPair(tstack);
+							this.p.getPoints().addAll(this.convPairToArray(tpair));
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		});
+		*/
+		
 		this.setOnMouseDragged(e -> {
 			
 			double bsize = Paint.brushSize;
@@ -512,6 +550,19 @@ public class CustomCanvas extends ECanvas{
 			rp[i * 2 + 1] = yp[i];
 		}
 		return rp;
+	}
+	
+	public Pair<double[],double[]> convStackToPair(Stack s) {
+		int sSize = s.size();
+		double[] xp = new double[sSize];
+		double[] yp = new double[sSize];
+		Pair pt;
+		for (int i = 0; i < sSize; i++) {
+			pt = (Pair) s.pop();
+			xp[i] = (double) pt.getKey();
+			yp[i] = (double) pt.getValue();
+		}
+		return new Pair(xp, yp);
 	}
 	
 }
