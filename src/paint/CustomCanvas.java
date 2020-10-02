@@ -394,16 +394,16 @@ public class CustomCanvas extends ECanvas{
 	public void updateDimensions(boolean inc_zoom) {
 		if (inc_zoom) {
 			//if we want to increase the zoom
+			//this.setScaleX(this.getScaleX() * 2);
+			//this.setScaleY(this.getScaleY() * 2);
 			this.setWidth(this.getWidth() * 2);
 			this.setHeight(this.getHeight() * 2);
-			this.livecanvas.setHeight(this.getHeight() * 2);
-			this.livecanvas.setWidth(this.getWidth() * 2);
 		} else {
 			//if we want to decrease the zoom
+			//this.setScaleX(this.getScaleX() * .5);
+			//this.setScaleY(this.getScaleY() * .5);
 			this.setWidth(this.getWidth() / 2);
 			this.setHeight(this.getHeight() / 2);
-			this.livecanvas.setHeight(this.getHeight() / 2);
-			this.livecanvas.setWidth(this.getWidth() / 2);
 		}
 	}
 	
