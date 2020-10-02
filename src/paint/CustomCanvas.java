@@ -62,6 +62,7 @@ public class CustomCanvas extends ECanvas{
 							0
 						);
 						this.r.setFill(Paint.colorpick.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.r);
 						break;
 					case EditToolBar.BLUR:
 					case EditToolBar.CROP:
@@ -77,14 +78,17 @@ public class CustomCanvas extends ECanvas{
 						this.r.setFill(Paint.colorpick.getValue()
 							.grayscale()
 							.deriveColor(-360, 1, 1, .5));
+						Paint.getCurrentTab().pane.getChildren().add(this.r);
+						break;
 					case EditToolBar.LINE:
 						this.l = new Line(
 							this.mouseCoord.getKey(),
 							this.mouseCoord.getValue(),
-							0,
-							0
+							this.mouseCoord.getKey(),
+							this.mouseCoord.getValue()
 						);
 						this.l.setStroke(Paint.colorpick.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.l);
 						break;
 					case EditToolBar.TRIANGLE:
 						this.p  = new Polygon();
@@ -98,6 +102,7 @@ public class CustomCanvas extends ECanvas{
 							)
 						);
 						this.p.setFill(Paint.colorpick.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.p);
 						break;
 					case EditToolBar.NGON:
 						this.p = new Polygon();
@@ -113,11 +118,13 @@ public class CustomCanvas extends ECanvas{
 							)
 						);
 						this.p.setFill(Paint.colorpick.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.p);
 						break;
 					case EditToolBar.ELLIPSE:
 					case EditToolBar.CIRCLE:
 						this.ell = new Ellipse();
 						this.ell.setFill(Paint.colorpick.getValue());
+						Paint.getCurrentTab().pane.getChildren().add(this.ell);
 						break;
 					default:
 						break;
@@ -282,9 +289,6 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.CROP:
 						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
 						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.r);
-						} catch (Exception ex){}
 						break;
 					case EditToolBar.SQUARE:
 						double s;
@@ -295,16 +299,10 @@ public class CustomCanvas extends ECanvas{
 						}
 						this.r.setWidth(s);
 						this.r.setHeight(s);
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.r);
-						} catch (Exception ex) {}
 						break;
 					case EditToolBar.LINE:
 						this.l.setEndX(e.getX());
 						this.l.setEndY(e.getY());
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.l);
-						} catch (Exception ex) {}
 						break;
 					case EditToolBar.TRIANGLE:
 						this.p.getPoints().addAll(
@@ -316,9 +314,6 @@ public class CustomCanvas extends ECanvas{
 								)
 							)
 						);
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.p);
-						} catch (Exception ex) {}
 						break;
 					case EditToolBar.NGON:
 						this.p.getPoints().addAll(
@@ -332,9 +327,6 @@ public class CustomCanvas extends ECanvas{
 								)
 							)
 						);
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.p);
-						} catch (Exception ex) {}
 						break;
 					case EditToolBar.ELLIPSE:
 						{
@@ -344,9 +336,6 @@ public class CustomCanvas extends ECanvas{
 						this.ell.setCenterY(cy);
 						this.ell.setRadiusX((e.getX() - this.mouseCoord.getKey()) / 2);
 						this.ell.setRadiusY((e.getY() - this.mouseCoord.getValue()) / 2);
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.ell);
-						} catch (Exception ex) {}
 						break;
 						}
 					case EditToolBar.CIRCLE:
@@ -360,9 +349,6 @@ public class CustomCanvas extends ECanvas{
 						this.ell.setCenterY(this.mouseCoord.getValue() + rad);
 						this.ell.setRadiusX(rad);
 						this.ell.setRadiusY(rad);
-						try {
-							Paint.getCurrentTab().pane.getChildren().add(this.ell);
-						} catch (Exception ex) {}
 						break;
 					default:
 						break;
