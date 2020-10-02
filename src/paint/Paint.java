@@ -32,8 +32,8 @@ public class Paint extends Application {
 	
 	//Constants
 	final static String PROGRAM_NAME = "Pain(t)";
-	final static String PROGRAM_VER = "0.2.1";
-	final static String RELEASE_STR = "Where is my Mind?";
+	final static String PROGRAM_VER = "0.3.0";
+	final static String RELEASE_STR = "Becoming Insane";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
 	final static int AUTOSAVE_INTERVAL = 20; //in seconds
