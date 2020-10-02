@@ -5,9 +5,6 @@
  */
 package paint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
@@ -458,7 +455,10 @@ public class CustomCanvas extends ECanvas{
 			undoStack.add(lastimg);
 		}
 	}
-	
+	/**
+	 * Method to be ran after an image is drawn to the canvas; removes live 
+	 * drawing shapes, and marks the image as unsaved.
+	 */
 	public void postDraw() {
 		Paint.getCurrentTab().pane.getChildren().remove(this.r);
 		this.r = null;
@@ -468,7 +468,12 @@ public class CustomCanvas extends ECanvas{
 		this.p = null;
 		Paint.getCurrentTab().imgHasBeenSaved = false;
 	}
-
+	/**
+	 * Interweaves a pair of double arrays; this is used to convert the output of 
+	 * the 'getPolygonPoints' to be usable with the javafx polygon object.
+	 * @param pts A pair of the X and Y points, both in the proper order
+	 * @return A Double[] of the X and Y points
+	 */
 	public Double[] convPairToArray(Pair pts) {
 		double[] xp = (double[]) pts.getKey();
 		double[] yp = (double[]) pts.getValue();
