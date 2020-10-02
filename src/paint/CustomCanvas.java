@@ -261,6 +261,7 @@ public class CustomCanvas extends ECanvas{
 						if (this.freeNgonStack.size() == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
 							Pair freengon = convStackToPair(this.freeNgonStack);
 							this.gc.setFill(Paint.colorpick.getValue());
+							if (fill) {
 							this.gc.fillPolygon(
 								(double[]) freengon.getKey(), 
 								(double[]) freengon.getValue(), 
@@ -268,6 +269,15 @@ public class CustomCanvas extends ECanvas{
 									Paint.edittoolbar.getOptionsField()
 								)
 							);
+							} else {
+							this.gc.strokePolygon(
+								(double[]) freengon.getKey(), 
+								(double[]) freengon.getValue(), 
+								Integer.parseInt(
+									Paint.edittoolbar.getOptionsField()
+								)
+							);
+							}
 							this.freeNgonStack.clear();	
 						}
 						break;
