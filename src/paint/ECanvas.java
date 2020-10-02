@@ -212,7 +212,7 @@ public class ECanvas extends Canvas{
 	 * @param cx The current X value 
 	 * @return A Pair of double Arrays, with the key corresponding to the X points, and the value corresponding to the Y points.
 	 */
-	private Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
+	public Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
 		double ix = (double) initMouseCoord.getKey();
                 double iy = (double) initMouseCoord.getValue();
                 double radius = cx - ix;
