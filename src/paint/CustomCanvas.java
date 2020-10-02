@@ -88,10 +88,28 @@ public class CustomCanvas extends ECanvas{
 						this.l.setStroke(Paint.colorpick.getValue());
 					case EditToolBar.TRIANGLE:
 						this.p  = new Polygon();
-						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(3, this.mouseCoord, (int) e.getX())));
+						this.p.getPoints().addAll(
+							this.convPairToArray(
+								super.getPolygonPoints(
+									3, 
+									this.mouseCoord, 
+									(int) e.getX()
+								)
+							)
+						);
 					case EditToolBar.NGON:
 						this.p = new Polygon();
-						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(Integer.parseInt(Paint.edittoolbar.getOptionsField()), this.mouseCoord, (int) e.getX())));
+						this.p.getPoints().addAll(
+							this.convPairToArray(
+								super.getPolygonPoints(
+									Integer.parseInt(
+										Paint.edittoolbar.getOptionsField()
+									), 
+									this.mouseCoord, 
+									(int) e.getX()
+								)
+							)
+						);
 					default:
 						break;
 				}
