@@ -5,12 +5,16 @@
  */
 package paint;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Pair;
@@ -29,6 +33,7 @@ public class CustomCanvas extends ECanvas{
 	private Image drag_drop_image = null;
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
 	private Line l;
+	private Polygon p;
 	private ECanvas livecanvas = new ECanvas();
 	public CustomCanvas(){
 		super();
@@ -81,6 +86,12 @@ public class CustomCanvas extends ECanvas{
 							0
 						);
 						this.l.setStroke(Paint.colorpick.getValue());
+					case EditToolBar.TRIANGLE:
+						this.p  = new Polygon();
+						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(3, this.mouseCoord, (int) e.getX())));
+					case EditToolBar.NGON:
+						this.p = new Polygon();
+						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(Integer.parseInt(Paint.edittoolbar.getOptionsField()), this.mouseCoord, (int) e.getX())));
 					default:
 						break;
 				}
@@ -268,6 +279,17 @@ public class CustomCanvas extends ECanvas{
 							Paint.getCurrentTab().pane.getChildren().add(this.l);
 						} catch (Exception ex) {}
 						break;
+					case EditToolBar.TRIANGLE:
+						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(3, this.mouseCoord, (int) e.getX())));
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.p);
+						} catch (Exception ex) {}
+						break;
+					case EditToolBar.NGON:
+						this.p.getPoints().addAll(this.convPairToArray(super.getPolygonPoints(Integer.parseInt(Paint.edittoolbar.getOptionsField()), this.mouseCoord, (int) e.getX())));
+						try {
+							Paint.getCurrentTab().pane.getChildren().add(this.p);
+						} catch (Exception ex) {}
 					default:
 						break;
 				}
@@ -406,7 +428,20 @@ public class CustomCanvas extends ECanvas{
 		this.r = null;
 		Paint.getCurrentTab().pane.getChildren().remove(this.l);
 		this.l = null;
+		Paint.getCurrentTab().pane.getChildren().remove(this.p);
+		this.p = null;
 		Paint.getCurrentTab().imgHasBeenSaved = false;
+	}
+
+	public Double[] convPairToArray(Pair pts) {
+		double[] xp = (double[]) pts.getKey();
+		double[] yp = (double[]) pts.getValue();
+		Double[] rp = new Double[xp.length + yp.length];
+		for (int i = 0; i < xp.length; i++) {
+			rp[i * 2] = xp[i];
+			rp[i * 2 + 1] = yp[i];
+		}
+		return rp;
 	}
 	
 }
