@@ -10,6 +10,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -35,6 +36,7 @@ public class CustomCanvas extends ECanvas{
 	private Polygon p;
 	private Ellipse ell;
 	private ECanvas livecanvas = new ECanvas();
+	private Color targetColor;
 	public CustomCanvas(){
 		super();
 				
@@ -130,6 +132,9 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.FREENGON:
 						this.freeNgonStack.add(new Pair(e.getX(), e.getY()));
 						this.p = new Polygon();
+						break;
+					case EditToolBar.BUCKETFILL:
+						this.targetColor = this.getImage().getPixelReader().getColor((int) e.getX(), (int) e.getY());
 						break;
 					default:
 						break;
@@ -280,6 +285,10 @@ public class CustomCanvas extends ECanvas{
 							}
 							this.freeNgonStack.clear();	
 						}
+						break;
+					case EditToolBar.BUCKETFILL:
+						super.bucketFill(this.mouseCoord, targetColor, Paint.colorpick.getValue());
+						postDraw();
 						break;
 					default:
 						break;
@@ -543,6 +552,7 @@ public class CustomCanvas extends ECanvas{
 		this.p = null;
 		Paint.getCurrentTab().pane.getChildren().remove(this.ell);
 		this.ell = null;
+		this.targetColor = null;
 		Paint.getCurrentTab().imgHasBeenSaved = false;
 	}
 	/**

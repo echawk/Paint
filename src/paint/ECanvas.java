@@ -5,6 +5,8 @@
  */
 package paint;
 
+import java.util.Stack;
+import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +14,9 @@ import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 /**
@@ -319,5 +323,70 @@ public class ECanvas extends Canvas{
 		this.gc.drawImage(null, 0, 0);
 	}
 
+	//Clean up this section of the code!!!!!
+	public void bucketFill(Pair ic, Color targetCol, Color replacementCol) {
+		final double E = 0.3; //tolerance
+		Stack<Point2D> ptStack = new Stack<>();
+		Image oi = this.getImage();
+		WritableImage wi = new WritableImage(
+			oi.getPixelReader(),
+			(int) oi.getWidth(),
+			(int) oi.getHeight()
+		);
+		PixelReader wiReader = wi.getPixelReader();
+		PixelWriter wiWriter = wi.getPixelWriter();
+		
+		Point2D startPt = new Point2D((double) ic.getKey(), (double) ic.getValue());
+		
+		ptStack.push(startPt);
+		
+		while (!ptStack.isEmpty()) {
+			Point2D pt = ptStack.pop();
+			int x = (int) pt.getX();
+			int y = (int) pt.getY();
+			if (filled(wiReader, x, y, targetCol, E)) {
+				continue;
+			}
+			
+			wiWriter.setColor(x, y, replacementCol);
+			push(ptStack, x - 1, y - 1, wi);
+			push(ptStack, x - 1, y    , wi);
+			push(ptStack, x - 1, y + 1, wi);
+			push(ptStack, x    , y + 1, wi);
+			push(ptStack, x + 1, y + 1, wi);
+			push(ptStack, x + 1, y    , wi);
+			push(ptStack, x + 1, y - 1, wi);
+			push(ptStack, x,     y - 1, wi);
+		}
+		
+		this.gc.drawImage(wi, 0, 0);
+		
+	}
 	
+	private void push(Stack<Point2D> stack, int x, int y, Image i) {
+            if (x < 0 || x > i.getWidth() ||
+                y < 0 || y > i.getHeight()) {
+                return;
+            }
+
+            stack.push(new Point2D(x, y));
+        }
+
+	
+	private boolean filled(PixelReader reader, int x, int y, Color targetCol, double epsilon) {
+            Color color = reader.getColor(x, y);
+
+            return !withinTolerance(color, targetCol, epsilon);
+        }
+
+        private boolean withinTolerance(Color a, Color b, double epsilon) {
+            return
+                    withinTolerance(a.getRed(),   b.getRed(),   epsilon) &&
+                    withinTolerance(a.getGreen(), b.getGreen(), epsilon) &&
+                    withinTolerance(a.getBlue(),  b.getBlue(),  epsilon);
+        }
+
+        private boolean withinTolerance(double a, double b, double epsilon) {
+            return Math.abs(a - b) < epsilon;
+        }
 }

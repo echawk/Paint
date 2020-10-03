@@ -46,6 +46,7 @@ public class EditToolBar extends ToolBar{
 	public static final String ROTATE = "Rotate"; //kinda broken
 	public static final String SEPIA = "Sepia";
 	public static final String FREENGON = "Free N-gon";
+	public static final String BUCKETFILL = "Bucket Fill";
 
 	public EditToolBar() {
 
@@ -95,7 +96,8 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.ROTATE,
 				EditToolBar.BLUR,
 				EditToolBar.SEPIA,
-				EditToolBar.FREENGON, //testing
+				EditToolBar.FREENGON,
+				EditToolBar.BUCKETFILL, //testing
 				EditToolBar.ERASE
 		);
 		this.drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
