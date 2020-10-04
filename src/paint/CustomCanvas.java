@@ -571,7 +571,12 @@ public class CustomCanvas extends ECanvas{
 		}
 		return rp;
 	}
-	
+	/**
+	 * Converts a stack object full of pairs, into a singular pair object, with the
+	 * key being all of the keys and the value being all of the values.
+	 * @param s A stack of pairs.
+	 * @return 
+	 */
 	public Pair<double[],double[]> convStackToPair(Stack s) {
 		int sSize = s.size();
 		double[] xp = new double[sSize];
