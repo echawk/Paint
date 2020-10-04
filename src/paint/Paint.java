@@ -120,7 +120,7 @@ public class Paint extends Application {
 		Timeline logger = new Timeline(
 			new KeyFrame(Duration.seconds(10),
 				ev -> {
-					Paint.LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + "| Saved: " + Paint.getCurrentTab().imgHasBeenSaved + "| Opened File: " + Paint.getCurrentTab().opened_file);
+					Paint.LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + " | Saved: " + Paint.getCurrentTab().imgHasBeenSaved + " | Opened File: " + Paint.getCurrentTab().opened_file + " | AutoSave Enabled: " + Paint.AUTOSAVEON);
 				})
 		);
 		
