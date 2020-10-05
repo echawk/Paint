@@ -6,6 +6,7 @@
 package paint;
 
 import java.util.Stack;
+import javafx.geometry.Point2D;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
@@ -25,11 +26,11 @@ import javafx.util.Pair;
 public class CustomCanvas extends ECanvas{
 	
 	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
-
+	private Point2D imc; //initial mouse coordinates
 	private Stack<Image> undoStack = new Stack(); 
 	private Stack<Image> redoStack = new Stack();
 	
-	private Stack<Pair> freeNgonStack = new Stack();
+	private Stack<Pair> freeNgonStack = new Stack(); //make this Point2D
 	private Image drag_drop_image = null;
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
 	private Line l;
@@ -44,7 +45,8 @@ public class CustomCanvas extends ECanvas{
 		
 		this.setOnMousePressed(e -> {
 			this.mouseCoord = new Pair(e.getX(), e.getY());
-
+			this.imc = new Point2D(e.getX(), e.getY());
+			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.COLOR_GRAB:
@@ -55,15 +57,7 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.SQUARE:
-						//this.livecanvas.clear();
-						//this.livecanvas.drawRectangle(this.mouseCoord, 0, 0);
-						//Paint.getCurrentTab().pane.getChildren().add(this.livecanvas);
-						this.r = new Rectangle(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							0,
-							0
-						);
+						this.r = new Rectangle(imc.getX(), imc.getY(), 0, 0);
 						this.r.setFill(Paint.colorpick.getValue());
 						Paint.getCurrentTab().pane.getChildren().add(this.r);
 						break;
@@ -72,24 +66,14 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.DRAGDROP:
 					case EditToolBar.SEPIA:
 					case EditToolBar.ROTATE:
-						this.r = new Rectangle(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							0,
-							0
-						);
+						this.r = new Rectangle(imc.getX(), imc.getY(), 0, 0);
 						this.r.setFill(Paint.colorpick.getValue()
 							.grayscale()
 							.deriveColor(-360, 1, 1, .5));
 						Paint.getCurrentTab().pane.getChildren().add(this.r);
 						break;
 					case EditToolBar.LINE:
-						this.l = new Line(
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue(),
-							this.mouseCoord.getKey(),
-							this.mouseCoord.getValue()
-						);
+						this.l = new Line(this.imc.getX(), this.imc.getY(), this.imc.getX(), this.imc.getY());
 						this.l.setStroke(Paint.colorpick.getValue());
 						Paint.getCurrentTab().pane.getChildren().add(this.l);
 						break;
