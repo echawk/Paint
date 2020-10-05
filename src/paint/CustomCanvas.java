@@ -248,7 +248,10 @@ public class CustomCanvas extends ECanvas{
 						if (this.freeNgonStack.size() == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
 							Pair freengon = convStackToPair(this.freeNgonStack);
 							this.gc.setFill(Paint.colorpick.getValue());
-							super.drawGon((double[]) freengon.getKey(), (double[]) freengon.getValue(), Integer.parseInt(Paint.edittoolbar.getOptionsField()), fill);
+							super.drawGon((double[]) freengon.getKey(),
+								(double[]) freengon.getValue(), 
+								Integer.parseInt(Paint.edittoolbar.getOptionsField()),
+								fill);
 							this.freeNgonStack.clear();	
 						}
 						break;
