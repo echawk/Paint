@@ -83,7 +83,7 @@ public class CustomCanvas extends ECanvas{
 							this.convPairToArray(
 								super.getPolygonPoints(
 									3, 
-									this.mouseCoord, 
+									this.imc, 
 									(int) e.getX()
 								)
 							)
@@ -99,7 +99,7 @@ public class CustomCanvas extends ECanvas{
 									Integer.parseInt(
 										Paint.edittoolbar.getOptionsField()
 									), 
-									this.mouseCoord, 
+									this.imc, 
 									(int) e.getX()
 								)
 							)
@@ -336,7 +336,7 @@ public class CustomCanvas extends ECanvas{
 							this.convPairToArray(
 								super.getPolygonPoints(
 									3, 
-									this.mouseCoord, 
+									this.imc, 
 									(int) e.getX()
 								)
 							)
@@ -349,7 +349,7 @@ public class CustomCanvas extends ECanvas{
 									Integer.parseInt(
 										Paint.edittoolbar.getOptionsField()
 									), 
-									this.mouseCoord, 
+									this.imc, 
 									(int) e.getX()
 								)
 							)

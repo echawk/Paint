@@ -35,9 +35,6 @@ public class ECanvas extends Canvas{
 	public void drawRectangle(Point2D ic, double cx, double cy, boolean f) {
 		this.drawRectangle(ic.getX(), ic.getY(), cx, cy, f);
 	}
-	public void drawRectangle(Pair ic, double cx, double cy, boolean f) {
-		this.drawRectangle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
-	}
 	public void drawRectangle(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
 		this.gc.fillRect(ix, iy, (cx - ix), (cy - iy));	
@@ -49,9 +46,6 @@ public class ECanvas extends Canvas{
 	public void drawEllipse(Point2D ic, double cx, double cy, boolean f) {
 		this.drawEllipse(ic.getX(), ic.getY(), cx, cy, f);
 	}
-	public void drawEllipse(Pair ic, double cx, double cy, boolean f) {
-		this.drawEllipse((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
-	}
 	public void drawEllipse(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
 		this.gc.fillOval(ix, iy, (cx - ix), (cy - iy));
@@ -62,9 +56,6 @@ public class ECanvas extends Canvas{
 	
 	public void drawSquare(Point2D ic, double cx, double cy, boolean f) {
 		this.drawSquare(ic.getX(), ic.getY(), cx, cy, f);
-	}
-	public void drawSquare(Pair ic, double cx, double cy, boolean f) {
-		this.drawSquare((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
 	/**
 	 * Method to draw a square on the canvas, the side length is determined by
@@ -92,9 +83,6 @@ public class ECanvas extends Canvas{
 	public void drawCircle(Point2D ic, double cx, double cy, boolean f) {
 		this.drawCircle(ic.getX(), ic.getY(), cx, cy, f);
 	}
-	public void drawCircle(Pair ic, double cx, double cy, boolean f) {
-		this.drawCircle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
-	}
 	/**
 	 * Method to draw a circle on the canvas, the diameter is whatever value is 
 	 * greater, cx or cy
@@ -120,9 +108,6 @@ public class ECanvas extends Canvas{
 	
 	public void drawLine(Point2D ic, double cx, double cy) {
 		this.drawLine(ic.getX(), ic.getY(), cx, cy);
-	}
-	public void drawLine(Pair ic, double cx, double cy) {
-		this.drawLine((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
 	public void drawLine(double ix, double iy, double cx, double cy) {
 		this.gc.strokeLine(ix, iy, cx, cy);	
@@ -217,7 +202,7 @@ public class ECanvas extends Canvas{
 			}
 	}
 	
-	public Pair<double[],double[]> getPolyGonPoints(int n, Point2D ic, int cx) {
+	public Pair<double[],double[]> getPolygonPoints(int n, Point2D ic, int cx) {
 		return getPolygonPoints(n, new Pair(ic.getX(), ic.getY()), cx);
 	}
 	/**
