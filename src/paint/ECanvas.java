@@ -32,6 +32,9 @@ public class ECanvas extends Canvas{
 		this.gc = this.getGraphicsContext2D();
 	}
 	
+	public void drawRectangle(Point2D ic, double cx, double cy, boolean f) {
+		this.drawRectangle(ic.getX(), ic.getY(), cx, cy, f);
+	}
 	public void drawRectangle(Pair ic, double cx, double cy, boolean f) {
 		this.drawRectangle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
@@ -43,6 +46,9 @@ public class ECanvas extends Canvas{
 		}
 	}
 	
+	public void drawEllipse(Point2D ic, double cx, double cy, boolean f) {
+		this.drawEllipse(ic.getX(), ic.getY(), cx, cy, f);
+	}
 	public void drawEllipse(Pair ic, double cx, double cy, boolean f) {
 		this.drawEllipse((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
@@ -54,6 +60,9 @@ public class ECanvas extends Canvas{
 		}
 	}
 	
+	public void drawSquare(Point2D ic, double cx, double cy, boolean f) {
+		this.drawSquare(ic.getX(), ic.getY(), cx, cy, f);
+	}
 	public void drawSquare(Pair ic, double cx, double cy, boolean f) {
 		this.drawSquare((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
@@ -80,6 +89,9 @@ public class ECanvas extends Canvas{
 		}
 	}
 	
+	public void drawCircle(Point2D ic, double cx, double cy, boolean f) {
+		this.drawCircle(ic.getX(), ic.getY(), cx, cy, f);
+	}
 	public void drawCircle(Pair ic, double cx, double cy, boolean f) {
 		this.drawCircle((double) ic.getKey(), (double) ic.getValue(), cx, cy, f);
 	}
@@ -106,6 +118,9 @@ public class ECanvas extends Canvas{
 		}
 	}
 	
+	public void drawLine(Point2D ic, double cx, double cy) {
+		this.drawLine(ic.getX(), ic.getY(), cx, cy);
+	}
 	public void drawLine(Pair ic, double cx, double cy) {
 		this.drawLine((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
@@ -119,6 +134,21 @@ public class ECanvas extends Canvas{
 	 * @param cx The current X value
 	 * @param f whether the shape is to be filled in or a frame
 	 */
+	public void drawTriangle(Point2D ic, double cx, boolean f) {
+		Pair PolygonPts = getPolygonPoints(
+			3,
+			new Pair(ic.getX(), ic.getY()),
+			roundDouble(cx)
+		);
+		double[] xp = (double[]) PolygonPts.getKey();
+		double[] yp = (double[]) PolygonPts.getValue();
+		if (f) {
+		this.gc.fillPolygon(xp, yp, 3);
+		} else {
+		this.gc.strokePolygon(xp, yp, 3);
+		}
+
+	}
 	public void drawTriangle(Pair ic, double cx, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
 			3,
@@ -132,6 +162,20 @@ public class ECanvas extends Canvas{
 		} else {
 		this.gc.strokePolygon(xp, yp, 3);
 		}
+	}
+	
+	public void drawNGon(Point2D ic, double cx, int n, boolean f) {
+			Pair PolygonPts = getPolygonPoints(
+			n,
+			new Pair(ic.getX(), ic.getY()),
+			roundDouble(cx)
+		);		
+		//2
+		double[] xp = (double[]) PolygonPts.getKey();
+		double[] yp = (double[]) PolygonPts.getValue();
+		//3
+		drawGon(xp, yp, n, f);
+
 	}
 	/**
 	 * Method to draw a 'n' sided polygon on the canvas.
@@ -165,6 +209,9 @@ public class ECanvas extends Canvas{
 			}
 	}
 	
+	public Pair<double[],double[]> getPolyGonPoints(int n, Point2D ic, int cx) {
+		return getPolygonPoints(n, new Pair(ic.getX(), ic.getY()), cx);
+	}
 	/**
 	 * 
 	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
@@ -211,6 +258,9 @@ public class ECanvas extends Canvas{
 		ImageView iv = new ImageView(wi);
 		return iv.getImage();
 	}
+	public Image getSelectionAsImage(Point2D ic, double cx, double cy) {
+		return getSelectionAsImage(new Pair(ic.getX(), ic.getY()), cx, cy);
+	}
 	/**
 	 * This method returns the current selection as an Image.
 	 * @param ic The initial mouse coordinates.
@@ -231,6 +281,9 @@ public class ECanvas extends Canvas{
 		);
 		return (Image) wi;
 	}
+	public void applyEffectToSelection(Point2D ic, double cx, double cy, Effect e) {
+		applyEffectToSelection(new Pair(ic.getX(), ic.getY()), cx, cy, e);
+	}
 	/**
 	 * This method applies an effect to the current selection of the Image.
 	 * @param ic The initial mouse coordinates.
@@ -250,6 +303,9 @@ public class ECanvas extends Canvas{
 			(double) ic.getKey(), 
 			(double) ic.getValue()
 		);
+	}
+	public void rotateSelection(Point2D ic, double cx, double cy, double deg) {
+		rotateSelection(new Pair(ic.getX(), ic.getY()), cx, cy, deg);
 	}
 	/**
 	 * This method rotates the current selection by a the provided number of degrees
@@ -281,6 +337,9 @@ public class ECanvas extends Canvas{
 		this.gc.drawImage(null, 0, 0);
 	}
 
+	public void bucketFill(Point2D ic, Color targetCol, Color replacementCol) {
+		bucketFill(new Pair(ic.getX(), ic.getY()), targetCol, replacementCol);
+	}
 	//Clean up this section of the code!!!!!
 	public void bucketFill(Pair ic, Color targetCol, Color replacementCol) {
 		final double E = 0.3; //tolerance
