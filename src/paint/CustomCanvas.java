@@ -132,6 +132,7 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.FREENGON:
 						this.freeNgonStack.add(new Pair(e.getX(), e.getY()));
 						this.p = new Polygon();
+						//Paint.getCurrentTab().pane.getChildren().add(this.p);
 						break;
 					case EditToolBar.BUCKETFILL:
 						this.targetColor = this.getImage().getPixelReader().getColor((int) e.getX(), (int) e.getY());
@@ -266,23 +267,7 @@ public class CustomCanvas extends ECanvas{
 						if (this.freeNgonStack.size() == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
 							Pair freengon = convStackToPair(this.freeNgonStack);
 							this.gc.setFill(Paint.colorpick.getValue());
-							if (fill) {
-							this.gc.fillPolygon(
-								(double[]) freengon.getKey(), 
-								(double[]) freengon.getValue(), 
-								Integer.parseInt(
-									Paint.edittoolbar.getOptionsField()
-								)
-							);
-							} else {
-							this.gc.strokePolygon(
-								(double[]) freengon.getKey(), 
-								(double[]) freengon.getValue(), 
-								Integer.parseInt(
-									Paint.edittoolbar.getOptionsField()
-								)
-							);
-							}
+							super.drawGon((double[]) freengon.getKey(), (double[]) freengon.getValue(), Integer.parseInt(Paint.edittoolbar.getOptionsField()), fill);
 							this.freeNgonStack.clear();	
 						}
 						break;
@@ -307,6 +292,7 @@ public class CustomCanvas extends ECanvas{
 							Stack tstack = (Stack) this.freeNgonStack.clone();
 							tstack.add(new Pair(e.getX(), e.getY()));
 							Pair tpair = convStackToPair(tstack);
+							
 							this.p.getPoints().addAll(this.convPairToArray(tpair));
 						}
 						break;
