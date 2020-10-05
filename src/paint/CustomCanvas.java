@@ -25,7 +25,6 @@ import javafx.util.Pair;
  */
 public class CustomCanvas extends ECanvas{
 	
-	private Pair<Double,Double> mouseCoord; //Pair for the mouse coordinates
 	private Point2D imc; //initial mouse coordinates
 	private Stack<Image> undoStack = new Stack(); 
 	private Stack<Image> redoStack = new Stack();
@@ -41,10 +40,8 @@ public class CustomCanvas extends ECanvas{
 	public CustomCanvas(){
 		super();
 				
-		this.mouseCoord = new Pair(0, 0);
 		
 		this.setOnMousePressed(e -> {
-			this.mouseCoord = new Pair(e.getX(), e.getY());
 			this.imc = new Point2D(e.getX(), e.getY());
 			
 			if (Paint.getMode() == Paint.EDIT_MODE) {
