@@ -37,6 +37,7 @@ public class Paint extends Application {
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
 	final static int AUTOSAVE_INTERVAL = 20; //in seconds
+	final static int LOGGER_INTERVAL = 10; //in seconds
 	final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	//pointers
@@ -118,7 +119,7 @@ public class Paint extends Application {
 		autosave.play();
 		
 		Timeline logger = new Timeline(
-			new KeyFrame(Duration.seconds(10),
+			new KeyFrame(Duration.seconds(Paint.LOGGER_INTERVAL),
 				ev -> {
 					Paint.LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + " | Saved: " + Paint.getCurrentTab().imgHasBeenSaved + " | Opened File: " + Paint.getCurrentTab().opened_file + " | AutoSave Enabled: " + Paint.AUTOSAVEON);
 				})
