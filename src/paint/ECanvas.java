@@ -128,6 +128,14 @@ public class ECanvas extends Canvas{
 		this.gc.strokeLine(ix, iy, cx, cy);	
 	}
 	
+	public void drawText(Point2D ic, String txt, boolean f) {
+		if (f) {
+		this.gc.fillText(txt, ic.getX(), ic.getY());
+		} else {
+		this.gc.strokeText(txt, ic.getX(), ic.getY());
+		}
+	}
+	
 	/**
 	 * Method to draw a triangle on the canvas.
 	 * @param ic A pair of the initial coordinates
