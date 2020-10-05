@@ -1,5 +1,37 @@
 GITHUB: https://github.com/ehawkvu/Paint
 
+Paint 0.3.0 - Becoming Insane - 10/5/20
+
+Song: https://www.youtube.com/watch?v=uwUNbeiiOzM
+
+New Features:
+	* Threaded Autosave!
+		- Autosave will now attempt to save whatever image is in the currently opened tab on a regular interval
+	* Threaded Logging!
+	* Added tooltips to the undo button, redo button, draw option combobox, and the reset button
+	* Added Sepia tool (EXTRA)
+		- Applies a sepia tone filter
+	* Added Rotate tool (EXTRA)
+		- Rotates a selection of the image by a number of degrees
+	* Added a new Fill Checkbox which will now draw shapes as either a filled in shape or as an outline (EXTRA)
+		- Works with every shape tool
+	* Added live draw support to more tools:
+		- Square, Sepia, Triangle, N-gon, Rotate, Line, Ellipse & Circle
+		- in short: every tool!!!
+	* Added in Free N-gon Tool (EXTRA)
+		- Select N number of points, and it will draw a polygon using those points as vertices
+	* Added in a Bucket Fill tool (EXTRA)
+
+Known Bugs:
+	* The Bucket Fill tool doesn't work perfectly yet, but works more than well enough for most usage
+	* Otherwise None :)
+
+Expected Features:
+	* Improved zoom
+	* Theming support
+	* Lossless compression of images in the undo stack (ram saver)
+
+
 Paint 0.2.1 - Where is my Mind? - 9/29/20
 
 Song: https://www.youtube.com/watch?v=49FB9hhoO6c
@@ -35,7 +67,7 @@ Second Minor Release!!!
 
 New Features:
 	* Paint now supports using TABS!!!!! (EXTRA)
-		- This means you can have mulitple images open at once and switch between them.
+		- This means you can have multiple images open at once and switch between them.
 	* Added in A Drag and Drop Feature!!!
 		- This is the "big feature"
 	* New Text Box Draw option!
@@ -45,7 +77,7 @@ New Features:
 		- Still experimental at this stage, doesn't work exactly as intended. (so is disabled by default)
 		- I want to figure out how to properly implement this tool, my thought is that you can draw a rectangle and the blur tool will apply a blur effect to the selected area (similar to the drag and drop)
 	* Added an Equilateral Triangle as a drawing option!
-	* Added an "Options" text field to allow for more complex operations on cetain draw commands
+	* Added an "Options" text field to allow for more complex operations on certain draw commands
 		- Should serve as a general place to allow for finer grained control
 	* Added the ability to Draw an N-gon (using the new Options text field as an input for "N")
 	* Added more JavaDoc where it's needed.
@@ -99,7 +131,7 @@ Known Bugs:
 	* When undo-ing an action, it may take dozens of presses of the undo button, because there are too
 		many images in the stack.
 	* "Reset" function under the view menu doesn't quite work yet
-	* The zoom in/out features don't work exactly how I inted for them to work
+	* The zoom in/out features don't work exactly how I intended for them to work
 
 Expected Features:
 	* Theming Support
@@ -146,7 +178,7 @@ New Features:
 	* Can exit via the file menu
 	* Has a menubar (with a "File" and "Help" menu)
 	* Has a primitive "About" window
-	* Extened the MenuBar class (Now CustomMenuBar), to handle all of the MenuBar code.
+	* Extended the MenuBar class (Now CustomMenuBar), to handle all of the MenuBar code.
 	* Basic filetype detection (through getting the file's extension)
 
 Known Issues:
