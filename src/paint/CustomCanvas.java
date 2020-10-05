@@ -137,27 +137,22 @@ public class CustomCanvas extends ECanvas{
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
-						//super.drawLine(this.mouseCoord, e.getX(), e.getY());
 						super.drawLine(this.imc, e.getX(), e.getY());
 						postDraw();
 						break;
 					case EditToolBar.CIRCLE:
-						//super.drawCircle(this.mouseCoord, e.getX(), e.getY(), fill);
 						super.drawCircle(this.imc, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.ELLIPSE:
-						//super.drawEllipse(this.mouseCoord, e.getX(), e.getY(), fill);
 						super.drawEllipse(this.imc, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.RECTANGLE:
-						//super.drawRectangle(this.mouseCoord, e.getX(), e.getY(), fill);
 						super.drawRectangle(this.imc, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
 					case EditToolBar.SQUARE:
-						//super.drawSquare(this.mouseCoord, e.getX(), e.getY(), fill);
 						super.drawSquare(this.imc, e.getX(), e.getY(), fill);
 						postDraw();
 						break;
@@ -167,7 +162,6 @@ public class CustomCanvas extends ECanvas{
 						postDraw();
 						break;
 					case EditToolBar.TRIANGLE:
-						//super.drawTriangle(this.mouseCoord, e.getX(), fill);
 						super.drawTriangle(this.imc, e.getX(), fill);
 						postDraw();
 						break;
@@ -180,7 +174,6 @@ public class CustomCanvas extends ECanvas{
 							System.out.println("Failed to parse options field: " + ex);
 							return; // to keep from drawing a shape			
 						}							
-						//super.drawNGon(this.mouseCoord, e.getX(), n, fill);
 						super.drawNGon(this.imc, e.getX(), n, fill);
 						postDraw();
 						break;
@@ -191,7 +184,6 @@ public class CustomCanvas extends ECanvas{
 						//2 - set the canvas to be the new image
 						
 						//1
-						//Image wi = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 						Image wi = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
 						//2
 						Paint.getCurrentTab().setImage(wi);
@@ -205,17 +197,8 @@ public class CustomCanvas extends ECanvas{
 							//2 - clear out a rectangle of the same size
 							
 							//1
-							//this.drag_drop_image = super.getSelectionAsImage(this.mouseCoord, e.getX(), e.getY());
 							this.drag_drop_image = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
 							//2
-							/*
-							this.gc.clearRect(
-								roundDouble(this.mouseCoord.getKey()),
-								roundDouble(this.mouseCoord.getValue()),
-								roundDouble(e.getX() - this.mouseCoord.getKey()),
-								roundDouble(e.getY() - this.mouseCoord.getValue())
-							);
-							*/
 							this.gc.clearRect(
 								roundDouble(this.imc.getX()),
 								roundDouble(this.imc.getY()),
@@ -238,14 +221,12 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.BLUR:
 						{
-						//super.applyEffectToSelection(this.mouseCoord, e.getX(), e.getY(), new GaussianBlur());
 						super.applyEffectToSelection(this.imc, e.getX(), e.getY(), new GaussianBlur());
 						postDraw();
 						break;
 						}
 					case EditToolBar.SEPIA:
 						{
-						//super.applyEffectToSelection(this.mouseCoord, e.getX(), e.getY(), new SepiaTone());
 						super.applyEffectToSelection(this.imc, e.getX(), e.getY(), new SepiaTone());
 						postDraw();
 						break;
@@ -259,7 +240,6 @@ public class CustomCanvas extends ECanvas{
 							deg = 0;
 							System.out.println("CustomCanvas.java; Failed to parse the options field:" + ex);
 						}
-						//super.rotateSelection(this.mouseCoord, e.getX(), e.getY(), deg);
 						super.rotateSelection(this.imc, e.getX(), e.getY(), deg);
 						postDraw();
 						break;
@@ -273,7 +253,6 @@ public class CustomCanvas extends ECanvas{
 						}
 						break;
 					case EditToolBar.BUCKETFILL:
-						//super.bucketFill(this.mouseCoord, targetColor, Paint.colorpick.getValue());
 						super.bucketFill(this.imc, targetColor, Paint.colorpick.getValue());
 						postDraw();
 						break;
@@ -332,15 +311,15 @@ public class CustomCanvas extends ECanvas{
 					case EditToolBar.SEPIA:
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.CROP:
-						this.r.setWidth(e.getX() - this.mouseCoord.getKey());
-						this.r.setHeight(e.getY() - this.mouseCoord.getValue());
+						this.r.setWidth(e.getX() - this.imc.getX());
+						this.r.setHeight(e.getY() - this.imc.getY());
 						break;
 					case EditToolBar.SQUARE:
 						double s;
 						if (e.getX() >= e.getY()) {
-							s = e.getX() - this.mouseCoord.getKey(); 
+							s = e.getX() - this.imc.getX();
 						} else {
-							s = e.getY() - this.mouseCoord.getValue();
+							s = e.getY() - this.imc.getY();
 						}
 						this.r.setWidth(s);
 						this.r.setHeight(s);
@@ -375,23 +354,24 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.ELLIPSE:
 						{
-						double cx = this.mouseCoord.getKey() + (e.getX() - this.mouseCoord.getKey()) / 2;
-						double cy = this.mouseCoord.getValue() + (e.getY() - this.mouseCoord.getValue()) / 2;
+						double cx = this.imc.getX() + (e.getX() - this.imc.getX()) / 2;
+						double cy = this.imc.getY() + (e.getY() - this.imc.getY()) / 2;
 						this.ell.setCenterX(cx);
 						this.ell.setCenterY(cy);
-						this.ell.setRadiusX((e.getX() - this.mouseCoord.getKey()) / 2);
-						this.ell.setRadiusY((e.getY() - this.mouseCoord.getValue()) / 2);
+						this.ell.setRadiusX((e.getX() - this.imc.getX()) / 2);
+						this.ell.setRadiusY((e.getY() - this.imc.getY()) / 2);
 						break;
 						}
 					case EditToolBar.CIRCLE:
 						double rad;
 						if (e.getX() >= e.getY()) {
-							rad = (e.getX() - this.mouseCoord.getKey()) / 2;
+							rad = (e.getX() - this.imc.getX()) / 2;
+
 						} else {
-							rad = (e.getY() - this.mouseCoord.getValue()) / 2;
+							rad = (e.getY() - this.imc.getY()) / 2;
 						}
-						this.ell.setCenterX(this.mouseCoord.getKey() + rad);
-						this.ell.setCenterY(this.mouseCoord.getValue() + rad);
+						this.ell.setCenterX(this.imc.getX() + rad);
+						this.ell.setCenterY(this.imc.getY() + rad);
 						this.ell.setRadiusX(rad);
 						this.ell.setRadiusY(rad);
 						break;
