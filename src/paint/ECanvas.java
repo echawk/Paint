@@ -37,19 +37,9 @@ public class ECanvas extends Canvas{
 	}
 	public void drawRectangle(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
-		this.gc.fillRect(				
-			ix,
-			iy,
-			(cx - ix),				
-			(cy - iy)
-		);	
+		this.gc.fillRect(ix, iy, (cx - ix), (cy - iy));	
 		} else {
-		this.gc.strokeRect(
-			ix, 
-			iy, 
-			(cx - ix), 
-			(cy - iy)
-		);
+		this.gc.strokeRect(ix, iy, (cx - ix), (cy - iy));
 		}
 	}
 	
@@ -58,19 +48,9 @@ public class ECanvas extends Canvas{
 	}
 	public void drawEllipse(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
-		this.gc.fillOval(
-			ix, 
-			iy, 
-			(cx - ix), 
-			(cy - iy)
-		);
+		this.gc.fillOval(ix, iy, (cx - ix), (cy - iy));
 		} else {
-		this.gc.strokeOval(
-			ix, 
-			iy, 
-			(cx - ix), 
-			(cy - iy)
-		);
+		this.gc.strokeOval(ix, iy, (cx - ix), (cy - iy));
 		}
 	}
 	
@@ -94,19 +74,9 @@ public class ECanvas extends Canvas{
 			s = (cy - iy);
 		}
 		if (f) {
-		this.gc.fillRect(
-			ix, 
-			iy, 
-			s, 
-			s
-		);
+		this.gc.fillRect(ix, iy, s, s);
 		} else {
-		this.gc.strokeRect(
-			ix, 
-			iy, 
-			s, 
-			s
-		);
+		this.gc.strokeRect(ix, iy, s, s);
 		}
 	}
 	
@@ -130,19 +100,9 @@ public class ECanvas extends Canvas{
 			d = (cy - iy);
 		}	
 		if (f) {
-		this.gc.fillOval(
-			ix,
-			iy,
-			d,
-			d
-		);
+		this.gc.fillOval(ix, iy, d, d);
 		} else {
-		this.gc.strokeOval(
-			ix,
-			iy,
-			d,
-			d
-		);
+		this.gc.strokeOval(ix, iy, d, d);
 		}
 	}
 	
@@ -150,12 +110,7 @@ public class ECanvas extends Canvas{
 		this.drawLine((double) ic.getKey(), (double) ic.getValue(), cx, cy);
 	}
 	public void drawLine(double ix, double iy, double cx, double cy) {
-		this.gc.strokeLine(
-			ix,
-			iy,
-			cx,
-			cy
-		);	
+		this.gc.strokeLine(ix, iy, cx, cy);	
 	}
 	
 	/**
