@@ -130,7 +130,7 @@ public class ECanvas extends Canvas{
 	public void drawTriangle(Point2D ic, double cx, boolean f) {
 		Pair PolygonPts = getPolygonPoints(
 			3,
-			new Pair(ic.getX(), ic.getY()),
+			ic,
 			roundDouble(cx)
 		);
 		double[] xp = (double[]) PolygonPts.getKey();
@@ -142,25 +142,18 @@ public class ECanvas extends Canvas{
 		}
 
 	}
-	public void drawTriangle(Pair ic, double cx, boolean f) {
-		Pair PolygonPts = getPolygonPoints(
-			3,
-			ic,
-			roundDouble(cx)
-		);		
-		double[] xp = (double[]) PolygonPts.getKey();
-		double[] yp = (double[]) PolygonPts.getValue();
-		if (f) {
-		this.gc.fillPolygon(xp, yp, 3);
-		} else {
-		this.gc.strokePolygon(xp, yp, 3);
-		}
-	}
 	
+	/**
+	 * Method to draw a 'n' sided polygon on the canvas.
+	 * @param ic A pair of the input coordinates
+	 * @param cx The current X value
+	 * @param n The number of sides
+	 * @param f whether the shape is to be filled in or a frame
+	 */
 	public void drawNGon(Point2D ic, double cx, int n, boolean f) {
 			Pair PolygonPts = getPolygonPoints(
 			n,
-			new Pair(ic.getX(), ic.getY()),
+			ic,
 			roundDouble(cx)
 		);		
 		//2
@@ -170,26 +163,7 @@ public class ECanvas extends Canvas{
 		drawGon(xp, yp, n, f);
 
 	}
-	/**
-	 * Method to draw a 'n' sided polygon on the canvas.
-	 * @param ic A pair of the input coordinates
-	 * @param cx The current X value
-	 * @param n The number of sides
-	 * @param f whether the shape is to be filled in or a frame
-	 */
-	public void drawNGon(Pair ic, double cx, int n, boolean f) {
-		Pair PolygonPts = getPolygonPoints(
-			n,
-			ic,
-			roundDouble(cx)
-		);		
-		//2
-		double[] xp = (double[]) PolygonPts.getKey();
-		double[] yp = (double[]) PolygonPts.getValue();
-		//3
-		drawGon(xp, yp, n, f);
-	}
-	
+
 	private int roundDouble(double d) {
 		return (int) Math.round(d);
 	}
@@ -202,21 +176,18 @@ public class ECanvas extends Canvas{
 			}
 	}
 	
-	public Pair<double[],double[]> getPolygonPoints(int n, Point2D ic, int cx) {
-		return getPolygonPoints(n, new Pair(ic.getX(), ic.getY()), cx);
-	}
 	/**
 	 * 
 	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
 	 * 
 	 * @param n An integer for the number of sides the polygon should have.
-	 * @param initMouseCoord The initial mouse coordinates 
+	 * @param ic The initial mouse coordinates 
 	 * @param cx The current X value 
 	 * @return A Pair of double Arrays, with the key corresponding to the X points, and the value corresponding to the Y points.
 	 */
-	public Pair<double[],double[]> getPolygonPoints(int n, Pair initMouseCoord, int cx){
-		double ix = (double) initMouseCoord.getKey();
-                double iy = (double) initMouseCoord.getValue();
+	public Pair<double[],double[]> getPolygonPoints(int n, Point2D ic, int cx){
+		double ix = ic.getX();
+                double iy = ic.getY();
                 double radius = cx - ix;
 
 		double[] xp = new double[n];
@@ -251,9 +222,6 @@ public class ECanvas extends Canvas{
 		ImageView iv = new ImageView(wi);
 		return iv.getImage();
 	}
-	public Image getSelectionAsImage(Point2D ic, double cx, double cy) {
-		return getSelectionAsImage(new Pair(ic.getX(), ic.getY()), cx, cy);
-	}
 	/**
 	 * This method returns the current selection as an Image.
 	 * @param ic The initial mouse coordinates.
@@ -261,10 +229,10 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @return the subset of the current image enclosed by the selection
 	 */
-	public Image getSelectionAsImage(Pair ic, double cx, double cy) {
+	public Image getSelectionAsImage(Point2D ic, double cx, double cy) {
 		PixelReader r = this.getImage().getPixelReader();
-		double ix = (double) ic.getKey();
-		double iy = (double) ic.getValue();
+		double ix = (double) ic.getX();
+		double iy = (double) ic.getY();
 		WritableImage wi = new WritableImage(
 			r,
 			roundDouble(ix),
@@ -274,9 +242,6 @@ public class ECanvas extends Canvas{
 		);
 		return (Image) wi;
 	}
-	public void applyEffectToSelection(Point2D ic, double cx, double cy, Effect e) {
-		applyEffectToSelection(new Pair(ic.getX(), ic.getY()), cx, cy, e);
-	}
 	/**
 	 * This method applies an effect to the current selection of the Image.
 	 * @param ic The initial mouse coordinates.
@@ -284,7 +249,7 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @param e the effect to apply.
 	 */
-	public void applyEffectToSelection(Pair ic, double cx, double cy, Effect e) {
+	public void applyEffectToSelection(Point2D ic, double cx, double cy, Effect e) {
 		Image wi = getSelectionAsImage(ic, cx, cy);
 		//2
 		CustomCanvas t = new CustomCanvas();
@@ -293,12 +258,9 @@ public class ECanvas extends Canvas{
 		t.gc.drawImage(wi, 0, 0);
 		this.gc.drawImage(
 			t.getImage(), 
-			(double) ic.getKey(), 
-			(double) ic.getValue()
+			ic.getX(), 
+			ic.getY()
 		);
-	}
-	public void rotateSelection(Point2D ic, double cx, double cy, double deg) {
-		rotateSelection(new Pair(ic.getX(), ic.getY()), cx, cy, deg);
 	}
 	/**
 	 * This method rotates the current selection by a the provided number of degrees
@@ -307,7 +269,7 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @param deg the degrees to rotate the image by
 	 */
-	public void rotateSelection(Pair ic, double cx, double cy, double deg) {
+	public void rotateSelection(Point2D ic, double cx, double cy, double deg) {
 		Image wi = getSelectionAsImage(ic, cx, cy);
 		CustomCanvas t = new CustomCanvas();
 		t.updateDimensions(wi); //need to make sure the canvas has dimensions
@@ -317,8 +279,8 @@ public class ECanvas extends Canvas{
 		t.gc.restore();
 		this.gc.drawImage(
 			t.getImage(), 
-			(double) ic.getKey(), 
-			(double) ic.getValue()
+			ic.getX(), 
+			ic.getY()
 		);
 
 	}
