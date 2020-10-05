@@ -195,18 +195,21 @@ public class ECanvas extends Canvas{
 		double[] xp = (double[]) PolygonPts.getKey();
 		double[] yp = (double[]) PolygonPts.getValue();
 		//3
-		if (f) {
-		this.gc.fillPolygon(xp, yp, n);
-		} else {
-		this.gc.strokePolygon(xp, yp, n);
-		}
-
+		drawGon(xp, yp, n, f);
 	}
 	
 	private int roundDouble(double d) {
 		return (int) Math.round(d);
 	}
 
+	public void drawGon(double[] xp, double[] yp, int n, boolean f) {
+			if (f) {
+			this.gc.fillPolygon(xp, yp,n);
+			} else {
+			this.gc.strokePolygon(xp, yp, n);
+			}
+	}
+	
 	/**
 	 * 
 	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
