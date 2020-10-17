@@ -5,6 +5,7 @@
  */
 package paint;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -86,6 +88,29 @@ public class Paint extends Application {
 	
 	//scene setup
 		Scene scene = new Scene(root, 1000, 500); //create the scene
+		scene.setOnKeyPressed(e -> {
+			if (Paint.getMode() == Paint.EDIT_MODE) {
+				if (e.getCode().equals(KeyCode.E)) {
+					Paint.edittoolbar.setTool(EditToolBar.ERASE);
+				} else if (e.getCode().equals(KeyCode.S)) {
+					Paint.edittoolbar.setTool(EditToolBar.SQUARE);
+				} else if (e.getCode().equals(KeyCode.P)) {
+					Paint.edittoolbar.setTool(EditToolBar.COLOR_GRAB);
+				} else if (e.getCode().equals(KeyCode.C)) {
+					Paint.edittoolbar.setTool(EditToolBar.CROP);
+				} else if (e.getCode().equals(KeyCode.B)) {
+					Paint.edittoolbar.setTool(EditToolBar.BUCKETFILL);
+				} else if (e.getCode().equals(KeyCode.E)) {
+					Paint.edittoolbar.setTool(EditToolBar.ELLIPSE);
+				} else if (e.getCode().equals(KeyCode.SPACE)) {
+					Paint.edittoolbar.setTool(EditToolBar.NONE);
+				} else if (e.getCode().equals(KeyCode.F)) {
+					Paint.edittoolbar.toggleFillCheckBox();
+				} else if (e.getCode().equals(KeyCode.L)) {
+					Paint.edittoolbar.setTool(EditToolBar.LINE);
+				}
+			}
+		});
 		//themeing code down here??
 		//scene.getRoot().setStyle("-fx-base:black");
 		//scene.getStylesheets().add("dark-theme.css");

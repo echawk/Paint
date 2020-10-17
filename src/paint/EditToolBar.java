@@ -180,4 +180,15 @@ public class EditToolBar extends ToolBar{
 	public boolean getFill() {
 		return this.fillcb.isSelected();
 	}
+	
+	public void setTool(String tool) {
+		this.drawoptionmenu.setValue(tool);
+	}
+	public void toggleFillCheckBox() {
+		if (getFill()) {
+			this.fillcb.setSelected(false);
+		} else {
+			this.fillcb.setSelected(true);
+		}
+	}
 }
