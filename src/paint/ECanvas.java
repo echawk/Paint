@@ -336,8 +336,8 @@ public class ECanvas extends Canvas{
 	}
 	
 	private void push(Stack<Point2D> stack, int x, int y, Image i) {
-            if (x < 0 || x > i.getWidth() ||
-                y < 0 || y > i.getHeight()) {
+            if (x < 0 || x >= i.getWidth() ||
+                y < 0 || y >= i.getHeight()) {
                 return;
             }
 
