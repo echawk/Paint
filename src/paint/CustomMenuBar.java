@@ -38,7 +38,7 @@ public class CustomMenuBar extends MenuBar {
 			about.setOnAction((ActionEvent event) -> {
 				Popup.launchAboutWindow();
 			});
-		MenuItem autosaveToggle = new MenuItem("AutoSave On");
+		MenuItem autosaveToggle = new MenuItem("AutoSave Off");
 			autosaveToggle.setOnAction((ActionEvent event) -> {
 				if (Paint.AUTOSAVEON) {
 					Paint.AUTOSAVEON = false;
