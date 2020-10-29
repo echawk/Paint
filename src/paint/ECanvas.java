@@ -291,12 +291,15 @@ public class ECanvas extends Canvas{
 	public void clear() {
 		this.gc.drawImage(null, 0, 0);
 	}
-
+	
+	/**
+	 * This Method performs a recursive stack based bucket fill to the image 
+	 * using an epsilon value of 0.3. 
+	 * @param ic - the initial mouse coordinate
+	 * @param targetCol - the color at the initial coordinate
+	 * @param replacementCol - the color to replace targetCol
+	 */
 	public void bucketFill(Point2D ic, Color targetCol, Color replacementCol) {
-		bucketFill(new Pair(ic.getX(), ic.getY()), targetCol, replacementCol);
-	}
-	//Clean up this section of the code!!!!!
-	public void bucketFill(Pair ic, Color targetCol, Color replacementCol) {
 		final double E = 0.3; //tolerance
 		Stack<Point2D> ptStack = new Stack<>();
 		Image oi = this.getImage();
@@ -308,9 +311,7 @@ public class ECanvas extends Canvas{
 		PixelReader wiReader = wi.getPixelReader();
 		PixelWriter wiWriter = wi.getPixelWriter();
 		
-		Point2D startPt = new Point2D((double) ic.getKey(), (double) ic.getValue());
-		
-		ptStack.push(startPt);
+		ptStack.push(ic);
 		
 		while (!ptStack.isEmpty()) {
 			Point2D pt = ptStack.pop();
@@ -336,12 +337,13 @@ public class ECanvas extends Canvas{
 	}
 	
 	private void push(Stack<Point2D> stack, int x, int y, Image i) {
-            if (x < 0 || x >= i.getWidth() ||
-                y < 0 || y >= i.getHeight()) {
-                return;
-            }
-
-            stack.push(new Point2D(x, y));
+		//This if statement checks to make sure the point is within the 
+		//dimensions of the image
+		if (x < 0 || x >= i.getWidth() ||
+			y < 0 || y >= i.getHeight()) {
+			return;
+		}
+		stack.push(new Point2D(x, y));
         }
 
 	
