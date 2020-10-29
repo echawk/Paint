@@ -5,7 +5,6 @@
  */
 package paint;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -38,7 +36,7 @@ public class Paint extends Application {
 	final static String RELEASE_STR = "Becoming Insane";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
-	final static int AUTOSAVE_INTERVAL = 20; //in seconds
+	final static int AUTOSAVE_INTERVAL = 300; //in seconds
 	final static int LOGGER_INTERVAL = 10; //in seconds
 	final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -47,10 +45,12 @@ public class Paint extends Application {
 	public static TabPane tab;
 	public static CustomMenuBar menub;
 	public static EditToolBar edittoolbar;
+	public static Timeline autosave;
+	public static Timeline logger;
 
 	//Variables
 	public static int mode = DEFAULT_MODE; //default to default...
-	public static boolean AUTOSAVEON = true; //have autosave be on by default
+	public static boolean AUTOSAVEON = false; //have autosave be off by default
 	public static ColorPicker colorpick = new ColorPicker();
 	public static double brushSize = 5;
 	
@@ -82,32 +82,38 @@ public class Paint extends Application {
 	//root
 		VBox root = new VBox(); //set up how the windows will laid out
 		root.getChildren().addAll(menub, edittoolbar, tab);
-		//root.getChildren().addAll(imgcanvas, menub);
-		//root.setAlignment(menub, Pos.TOP_CENTER); //center the menubar at the top of the screen
-		//root.setAlignment(imgv, Pos.BOTTOM_CENTER);
 	
 	//scene setup
 		Scene scene = new Scene(root, 1000, 500); //create the scene
 		scene.setOnKeyPressed(e -> {
 			if (Paint.getMode() == Paint.EDIT_MODE) {
-				if (e.getCode().equals(KeyCode.E)) {
-					Paint.edittoolbar.setTool(EditToolBar.ERASE);
-				} else if (e.getCode().equals(KeyCode.S)) {
-					Paint.edittoolbar.setTool(EditToolBar.SQUARE);
-				} else if (e.getCode().equals(KeyCode.P)) {
-					Paint.edittoolbar.setTool(EditToolBar.COLOR_GRAB);
-				} else if (e.getCode().equals(KeyCode.C)) {
-					Paint.edittoolbar.setTool(EditToolBar.CROP);
-				} else if (e.getCode().equals(KeyCode.B)) {
-					Paint.edittoolbar.setTool(EditToolBar.BUCKETFILL);
-				} else if (e.getCode().equals(KeyCode.E)) {
-					Paint.edittoolbar.setTool(EditToolBar.ELLIPSE);
-				} else if (e.getCode().equals(KeyCode.SPACE)) {
-					Paint.edittoolbar.setTool(EditToolBar.NONE);
-				} else if (e.getCode().equals(KeyCode.F)) {
-					Paint.edittoolbar.toggleFillCheckBox();
-				} else if (e.getCode().equals(KeyCode.L)) {
-					Paint.edittoolbar.setTool(EditToolBar.LINE);
+				switch (e.getCode()) {
+					case E:
+						Paint.edittoolbar.setTool(EditToolBar.ERASE);
+						break;
+					case S:
+						Paint.edittoolbar.setTool(EditToolBar.SQUARE);
+						break;
+					case P:
+						Paint.edittoolbar.setTool(EditToolBar.COLOR_GRAB);
+						break;
+					case C:
+						Paint.edittoolbar.setTool(EditToolBar.CROP);
+						break;
+					case B:
+						Paint.edittoolbar.setTool(EditToolBar.BUCKETFILL);
+						break;
+					case SPACE:
+						Paint.edittoolbar.setTool(EditToolBar.NONE);
+						break;
+					case F:
+						Paint.edittoolbar.toggleFillCheckBox();
+						break;
+					case L:
+						Paint.edittoolbar.setTool(EditToolBar.LINE);
+						break;
+					default:
+						break;
 				}
 			}
 		});
@@ -115,19 +121,14 @@ public class Paint extends Application {
 		//scene.getRoot().setStyle("-fx-base:black");
 		//scene.getStylesheets().add("dark-theme.css");
 		//scene.getStylesheets().add(getClass().getResource("dark-theme-2.css").toString());
+		
 	//setup the main window
 		primaryStage.setTitle(PROGRAM_NAME + " - " + PROGRAM_VER);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		//Maybe have a welcome window? 
-	
+			
 		//start up the autosave timer
-		//AutoSaveTimer time = new AutoSaveTimer();
-		//Platform.runLater(time);
-		//Thread timeThread = new Thread(time);
-		//timeThread.start();
-		Timeline autosave = new Timeline(
+		Paint.autosave = new Timeline(
 			new KeyFrame(Duration.seconds(Paint.AUTOSAVE_INTERVAL),
 				ev -> {
 					if (Paint.AUTOSAVEON) {
@@ -140,18 +141,26 @@ public class Paint extends Application {
 				}
 			)
 		);
-		autosave.setCycleCount(Animation.INDEFINITE);
-		autosave.play();
+		Paint.autosave.setCycleCount(Animation.INDEFINITE);
+		Paint.autosave.play();
 		
-		Timeline logger = new Timeline(
+		Paint.logger = new Timeline(
 			new KeyFrame(Duration.seconds(Paint.LOGGER_INTERVAL),
 				ev -> {
-					Paint.LOG.log(Level.INFO, "Selected Tool: " + Paint.edittoolbar.getDrawSelection() + " | Saved: " + Paint.getCurrentTab().imgHasBeenSaved + " | Opened File: " + Paint.getCurrentTab().opened_file + " | AutoSave Enabled: " + Paint.AUTOSAVEON);
+					Paint.LOG.log(Level.INFO, 
+						"Selected Tool: "
+						+ Paint.edittoolbar.getDrawSelection() 
+						+ " | Saved: " 
+						+ Paint.getCurrentTab().imgHasBeenSaved 
+						+ " | Opened File: " 
+						+ Paint.getCurrentTab().opened_file 
+						+ " | AutoSave Enabled: " 
+						+ Paint.AUTOSAVEON);
 				})
 		);
 		
-		logger.setCycleCount(Animation.INDEFINITE);
-		logger.play();
+		Paint.logger.setCycleCount(Animation.INDEFINITE);
+		Paint.logger.play();
 	}
 
 	/**
@@ -166,6 +175,8 @@ public class Paint extends Application {
 	 */
 	public static void close() {
 		Paint.window.close(); //close the main window/stage
+		Paint.autosave.stop();
+		Paint.logger.stop();
 		System.exit(0); //Have a successful exit code.
 	}
 	/**
