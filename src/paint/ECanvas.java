@@ -348,19 +348,19 @@ public class ECanvas extends Canvas{
 
 	
 	private boolean filled(PixelReader reader, int x, int y, Color targetCol, double epsilon) {
-            Color color = reader.getColor(x, y);
-
-            return !withinTolerance(color, targetCol, epsilon);
+		Color color = reader.getColor(x, y);
+		
+		return !withinTolerance(color, targetCol, epsilon);
         }
 
         private boolean withinTolerance(Color a, Color b, double epsilon) {
-            return
-                    withinTolerance(a.getRed(),   b.getRed(),   epsilon) &&
-                    withinTolerance(a.getGreen(), b.getGreen(), epsilon) &&
-                    withinTolerance(a.getBlue(),  b.getBlue(),  epsilon);
+		return
+			withinTolerance(a.getRed(),   b.getRed(),   epsilon) &&
+			withinTolerance(a.getGreen(), b.getGreen(), epsilon) &&
+			withinTolerance(a.getBlue(),  b.getBlue(),  epsilon);
         }
 
         private boolean withinTolerance(double a, double b, double epsilon) {
-            return Math.abs(a - b) < epsilon;
+		return Math.abs(a - b) < epsilon;
         }
 }
