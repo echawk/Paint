@@ -21,7 +21,7 @@ public class ModeMenu extends Menu {
 	
 	private CheckMenuItem editm;
 	private CheckMenuItem defaultm;
-	private int mode; //might be wotth looking to see if it can be in the main file
+	private int mode;
 	
 	public ModeMenu() {
 		
