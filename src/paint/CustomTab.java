@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 /**
- *
+ * This class is responsible for making tabs in Paint. These tabs have had more 
+ * functionality added to them, and support images in a scrollpane. 
+ * 
  * @author ethan
  */
 public class CustomTab extends Tab {

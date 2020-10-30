@@ -32,12 +32,12 @@ public class Paint extends Application {
 	
 	//Constants
 	final static String PROGRAM_NAME = "Pain(t)";
-	final static String PROGRAM_VER = "0.3.0";
+	final static String PROGRAM_VER = "0.3.1";
 	final static String RELEASE_STR = "Becoming Insane";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
-	final static int AUTOSAVE_INTERVAL = 300; //in seconds
-	final static int LOGGER_INTERVAL = 10; //in seconds
+	final static int AUTOSAVE_INTERVAL = 300;
+	final static int LOGGER_INTERVAL = 10; 
 	final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	//pointers
@@ -155,7 +155,8 @@ public class Paint extends Application {
 						+ " | Opened File: " 
 						+ Paint.getCurrentTab().opened_file 
 						+ " | AutoSave Enabled: " 
-						+ Paint.AUTOSAVEON);
+						+ Paint.AUTOSAVEON
+					);
 				})
 		);
 		
@@ -260,5 +261,5 @@ public class Paint extends Application {
 	public static CustomTab getCurrentTab() {
 		return (CustomTab) Paint.tab.getSelectionModel().getSelectedItem();
 	}
-	
+		
 }

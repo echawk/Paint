@@ -17,7 +17,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * This class is meant to be a premade toolbar for editing tasks in Paint. It
+ * is possible to access the currently selected tool as well as any other options 
+ * that are selected. 
+ * 
  * @author ethan
  */
 public class EditToolBar extends ToolBar{
