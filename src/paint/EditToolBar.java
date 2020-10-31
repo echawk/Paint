@@ -100,7 +100,7 @@ public class EditToolBar extends ToolBar{
 				EditToolBar.BLUR,
 				EditToolBar.SEPIA,
 				EditToolBar.FREENGON,
-				EditToolBar.BUCKETFILL, //testing
+				EditToolBar.BUCKETFILL,
 				EditToolBar.ERASE
 		);
 		this.drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
@@ -180,13 +180,25 @@ public class EditToolBar extends ToolBar{
 		this.options_fld.setText(null);
 	}
 	
+	/**
+	 * @return Boolean value of whether the fill checkbox is selected or not.
+	 */
 	public boolean getFill() {
 		return this.fillcb.isSelected();
 	}
 	
+	/**
+	 * Set the tool for use when Paint is in Edit Mode.
+	 * 
+	 * @param tool - A string of a Tool
+	 */
 	public void setTool(String tool) {
 		this.drawoptionmenu.setValue(tool);
 	}
+	
+	/**
+	 * If the Fill checkbox is selected, deselect it. 
+	 */
 	public void toggleFillCheckBox() {
 		if (getFill()) {
 			this.fillcb.setSelected(false);
