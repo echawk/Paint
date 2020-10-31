@@ -26,6 +26,11 @@ import javafx.stage.Stage;
  */
 public class Popup {
 	
+	/**
+	 * This method is responsible for launching the 'Create New Image' dialog, 
+	 * and when the image dimensions are confirmed, it opens the new image in 
+	 * a new tab.
+	 */
 	public static void launchCreateNewImage() {		
 		Stage createnewimgStage = new Stage();
 		createnewimgStage.initOwner(Paint.window);
