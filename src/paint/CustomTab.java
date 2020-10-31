@@ -21,6 +21,11 @@ public class CustomTab extends Tab {
 	//variables
 	public File opened_file;
 	public Image opened_image;
+	/**
+	 * Boolean that keeps track of edits to the image, when edits are made, 
+	 * and the image hasn't been saved, it is false, when the user saves the image
+	 * or if the auto save feature save the image, it is true.
+	 */
 	public boolean imgHasBeenSaved;
 	//viewable elements
 	public ScrollPane scroll;
@@ -89,10 +94,16 @@ public class CustomTab extends Tab {
 		this.scroll.setPrefSize(x, y);
 	}
 	
+	/**
+	 * Undo the last edit on the imgcanvas.
+	 */
 	public void undo(){
 		this.imgcanvas.undo();
 	}
 	
+	/**
+	 * Redo the last action that was undone.
+	 */
 	public void redo() {
 		this.imgcanvas.redo();
 	}
