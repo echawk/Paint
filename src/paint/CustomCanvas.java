@@ -20,7 +20,9 @@ import javafx.scene.text.Font;
 import javafx.util.Pair;
 
 /**
- *
+ * This class implements important listeners to support drawing shapes and using 
+ * methods defined in it's parent class. 
+ * 
  * @author ethan
  */
 public class CustomCanvas extends ECanvas{
@@ -192,6 +194,7 @@ public class CustomCanvas extends ECanvas{
 							//Three steps:
 							//1 - get the image & make it globally accessible
 							//2 - clear out a rectangle of the same size
+							//3 - draw the image at the new point
 							
 							//1
 							this.drag_drop_image = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
@@ -206,7 +209,8 @@ public class CustomCanvas extends ECanvas{
 							postDraw();
 							//Exit
 							return;
-						}	
+						}
+						//3
 						this.gc.drawImage(
 							this.drag_drop_image,
 							e.getX(),
@@ -410,23 +414,15 @@ public class CustomCanvas extends ECanvas{
 	
 	public void updateDimensions(Image i) {
 		setDimensions((int) i.getWidth(), (int) i.getHeight());
-		//this.livecanvas.setHeight(i.getHeight());
-		//this.livecanvas.setWidth(i.getWidth());
 	}
 	
 	//this is a really hackyway of doing this, I want to make this much cleaner
 	//(ie refactor)
 	public void updateDimensions(boolean inc_zoom) {
 		if (inc_zoom) {
-			//if we want to increase the zoom
-			//this.setScaleX(this.getScaleX() * 2);
-			//this.setScaleY(this.getScaleY() * 2);
 			this.setWidth(this.getWidth() * 2);
 			this.setHeight(this.getHeight() * 2);
 		} else {
-			//if we want to decrease the zoom
-			//this.setScaleX(this.getScaleX() * .5);
-			//this.setScaleY(this.getScaleY() * .5);
 			this.setWidth(this.getWidth() / 2);
 			this.setHeight(this.getHeight() / 2);
 		}
@@ -478,11 +474,9 @@ public class CustomCanvas extends ECanvas{
 	 */
 	public void undo() {
 		if (! this.undoStack.empty()) { //if the image stack is not empty
-			//System.out.println("CustomCanvas.java; undoStack isn't empty");
 			Image i = this.undoStack.pop();
-			//Popup.showImage(i);
 			try { 
-				this.redoStack.add(i); //this line breaks undo for some reason (null pointer exception)
+				this.redoStack.add(i);
 			} catch (Exception e) {
 				System.out.println("CustomCanvas.java; Failed to add i to redoStack:" + e);
 			}
