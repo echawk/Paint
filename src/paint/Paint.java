@@ -36,7 +36,13 @@ public class Paint extends Application {
 	final static String RELEASE_STR = "Becoming Insane";
 	final static int DEFAULT_MODE = 0;
 	final static int EDIT_MODE = 1;
+	/**
+	 * Represents the interval (in seconds) that Paint should try to perform an autosave
+	 */
 	final static int AUTOSAVE_INTERVAL = 300;
+	/**
+	 * Represents the interval (in seconds) that Paint should print a log message to the console
+	 */
 	final static int LOGGER_INTERVAL = 10; 
 	final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -199,10 +205,18 @@ public class Paint extends Application {
 		}
 	}
 	
+	/**
+	 * This method shows the EditToolBar, so that when Paint is in EDIT_MODE,
+	 * you can access all of the features of EDIT_MODE.
+	 */
 	public static void showEditToolBar() {
 		Paint.edittoolbar.setVisible(true);
 	}
 	
+	/** 
+	 * This method hides the EditToolBar, so that when Paint is not in EDIT_MODE
+	 * there is no confusion.
+	 */
 	public static void hideEditToolBar() {
 		Paint.edittoolbar.setVisible(false);
 	}
