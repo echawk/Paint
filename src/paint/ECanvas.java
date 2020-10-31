@@ -35,6 +35,15 @@ public class ECanvas extends Canvas{
 	public void drawRectangle(Point2D ic, double cx, double cy, boolean f) {
 		this.drawRectangle(ic.getX(), ic.getY(), cx, cy, f);
 	}
+	
+	/**
+	 * Method to draw a rectange on the canvas. 
+	 * @param ix initial X
+	 * @param iy initial Y
+	 * @param cx current X
+	 * @param cy current Y
+	 * @param f  whether the shape is to be filled in or a frame (true for filled)
+	 */
 	public void drawRectangle(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
 		this.gc.fillRect(ix, iy, (cx - ix), (cy - iy));	
@@ -46,6 +55,15 @@ public class ECanvas extends Canvas{
 	public void drawEllipse(Point2D ic, double cx, double cy, boolean f) {
 		this.drawEllipse(ic.getX(), ic.getY(), cx, cy, f);
 	}
+	
+	/**
+	 * Method to draw an Ellipse on the Canvas. 
+	 * @param ix initial X
+	 * @param iy initial Y
+	 * @param cx current X
+	 * @param cy current Y
+	 * @param f whether the shape is to be filled in or a frame (true for filled)
+	 */
 	public void drawEllipse(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
 		this.gc.fillOval(ix, iy, (cx - ix), (cy - iy));
