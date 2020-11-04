@@ -161,7 +161,6 @@ public class ECanvas extends Canvas{
 		} else {
 		this.gc.strokePolygon(xp, yp, 3);
 		}
-
 	}
 	
 	/**
@@ -354,7 +353,6 @@ public class ECanvas extends Canvas{
 		}
 		
 		this.gc.drawImage(wi, 0, 0);
-		
 	}
 	
 	private void push(Stack<Point2D> stack, int x, int y, Image i) {
