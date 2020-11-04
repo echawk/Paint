@@ -133,6 +133,15 @@ public class ECanvas extends Canvas{
 	public void drawLine(Point2D ic, double cx, double cy) {
 		this.drawLine(ic.getX(), ic.getY(), cx, cy);
 	}
+	
+	/**
+	 * Method to draw a line on the canvas.
+	 * 
+	 * @param ix Initial X value
+	 * @param iy Initial Y value
+	 * @param cx Current X value
+	 * @param cy Current Y value
+	 */
 	public void drawLine(double ix, double iy, double cx, double cy) {
 		this.gc.strokeLine(ix, iy, cx, cy);	
 	}
@@ -201,7 +210,8 @@ public class ECanvas extends Canvas{
 	
 	/**
 	 * 
-	 * This method is a helper method for drawing polygons on the canvas, and handles calculating the proper points.
+	 * This method is a helper method for drawing polygons on the canvas, 
+	 * so it handles calculating the proper points.
 	 * 
 	 * @param n An integer for the number of sides the polygon should have.
 	 * @param ic The initial mouse coordinates 
@@ -223,11 +233,7 @@ public class ECanvas extends Canvas{
 
 		return new Pair(xp, yp);
 	}
-	/**
-	 * Set the dimensions of the canvas.
-	 * @param width
-	 * @param height 
-	 */
+	
 	public void setDimensions(int width, int height) {
 		this.setWidth(width);
 		this.setHeight(height);
