@@ -64,6 +64,7 @@ public class EditToolBar extends ToolBar{
 				}
 			});
 			undobtn.setTooltip(new Tooltip("Undo a draw action"));
+			
 		Button redobtn = new Button("Redo");
 			redobtn.setOnAction((ActionEvent event) -> {
 				try {
@@ -81,59 +82,60 @@ public class EditToolBar extends ToolBar{
 		Label drawlbl = new Label("Draw:");
 
 		this.drawoptionmenu = new ComboBox();
-		//drawoptionmenu.autosize();
-		this.drawoptionmenu.getItems().addAll(
-				EditToolBar.NONE,
-				EditToolBar.LINE,
-				EditToolBar.PENCIL,
-				EditToolBar.SQUARE,
-				EditToolBar.RECTANGLE,
-				EditToolBar.CIRCLE,
-				EditToolBar.ELLIPSE,
-				EditToolBar.TRIANGLE,
-				EditToolBar.NGON,
-				EditToolBar.COLOR_GRAB,
-				EditToolBar.TEXTBOX,
-				EditToolBar.CROP,
-				EditToolBar.DRAGDROP,
-				EditToolBar.ROTATE,
-				EditToolBar.BLUR,
-				EditToolBar.SEPIA,
-				EditToolBar.FREENGON,
-				EditToolBar.BUCKETFILL,
-				EditToolBar.ERASE
-		);
-		this.drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
-		this.drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
+			//drawoptionmenu.autosize();
+			this.drawoptionmenu.getItems().addAll(
+					EditToolBar.NONE,
+					EditToolBar.LINE,
+					EditToolBar.PENCIL,
+					EditToolBar.SQUARE,
+					EditToolBar.RECTANGLE,
+					EditToolBar.CIRCLE,
+					EditToolBar.ELLIPSE,
+					EditToolBar.TRIANGLE,
+					EditToolBar.NGON,
+					EditToolBar.COLOR_GRAB,
+					EditToolBar.TEXTBOX,
+					EditToolBar.CROP,
+					EditToolBar.DRAGDROP,
+					EditToolBar.ROTATE,
+					EditToolBar.BLUR,
+					EditToolBar.SEPIA,
+					EditToolBar.FREENGON,
+					EditToolBar.BUCKETFILL,
+					EditToolBar.ERASE
+			);
+			this.drawoptionmenu.setValue(EditToolBar.NONE); //Set our default value to be NONE
+			this.drawoptionmenu.setTooltip(new Tooltip("Select a tool to draw with"));
 
 		Label optionslbl = new Label("Option:");
+		
 		this.options_fld = new TextField();
-		this.options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
+			this.options_fld.setMaxWidth(60); //Set to 60 to try to minimize the amount of wasted space.
 
 		Label brushlbl = new Label("Brush (px):");
 
 		this.brushfld = new TextField(Double.toString(Paint.brushSize));
-
-		this.brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
-		//set the action for brushsize
-		this.brushfld.setOnAction((ActionEvent event) -> {
-			try {
-				Paint.brushSize = Double.parseDouble(brushfld.getText());
-			} catch (NumberFormatException e) {
-				System.out.println("EditToolBar.java; Brush Field On-Action Failed:" + e);
-			}
-		});
-
+			this.brushfld.setMaxWidth(60); //change the Max width to something smaller (helps fit more on the first line)
+			//set the action for brushsize
+			this.brushfld.setOnAction((ActionEvent event) -> {
+				try {
+					Paint.brushSize = Double.parseDouble(brushfld.getText());
+				} catch (NumberFormatException e) {
+					System.out.println("EditToolBar.java; Brush Field On-Action Failed:" + e);
+				}
+			});
+			
 		Label colorlbl = new Label("Color:");
 
 		ColorPicker colorpick = Paint.colorpick;
+		
 		Button resetbtn = new Button();
-		resetbtn.setText("Reset");
-		resetbtn.setOnAction((ActionEvent event) -> {
-			setDefaults();
-			//update the values?
-		});
-		resetbtn.setTooltip(new Tooltip("Reset draw settings"));
+			resetbtn.setText("Reset");
+			resetbtn.setOnAction((ActionEvent event) -> {
+				setDefaults();
+				//update the values?
+			});
+			resetbtn.setTooltip(new Tooltip("Reset draw settings"));
 
 		this.getItems().addAll(
 			undobtn,
