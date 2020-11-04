@@ -23,7 +23,8 @@ public class CustomFileMenu extends Menu {
 	public CustomFileMenu(){
 		super();
 		this.setText("File");
-			MenuItem saveas = new MenuItem("Save As");
+		
+		MenuItem saveas = new MenuItem("Save As");
 			saveas.setOnAction((ActionEvent event) -> {
 				CustomFileHandler.saveAsFile(Paint.window);
 			});
@@ -79,6 +80,5 @@ public class CustomFileMenu extends Menu {
 		
 		//add all of the menu items to the file menu
 		this.getItems().addAll(newimage, open, save, saveas, clear, quit);
-
 	}
 }
