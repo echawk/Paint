@@ -268,26 +268,6 @@ public class CustomCanvas extends ECanvas{
 			
 		});
 		
-		/*
-		this.setOnMouseEntered(e -> {
-			if (Paint.getMode() == Paint.EDIT_MODE) {
-				switch (Paint.edittoolbar.getDrawSelection()) {
-					case EditToolBar.FREENGON:
-						if (this.freeNgonStack.size() + 1 == Integer.parseInt(Paint.edittoolbar.getOptionsField())) {
-							Stack tstack = (Stack) this.freeNgonStack.clone();
-							tstack.add(new Pair(e.getX(), e.getY()));
-							Pair tpair = convStackToPair(tstack);
-							
-							this.p.getPoints().addAll(this.convPairToArray(tpair));
-						}
-						break;
-					default:
-						break;
-				}
-			}
-		});
-		*/
-		
 		this.setOnMouseDragged(e -> {
 			
 			double bsize = Paint.brushSize;
@@ -302,7 +282,6 @@ public class CustomCanvas extends ECanvas{
 						this.imgToStack(this.getImage());
 						postDraw();
 						break; 
-				//this.imgToStack(this.getImage());
 					case EditToolBar.PENCIL:
 						this.gc.setFill(Paint.colorpick.getValue());
 						this.gc.fillRect(x, y, bsize, bsize);
