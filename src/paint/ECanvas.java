@@ -21,6 +21,9 @@ import javafx.util.Pair;
 
 /**
  *
+ * Extended version of JavaFX's canvas, which implements methods that make it 
+ * easy to draw. 
+ * 
  * @author ethan
  */
 public class ECanvas extends Canvas{
