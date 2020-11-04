@@ -25,6 +25,9 @@ import javafx.util.Pair;
  */
 public class ECanvas extends Canvas{
 	
+	/**
+	 * A pointer to the Graphics Context.
+	 */
 	public GraphicsContext gc;
 	
 	public ECanvas() {
