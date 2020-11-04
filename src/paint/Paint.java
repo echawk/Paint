@@ -91,6 +91,7 @@ public class Paint extends Application {
 	
 	//scene setup
 		Scene scene = new Scene(root, 1000, 500); //create the scene
+		//single key keyboard shortcuts for paint
 		scene.setOnKeyPressed(e -> {
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (e.getCode()) {
@@ -147,9 +148,11 @@ public class Paint extends Application {
 				}
 			)
 		);
+		// Make sure the 'thread' runs forever, and start it up
 		Paint.autosave.setCycleCount(Animation.INDEFINITE);
 		Paint.autosave.play();
 		
+		//setup the logger
 		Paint.logger = new Timeline(
 			new KeyFrame(Duration.seconds(Paint.LOGGER_INTERVAL),
 				ev -> {
