@@ -1,5 +1,15 @@
 GITHUB: https://github.com/ehawkvu/Paint
 
+Paint 0.3.1 - Don't Stop Me Now - 11/4/20
+
+New Features:
+	* Keyboard shortcuts while in edit mode!
+		- Selects tools based on the key pressed
+	* Updated Comments/JavaDoc
+	* Fixed Bug with BucketFill tool
+		- was missing proper bounds checking
+	* Minor Refactoring of Paint.java
+
 Paint 0.3.0 - Becoming Insane - 10/5/20
 
 Song: https://www.youtube.com/watch?v=uwUNbeiiOzM
