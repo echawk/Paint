@@ -21,29 +21,29 @@ import javafx.util.Pair;
 
 /**
  *
- * Extended version of JavaFX's canvas, which implements methods that make it 
- * easy to draw. 
- * 
+ * Extended version of JavaFX's canvas, which implements methods that make it
+ * easy to draw.
+ *
  * @author ethan
  */
 public class ECanvas extends Canvas{
-	
+
 	/**
 	 * A pointer to the Graphics Context.
 	 */
 	public GraphicsContext gc;
-	
+
 	public ECanvas() {
 		super();
 		this.gc = this.getGraphicsContext2D();
 	}
-	
+
 	public void drawRectangle(Point2D ic, double cx, double cy, boolean f) {
 		this.drawRectangle(ic.getX(), ic.getY(), cx, cy, f);
 	}
-	
+
 	/**
-	 * Method to draw a rectange on the canvas. 
+	 * Method to draw a rectange on the canvas.
 	 * @param ix initial X
 	 * @param iy initial Y
 	 * @param cx current X
@@ -52,18 +52,18 @@ public class ECanvas extends Canvas{
 	 */
 	public void drawRectangle(double ix, double iy, double cx, double cy, boolean f) {
 		if (f) {
-		this.gc.fillRect(ix, iy, (cx - ix), (cy - iy));	
+		this.gc.fillRect(ix, iy, (cx - ix), (cy - iy));
 		} else {
 		this.gc.strokeRect(ix, iy, (cx - ix), (cy - iy));
 		}
 	}
-	
+
 	public void drawEllipse(Point2D ic, double cx, double cy, boolean f) {
 		this.drawEllipse(ic.getX(), ic.getY(), cx, cy, f);
 	}
-	
+
 	/**
-	 * Method to draw an Ellipse on the Canvas. 
+	 * Method to draw an Ellipse on the Canvas.
 	 * @param ix initial X
 	 * @param iy initial Y
 	 * @param cx current X
@@ -77,14 +77,14 @@ public class ECanvas extends Canvas{
 		this.gc.strokeOval(ix, iy, (cx - ix), (cy - iy));
 		}
 	}
-	
+
 	public void drawSquare(Point2D ic, double cx, double cy, boolean f) {
 		this.drawSquare(ic.getX(), ic.getY(), cx, cy, f);
 	}
 	/**
 	 * Method to draw a square on the canvas, the side length is determined by
 	 * whatever value is greater, cx or cy
-	 * @param ix initial X 
+	 * @param ix initial X
 	 * @param iy initial Y
 	 * @param cx current X
 	 * @param cy current Y
@@ -103,12 +103,12 @@ public class ECanvas extends Canvas{
 		this.gc.strokeRect(ix, iy, s, s);
 		}
 	}
-	
+
 	public void drawCircle(Point2D ic, double cx, double cy, boolean f) {
 		this.drawCircle(ic.getX(), ic.getY(), cx, cy, f);
 	}
 	/**
-	 * Method to draw a circle on the canvas, the diameter is whatever value is 
+	 * Method to draw a circle on the canvas, the diameter is whatever value is
 	 * greater, cx or cy
 	 * @param ix initial X
 	 * @param iy initial Y
@@ -122,30 +122,30 @@ public class ECanvas extends Canvas{
 			d = (cx - ix);
 		} else {
 			d = (cy - iy);
-		}	
+		}
 		if (f) {
 		this.gc.fillOval(ix, iy, d, d);
 		} else {
 		this.gc.strokeOval(ix, iy, d, d);
 		}
 	}
-	
+
 	public void drawLine(Point2D ic, double cx, double cy) {
 		this.drawLine(ic.getX(), ic.getY(), cx, cy);
 	}
-	
+
 	/**
 	 * Method to draw a line on the canvas.
-	 * 
+	 *
 	 * @param ix Initial X value
 	 * @param iy Initial Y value
 	 * @param cx Current X value
 	 * @param cy Current Y value
 	 */
 	public void drawLine(double ix, double iy, double cx, double cy) {
-		this.gc.strokeLine(ix, iy, cx, cy);	
+		this.gc.strokeLine(ix, iy, cx, cy);
 	}
-	
+
 	public void drawText(Point2D ic, String txt, boolean f) {
 		if (f) {
 		this.gc.fillText(txt, ic.getX(), ic.getY());
@@ -153,7 +153,7 @@ public class ECanvas extends Canvas{
 		this.gc.strokeText(txt, ic.getX(), ic.getY());
 		}
 	}
-	
+
 	/**
 	 * Method to draw a triangle on the canvas.
 	 * @param ic A pair of the initial coordinates
@@ -174,7 +174,7 @@ public class ECanvas extends Canvas{
 		this.gc.strokePolygon(xp, yp, 3);
 		}
 	}
-	
+
 	/**
 	 * Method to draw a 'n' sided polygon on the canvas.
 	 * @param ic A pair of the input coordinates
@@ -187,7 +187,7 @@ public class ECanvas extends Canvas{
 			n,
 			ic,
 			roundDouble(cx)
-		);		
+		);
 		//2
 		double[] xp = (double[]) PolygonPts.getKey();
 		double[] yp = (double[]) PolygonPts.getValue();
@@ -207,15 +207,15 @@ public class ECanvas extends Canvas{
 			this.gc.strokePolygon(xp, yp, n);
 			}
 	}
-	
+
 	/**
-	 * 
-	 * This method is a helper method for drawing polygons on the canvas, 
+	 *
+	 * This method is a helper method for drawing polygons on the canvas,
 	 * so it handles calculating the proper points.
-	 * 
+	 *
 	 * @param n An integer for the number of sides the polygon should have.
-	 * @param ic The initial mouse coordinates 
-	 * @param cx The current X value 
+	 * @param ic The initial mouse coordinates
+	 * @param cx The current X value
 	 * @return A Pair of double Arrays, with the key corresponding to the X points, and the value corresponding to the Y points.
 	 */
 	public Pair<double[],double[]> getPolygonPoints(int n, Point2D ic, int cx){
@@ -233,7 +233,7 @@ public class ECanvas extends Canvas{
 
 		return new Pair(xp, yp);
 	}
-	
+
 	public void setDimensions(int width, int height) {
 		this.setWidth(width);
 		this.setHeight(height);
@@ -241,7 +241,7 @@ public class ECanvas extends Canvas{
 
 	/**
 	 * This method returns the current canvas as an image.
-	 * 
+	 *
 	 * @return An Image Object of the canvas.
 	 */
 	public Image getImage() {
@@ -286,8 +286,8 @@ public class ECanvas extends Canvas{
 		t.gc.setEffect(e);
 		t.gc.drawImage(wi, 0, 0);
 		this.gc.drawImage(
-			t.getImage(), 
-			ic.getX(), 
+			t.getImage(),
+			ic.getX(),
 			ic.getY()
 		);
 	}
@@ -307,23 +307,23 @@ public class ECanvas extends Canvas{
 		t.gc.drawImage(wi, 0, 0);
 		t.gc.restore();
 		this.gc.drawImage(
-			t.getImage(), 
-			ic.getX(), 
+			t.getImage(),
+			ic.getX(),
 			ic.getY()
 		);
 
 	}
-	
+
 	/**
 	 * Clears out the canvas of any drawn image by drawing a 'null' image.
 	 */
 	public void clear() {
 		this.gc.drawImage(null, 0, 0);
 	}
-	
+
 	/**
-	 * This Method performs a recursive stack based bucket fill to the image 
-	 * using an epsilon value of 0.3. 
+	 * This Method performs a recursive stack based bucket fill to the image
+	 * using an epsilon value of 0.3.
 	 * @param ic - the initial mouse coordinate
 	 * @param targetCol - the color at the initial coordinate
 	 * @param replacementCol - the color to replace targetCol
@@ -339,9 +339,9 @@ public class ECanvas extends Canvas{
 		);
 		PixelReader wiReader = wi.getPixelReader();
 		PixelWriter wiWriter = wi.getPixelWriter();
-		
+
 		ptStack.push(ic);
-		
+
 		while (!ptStack.isEmpty()) {
 			Point2D pt = ptStack.pop();
 			int x = (int) pt.getX();
@@ -349,7 +349,7 @@ public class ECanvas extends Canvas{
 			if (filled(wiReader, x, y, targetCol, E)) {
 				continue;
 			}
-			
+
 			wiWriter.setColor(x, y, replacementCol);
 			push(ptStack, x - 1, y - 1, wi);
 			push(ptStack, x - 1, y    , wi);
@@ -360,35 +360,34 @@ public class ECanvas extends Canvas{
 			push(ptStack, x + 1, y - 1, wi);
 			push(ptStack, x,     y - 1, wi);
 		}
-		
+
 		this.gc.drawImage(wi, 0, 0);
 	}
-	
+
 	private void push(Stack<Point2D> stack, int x, int y, Image i) {
-		//This if statement checks to make sure the point is within the 
+		//This if statement checks to make sure the point is within the
 		//dimensions of the image
 		if (x < 0 || x >= i.getWidth() ||
 			y < 0 || y >= i.getHeight()) {
 			return;
 		}
 		stack.push(new Point2D(x, y));
-        }
+	}
 
-	
 	private boolean filled(PixelReader reader, int x, int y, Color targetCol, double epsilon) {
 		Color color = reader.getColor(x, y);
-		
 		return !withinTolerance(color, targetCol, epsilon);
-        }
+	}
 
-        private boolean withinTolerance(Color a, Color b, double epsilon) {
+	private boolean withinTolerance(Color a, Color b, double epsilon) {
 		return
 			withinTolerance(a.getRed(),   b.getRed(),   epsilon) &&
 			withinTolerance(a.getGreen(), b.getGreen(), epsilon) &&
 			withinTolerance(a.getBlue(),  b.getBlue(),  epsilon);
-        }
+	}
 
-        private boolean withinTolerance(double a, double b, double epsilon) {
+	private boolean withinTolerance(double a, double b, double epsilon) {
 		return Math.abs(a - b) < epsilon;
-        }
+	}
+
 }

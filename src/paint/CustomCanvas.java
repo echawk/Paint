@@ -20,17 +20,17 @@ import javafx.scene.text.Font;
 import javafx.util.Pair;
 
 /**
- * This class implements important listeners to support drawing shapes and using 
- * methods defined in it's parent class. 
- * 
+ * This class implements important listeners to support drawing shapes and using
+ * methods defined in it's parent class.
+ *
  * @author ethan
  */
 public class CustomCanvas extends ECanvas{
-	
+
 	private Point2D imc; //initial mouse coordinates
-	private Stack<Image> undoStack = new Stack(); 
+	private Stack<Image> undoStack = new Stack();
 	private Stack<Image> redoStack = new Stack();
-	
+
 	private Stack<Pair> freeNgonStack = new Stack(); //make this Point2D
 	private Image drag_drop_image = null;
 	private Rectangle r; //potentially replace this with a 'live' canvas, that gets cleared out and drawn on?
@@ -41,18 +41,18 @@ public class CustomCanvas extends ECanvas{
 	private Color targetColor;
 	public CustomCanvas(){
 		super();
-				
-		
+
+
 		this.setOnMousePressed(e -> {
 			this.imc = new Point2D(e.getX(), e.getY());
-			
+
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.COLOR_GRAB:
 						Paint.colorpick.setValue(this.getImage().getPixelReader().getColor(
 							roundDouble(e.getX()),
 							roundDouble(e.getY())
-						));	
+						));
 						break;
 					case EditToolBar.RECTANGLE:
 					case EditToolBar.SQUARE:
@@ -81,8 +81,8 @@ public class CustomCanvas extends ECanvas{
 						this.p.getPoints().addAll(
 							this.convPairToArray(
 								super.getPolygonPoints(
-									3, 
-									this.imc, 
+									3,
+									this.imc,
 									(int) e.getX()
 								)
 							)
@@ -97,8 +97,8 @@ public class CustomCanvas extends ECanvas{
 								super.getPolygonPoints(
 									Integer.parseInt(
 										Paint.edittoolbar.getOptionsField()
-									), 
-									this.imc, 
+									),
+									this.imc,
 									(int) e.getX()
 								)
 							)
@@ -126,13 +126,13 @@ public class CustomCanvas extends ECanvas{
 			}
 			//this.imgToStack(this.getImage());
 		});
-		
+
 		this.setOnMouseReleased((MouseEvent e) -> {
 			this.gc.setFill(Paint.colorpick.getValue());
 			this.gc.setStroke(Paint.colorpick.getValue());
 			this.gc.setLineWidth(Paint.brushSize);
 			boolean fill = Paint.edittoolbar.getFill();
-			
+
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
 					case EditToolBar.LINE:
@@ -164,24 +164,24 @@ public class CustomCanvas extends ECanvas{
 						super.drawTriangle(this.imc, e.getX(), fill);
 						postDraw();
 						break;
-						
+
 					case EditToolBar.NGON:
 						int n = 0;
 						try {
 							n = Integer.parseInt(Paint.edittoolbar.getOptionsField());
 						} catch (NumberFormatException ex) {
 							System.out.println("Failed to parse options field: " + ex);
-							return; // to keep from drawing a shape			
-						}							
+							return; // to keep from drawing a shape
+						}
 						super.drawNGon(this.imc, e.getX(), n, fill);
 						postDraw();
 						break;
-						
+
 					case EditToolBar.CROP:
 					{ //Proper scoping
 						//1 - save selection to image
 						//2 - set the canvas to be the new image
-						
+
 						//1
 						Image wi = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
 						//2
@@ -195,7 +195,7 @@ public class CustomCanvas extends ECanvas{
 							//1 - get the image & make it globally accessible
 							//2 - clear out a rectangle of the same size
 							//3 - draw the image at the new point
-							
+
 							//1
 							this.drag_drop_image = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
 							//2
@@ -215,7 +215,7 @@ public class CustomCanvas extends ECanvas{
 							this.drag_drop_image,
 							e.getX(),
 							e.getY()
-						);	
+						);
 						//set the image back to null
 						this.drag_drop_image = null;
 						Paint.getCurrentTab().imgHasBeenSaved = false;
@@ -250,10 +250,10 @@ public class CustomCanvas extends ECanvas{
 							Pair freengon = convStackToPair(this.freeNgonStack);
 							this.gc.setFill(Paint.colorpick.getValue());
 							super.drawGon((double[]) freengon.getKey(),
-								(double[]) freengon.getValue(), 
+								(double[]) freengon.getValue(),
 								Integer.parseInt(Paint.edittoolbar.getOptionsField()),
 								fill);
-							this.freeNgonStack.clear();	
+							this.freeNgonStack.clear();
 						}
 						break;
 					case EditToolBar.BUCKETFILL:
@@ -262,18 +262,18 @@ public class CustomCanvas extends ECanvas{
 						break;
 					default:
 						break;
-				}	
+				}
 			this.imgToStack(this.getImage());
 			}
-			
+
 		});
-		
+
 		this.setOnMouseDragged(e -> {
-			
+
 			double bsize = Paint.brushSize;
 			double x = e.getX() - bsize / 2;
 			double y = e.getY() - bsize / 2;
-			
+
 			//if in edit mode
 			if (Paint.getMode() == Paint.EDIT_MODE) {
 				switch (Paint.edittoolbar.getDrawSelection()) {
@@ -281,7 +281,7 @@ public class CustomCanvas extends ECanvas{
 						this.gc.clearRect(x, y, bsize, bsize);
 						this.imgToStack(this.getImage());
 						postDraw();
-						break; 
+						break;
 					case EditToolBar.PENCIL:
 						this.gc.setFill(Paint.colorpick.getValue());
 						this.gc.fillRect(x, y, bsize, bsize);
@@ -315,8 +315,8 @@ public class CustomCanvas extends ECanvas{
 						this.p.getPoints().addAll(
 							this.convPairToArray(
 								super.getPolygonPoints(
-									3, 
-									this.imc, 
+									3,
+									this.imc,
 									(int) e.getX()
 								)
 							)
@@ -328,8 +328,8 @@ public class CustomCanvas extends ECanvas{
 								super.getPolygonPoints(
 									Integer.parseInt(
 										Paint.edittoolbar.getOptionsField()
-									), 
-									this.imc, 
+									),
+									this.imc,
 									(int) e.getX()
 								)
 							)
@@ -363,14 +363,14 @@ public class CustomCanvas extends ECanvas{
 				}
 			}
 		});
-		
+
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * This method runs when Images are opened, or when the canvas is resized,
 	 * and sets the canvas width to be the proper size.
-	 * 
+	 *
 	 */
 	public void updateDimensions() {
 		//Also potential thought, I may have the image be a proportion of the current window size,
@@ -384,17 +384,17 @@ public class CustomCanvas extends ECanvas{
 			this.setWidth(0);
 		}
 	}
-	
+
 	/**
 	 * Update the canvas dimensions to be that of an image.
-	 * 
+	 *
 	 * @param i The image who's dimensions you want to set the canvas to
 	 */
-	
+
 	public void updateDimensions(Image i) {
 		setDimensions((int) i.getWidth(), (int) i.getHeight());
 	}
-	
+
 	//this is a really hackyway of doing this, I want to make this much cleaner
 	//(ie refactor)
 	public void updateDimensions(boolean inc_zoom) {
@@ -406,7 +406,7 @@ public class CustomCanvas extends ECanvas{
 			this.setHeight(this.getHeight() / 2);
 		}
 	}
-	
+
 
 	//need to preserve the image modifications
 	public void zoomIn(){
@@ -424,8 +424,8 @@ public class CustomCanvas extends ECanvas{
 
 	}
 	/**
-	 * Add an Image to the undo Stack 
-	 * 
+	 * Add an Image to the undo Stack
+	 *
 	 * @param i The image to add to the stack
 	 */
 	private void imgToStack(Image i) {
@@ -433,28 +433,28 @@ public class CustomCanvas extends ECanvas{
 		this.redoStack.clear(); // reset the redo stack (should only be able to redo what you've undone
 		System.out.println("CustomCanvas.java; Added Image to undo Stack");
 	}
-	
+
 	/**
 	 * Rounds Any Double values to integers, may be removed in favor of type casting.
-	 * 
+	 *
 	 * @param d
 	 * @return An Integer rounded via the Math Library.
 	 */
 	private int roundDouble(double d) {
 		return (int) Math.round(d);
 	}
-	
+
 	/**
-	 * 
-	 * This Method is responsible for undoing actions that are taken by the 
-	 * user, by pop-ing them off of the undo stack, and setting the canvas 
+	 *
+	 * This Method is responsible for undoing actions that are taken by the
+	 * user, by pop-ing them off of the undo stack, and setting the canvas
 	 * to be the next image in line, so to speak.
-	 * 
+	 *
 	 */
 	public void undo() {
 		if (! this.undoStack.empty()) { //if the image stack is not empty
 			Image i = this.undoStack.pop();
-			try { 
+			try {
 				this.redoStack.add(i);
 			} catch (Exception e) {
 				System.out.println("CustomCanvas.java; Failed to add i to redoStack:" + e);
@@ -470,7 +470,7 @@ public class CustomCanvas extends ECanvas{
 	}
 	/**
 	 * This Method is responsible for redo-ing actions that have been undone,
-	 * by setting the image to be the last image to be whatever pops off the 
+	 * by setting the image to be the last image to be whatever pops off the
 	 * redo stack, and adding that image back onto the undo stack.
 	 */
 	public void redo() {
@@ -481,7 +481,7 @@ public class CustomCanvas extends ECanvas{
 		}
 	}
 	/**
-	 * Method to be ran after an image is drawn to the canvas; removes live 
+	 * Method to be ran after an image is drawn to the canvas; removes live
 	 * drawing shapes, and marks the image as unsaved.
 	 */
 	public void postDraw() {
@@ -497,7 +497,7 @@ public class CustomCanvas extends ECanvas{
 		Paint.getCurrentTab().imgHasBeenSaved = false;
 	}
 	/**
-	 * Interweaves a pair of double arrays; this is used to convert the output of 
+	 * Interweaves a pair of double arrays; this is used to convert the output of
 	 * the 'getPolygonPoints' to be usable with the javafx polygon object.
 	 * @param pts A pair of the X and Y points, both in the proper order
 	 * @return A Double[] of the X and Y points
@@ -516,7 +516,7 @@ public class CustomCanvas extends ECanvas{
 	 * Converts a stack object full of pairs, into a singular pair object, with the
 	 * key being all of the keys and the value being all of the values.
 	 * @param s A stack of pairs.
-	 * @return 
+	 * @return
 	 */
 	public Pair<double[],double[]> convStackToPair(Stack s) {
 		int sSize = s.size();
@@ -530,5 +530,5 @@ public class CustomCanvas extends ECanvas{
 		}
 		return new Pair(xp, yp);
 	}
-	
+
 }
