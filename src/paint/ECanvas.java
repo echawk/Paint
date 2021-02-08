@@ -258,7 +258,7 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @return the subset of the current image enclosed by the selection
 	 */
-	public Image getSelectionAsImage(Point2D ic, double cx, double cy) {
+	public Image getRegionAsImage(Point2D ic, double cx, double cy) {
 		PixelReader r = this.getImage().getPixelReader();
 		double ix = (double) ic.getX();
 		double iy = (double) ic.getY();
@@ -278,8 +278,8 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @param e the effect to apply.
 	 */
-	public void applyEffectToSelection(Point2D ic, double cx, double cy, Effect e) {
-		Image wi = getSelectionAsImage(ic, cx, cy);
+	public void applyEffectToRegion(Point2D ic, double cx, double cy, Effect e) {
+		Image wi = getRegionAsImage(ic, cx, cy);
 		//2
 		CustomCanvas t = new CustomCanvas();
 		t.updateDimensions(wi); //need to make sure the canvas has dimensions
@@ -298,8 +298,8 @@ public class ECanvas extends Canvas{
 	 * @param cy current Y
 	 * @param deg the degrees to rotate the image by
 	 */
-	public void rotateSelection(Point2D ic, double cx, double cy, double deg) {
-		Image wi = getSelectionAsImage(ic, cx, cy);
+	public void rotateRegion(Point2D ic, double cx, double cy, double deg) {
+		Image wi = getRegionAsImage(ic, cx, cy);
 		CustomCanvas t = new CustomCanvas();
 		t.updateDimensions(wi); //need to make sure the canvas has dimensions
 		t.gc.save();

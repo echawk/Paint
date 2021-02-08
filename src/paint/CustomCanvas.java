@@ -183,7 +183,7 @@ public class CustomCanvas extends ECanvas{
 						//2 - set the canvas to be the new image
 
 						//1
-						Image wi = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
+						Image wi = super.getRegionAsImage(this.imc, e.getX(), e.getY());
 						//2
 						Paint.getCurrentTab().setImage(wi);
 						postDraw();
@@ -197,7 +197,7 @@ public class CustomCanvas extends ECanvas{
 							//3 - draw the image at the new point
 
 							//1
-							this.drag_drop_image = super.getSelectionAsImage(this.imc, e.getX(), e.getY());
+							this.drag_drop_image = super.getRegionAsImage(this.imc, e.getX(), e.getY());
 							//2
 							this.gc.clearRect(
 								roundDouble(this.imc.getX()),
@@ -222,13 +222,13 @@ public class CustomCanvas extends ECanvas{
 						break;
 					case EditToolBar.BLUR:
 						{
-						super.applyEffectToSelection(this.imc, e.getX(), e.getY(), new GaussianBlur());
+						super.applyEffectToRegion(this.imc, e.getX(), e.getY(), new GaussianBlur());
 						postDraw();
 						break;
 						}
 					case EditToolBar.SEPIA:
 						{
-						super.applyEffectToSelection(this.imc, e.getX(), e.getY(), new SepiaTone());
+						super.applyEffectToRegion(this.imc, e.getX(), e.getY(), new SepiaTone());
 						postDraw();
 						break;
 						}
@@ -241,7 +241,7 @@ public class CustomCanvas extends ECanvas{
 							deg = 0;
 							System.out.println("CustomCanvas.java; Failed to parse the options field:" + ex);
 						}
-						super.rotateSelection(this.imc, e.getX(), e.getY(), deg);
+						super.rotateRegion(this.imc, e.getX(), e.getY(), deg);
 						postDraw();
 						break;
 						}
