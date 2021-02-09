@@ -321,6 +321,8 @@ public class ECanvas extends Canvas{
 		this.gc.drawImage(null, 0, 0);
 	}
 
+	//TODO: find out why bucketFill is prone to causing Paint to freeze
+
 	/**
 	 * This Method performs a recursive stack based bucket fill to the image
 	 * using an epsilon value of 0.3.
