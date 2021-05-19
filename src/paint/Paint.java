@@ -64,7 +64,6 @@ public class Paint extends Application {
     public void start(Stage primaryStage) {
 
         //Platform.setImplicitExit(false);
-        Platform.setImplicitExit(false);
         //setup the window pointer
         Paint.window = primaryStage; //have window refer to primaryStage
 
