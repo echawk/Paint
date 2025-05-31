@@ -1,12 +1,11 @@
 #!/bin/sh
 
-mkdir -pv build
+# https://gluonhq.com/products/javafx/
+
 sdkpath=$(find . -name 'javafx-sdk-*' -type d | sed q)
-javac \
-    --module-path ${sdkpath}/lib \
+java \
+    --module-path ${sdkpath}/lib/ \
     --add-modules javafx.controls \
     --add-modules javafx.base \
     --add-modules javafx.swing \
-    -d ./build src/paint/*.java
-cd build
-jar cvfm Paint.jar ../manifest.txt *
+    -jar build/Paint.jar
